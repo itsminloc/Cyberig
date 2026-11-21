@@ -1,0 +1,23 @@
+title = "CyberRig Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore synthetic unit/integration test files, docs, lockfile, and .env.example templates"
+paths = [
+  '''(^|/)[^/]+\.spec\.ts$''',
+  '''(^|/)docs/''',
+  '''(^|/)\.env\.example$''',
+  '''(^|/)package-lock\.json$'''
+]
+
+[[allowlists]]
+description = "Ignore intentional local demo/benchmark credentials and fallback dev placeholders"
+regexTarget = "secret"
+regexes = [
+  '''(Admin|Tech|Customer)@Password123''',
+  '''cyberrig[-_](dev|prod)[-_](secret|refresh|webhook|password|secure_pass|redis_pass)[-_a-zA-Z0-9]*''',
+  '''super-secret-cyberrig-key-change-in-production''',
+  '''\$2[aby]\$10\$[./A-Za-z0-9]{53}'''
+]

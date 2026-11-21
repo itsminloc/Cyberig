@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
@@ -31,6 +31,8 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Run Full Unit, Integration & Security Hardening Suite
+        env:
+          NODE_ENV: test
         run: npm test
 
       - name: Dependency Vulnerability Audit (npm audit)
@@ -41,12 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Run Gitleaks Secret Scanner
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,7 +59,7 @@ jobs:
       image: semgrep/semgrep
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run Semgrep OWASP TypeScript Rules
         run: semgrep ci --config p/typescript --config p/owasp-top-ten --config p/nodejs
@@ -68,12 +70,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Run Trivy Vulnerability & Misconfiguration Scanner
-        uses: aquasecurity/trivy-action@0.28.0
+      - name: Run Trivy Vulnerability Scanner (Filesystem)
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
+          scanners: 'vuln'
+          format: 'table'
+          exit-code: '1'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
