@@ -4,9 +4,10 @@
  * Aligned with Task BE-PORTALS specification.
  */
 
-import { test, describe } from 'node:test';
+import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { app } from '../../app';
+import { db } from '../../core/db';
 import { signAccessToken } from '../auth/jwt.util';
 import { orderService } from '../orders/order.service';
 import { ticketService } from '../repair-tickets/ticket.service';
@@ -84,6 +85,29 @@ describe('Customer Portal APIs (Task BE-PORTALS / Sprint 5)', () => {
 
   const tokenCustomerA = signAccessToken(customerA);
   const tokenCustomerB = signAccessToken(customerB);
+
+  before(async () => {
+    try {
+      await db.query(
+        `INSERT INTO users (id, email, password_hash, role, full_name, phone, is_active)
+         VALUES
+           ($1, $2, '$2b$10$testplaceholderhash0000000000000000000000000000000000', 'CUSTOMER', 'Customer A', '0901111111', TRUE),
+           ($3, $4, '$2b$10$testplaceholderhash0000000000000000000000000000000000', 'CUSTOMER', 'Customer B', '0902222222', TRUE)
+         ON CONFLICT (id) DO NOTHING;`,
+        [customerA.userId, customerA.email, customerB.userId, customerB.email]
+      );
+    } catch {
+      // Offline mode without PostgreSQL
+    }
+  });
+
+  after(async () => {
+    try {
+      await db.query(`DELETE FROM order_items WHERE order_id IN (SELECT id FROM orders WHERE customer_id IN ($1, $2));`, [customerA.userId, customerB.userId]);
+      await db.query(`DELETE FROM orders WHERE customer_id IN ($1, $2);`, [customerA.userId, customerB.userId]);
+      await db.query(`DELETE FROM repair_tickets WHERE customer_id IN ($1, $2);`, [customerA.userId, customerB.userId]);
+    } catch {}
+  });
 
   test('Test 1: GET /api/customer/orders trả về HTTP 401 nếu gọi không có token', async () => {
     const res = await testRequest('GET', '/api/customer/orders');

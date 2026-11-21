@@ -149,12 +149,12 @@ describe('Admin Inventory Control APIs (Task BE-PORTALS / Sprint 5)', () => {
   });
 
   test('Test 5: User role ADMIN gọi API Restock PATCH /api/admin/hardware/:id/stock cập nhật thành công tồn kho và giá bán mới', async () => {
-    // 1. Tạo một item để restock
+    // 1. Tạo một item để restock (dùng mã model duy nhất để tránh đụng seed DB)
     const createRes = await testRequest('POST', '/api/admin/hardware', {
       category: 'RAM',
       name: 'Kingston Fury Beast 16GB DDR5 5600MHz',
       brand: 'Kingston',
-      model: 'KF556C40BB-16',
+      model: `KF556C40BB-16-${Date.now()}`,
       price: 1450000,
       stockQuantity: 5,
       specs: { capacityGb: 16, speedMhz: 5600 },
