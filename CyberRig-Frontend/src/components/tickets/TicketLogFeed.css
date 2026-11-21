@@ -1,0 +1,232 @@
+/* ==========================================================================
+   CyberRig TicketLogFeed Styles
+   Chronological Technical Audit Feed
+   Strict Tokens: docs/DESIGN-SYSTEM.md & .skills/ui-gaming-theme.md
+   ========================================================================== */
+
+.cyber-logfeed-card {
+  width: 100%;
+  background: var(--cr-bg-surface-elevated);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 14px;
+  padding: 24px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.cyber-logfeed-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(180deg, var(--cr-primary-cyan), var(--cr-secondary-magenta));
+}
+
+.cyber-logfeed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cr-border-subtle);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cyber-logfeed-title {
+  font-family: var(--cr-font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cyber-logfeed-count {
+  font-family: var(--cr-font-mono);
+  font-size: 0.75rem;
+  color: var(--cr-primary-cyan);
+  background: rgba(var(--cr-cyan-rgb), 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.25);
+}
+
+/* Timeline Feed List */
+.cyber-logfeed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+/* Connecting Line on the Left */
+.cyber-logfeed-list::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 17px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(var(--cr-cyan-rgb), 0.3), rgba(255, 255, 255, 0.05));
+  z-index: 1;
+}
+
+.cyber-logfeed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Bullet Point Node */
+.cyber-logfeed-bullet {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #111827;
+  border: 2px solid var(--cr-primary-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--cr-primary-cyan);
+  box-shadow: 0 0 10px rgba(var(--cr-cyan-rgb), 0.4);
+  flex-shrink: 0;
+}
+
+.cyber-logfeed-item.is-cancelled .cyber-logfeed-bullet {
+  border-color: var(--cr-status-danger);
+  color: var(--cr-status-danger);
+  box-shadow: 0 0 12px rgba(var(--cr-danger-rgb), 0.4);
+}
+
+.cyber-logfeed-item.is-completed .cyber-logfeed-bullet {
+  border-color: var(--cr-status-success);
+  color: var(--cr-status-success);
+  box-shadow: 0 0 12px rgba(var(--cr-matrix-rgb), 0.4);
+}
+
+/* Event Content Box */
+.cyber-logfeed-content {
+  flex: 1;
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all var(--cr-transition-fast);
+}
+
+.cyber-logfeed-content:hover {
+  background: rgba(11, 15, 25, 0.85);
+  border-color: rgba(var(--cr-cyan-rgb), 0.3);
+}
+
+/* Meta Top Row: Time & Actor */
+.cyber-logfeed-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cyber-logfeed-time {
+  font-family: var(--cr-font-mono);
+  font-size: 0.74rem;
+  color: var(--cr-text-muted);
+}
+
+.cyber-logfeed-actor {
+  font-family: var(--cr-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cr-primary-cyan);
+  background: rgba(var(--cr-cyan-rgb), 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Transition Row */
+.cyber-logfeed-transition-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cyber-logfeed-pill {
+  font-family: var(--cr-font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.cyber-logfeed-pill.pill-from {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cr-text-secondary);
+  border: 1px solid var(--cr-border-subtle);
+}
+
+.cyber-logfeed-pill.pill-to {
+  background: rgba(var(--cr-cyan-rgb), 0.15);
+  color: var(--cr-primary-cyan);
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.35);
+}
+
+.cyber-logfeed-arrow {
+  color: var(--cr-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Note Text */
+.cyber-logfeed-note {
+  font-family: var(--cr-font-body);
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 4px;
+}
+
+/* Empty State */
+.cyber-logfeed-empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--cr-text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .cyber-logfeed-card {
+    padding: 16px 14px;
+  }
+
+  .cyber-logfeed-list::before {
+    left: 15px;
+  }
+
+  .cyber-logfeed-bullet {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .cyber-logfeed-content {
+    padding: 12px 14px;
+  }
+}

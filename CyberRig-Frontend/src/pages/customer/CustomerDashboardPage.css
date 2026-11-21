@@ -1,0 +1,706 @@
+/* ==========================================================================
+   CyberRig Customer Dashboard - Cyberpunk Neon Styling
+   Task FE-09 / Sprint 5
+   ========================================================================== */
+
+.cyber-dashboard-root {
+  min-height: 100vh;
+  background-color: #07090e;
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(0, 240, 255, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(255, 0, 60, 0.07) 0%, transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  color: #f8fafc;
+  padding: 2.5rem 1.5rem 5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cyber-dashboard-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Header & Telemetry HUD
+   ========================================================================== */
+.cyber-dashboard-header {
+  position: relative;
+  background: #0d111a;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 2rem 2.25rem;
+  margin-bottom: 2.5rem;
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.08), inset 0 0 25px rgba(0, 240, 255, 0.03);
+}
+
+.cyber-dashboard-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 3px;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.cyber-header-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.cyber-user-identity {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.cyber-avatar-hex {
+  width: 58px;
+  height: 58px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 2px solid #00f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.cyber-greeting-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cyber-greeting-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #00f0ff;
+}
+
+.cyber-greeting-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+.cyber-role-pill {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 14px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.cyber-role-pill.is-customer {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.cyber-role-pill.is-technician {
+  background: rgba(255, 170, 0, 0.15);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+}
+
+.cyber-role-pill.is-admin {
+  background: rgba(255, 0, 60, 0.15);
+  border: 1px solid #ff003c;
+  color: #ff003c;
+  box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+}
+
+/* Telemetry HUD Cards */
+.cyber-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.cyber-telemetry-card {
+  background: rgba(17, 22, 34, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid #00f0ff;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.25s ease;
+}
+
+.cyber-telemetry-card:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 240, 255, 0.1);
+}
+
+.cyber-telemetry-card.is-magenta {
+  border-left-color: #ff003c;
+}
+
+.cyber-telemetry-card.is-green {
+  border-left-color: #00ff66;
+}
+
+.cyber-telemetry-icon {
+  font-size: 1.75rem;
+}
+
+.cyber-telemetry-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.cyber-telemetry-val {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.cyber-telemetry-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Cyberpunk Tab Navigation
+   ========================================================================== */
+.cyber-tabs-bar {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.cyber-tab-btn {
+  background: transparent;
+  border: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  padding: 0.9rem 1.75rem;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.cyber-tab-btn:hover {
+  color: #00f0ff;
+}
+
+.cyber-tab-btn.is-active {
+  color: #ffffff;
+}
+
+.cyber-tab-btn.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00f0ff, #ff003c);
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.cyber-tab-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.cyber-tab-btn.is-active .cyber-tab-count {
+  background: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+}
+
+/* ==========================================================================
+   Tab 1: Orders & PC Builds Cards
+   ========================================================================== */
+.cyber-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cyber-order-card {
+  background: #0d111a;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.cyber-order-card:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 6px 25px rgba(0, 240, 255, 0.12);
+}
+
+.cyber-order-header {
+  padding: 1.25rem 1.5rem;
+  background: rgba(17, 22, 34, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cyber-order-code-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cyber-order-code {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #00f0ff;
+  letter-spacing: 1px;
+}
+
+.cyber-order-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.cyber-order-status-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.cyber-order-status-badge.is-pending {
+  background: rgba(255, 170, 0, 0.15);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+  animation: amberPulse 1.8s infinite;
+}
+
+@keyframes amberPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.cyber-order-status-badge.is-confirmed,
+.cyber-order-status-badge.is-shipped {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+.cyber-order-status-badge.is-completed {
+  background: rgba(0, 255, 102, 0.15);
+  border: 1px solid #00ff66;
+  color: #00ff66;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.25);
+}
+
+.cyber-order-status-badge.is-cancelled {
+  background: rgba(255, 0, 60, 0.15);
+  border: 1px solid #ff003c;
+  color: #ff003c;
+}
+
+.cyber-order-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.cyber-order-summary-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.cyber-order-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cyber-meta-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cyber-meta-val {
+  font-size: 0.95rem;
+  color: #f8fafc;
+}
+
+.cyber-meta-val.is-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #00f0ff;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+.cyber-order-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cyber-btn-spec-toggle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 0.5rem 1.15rem;
+  cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cyber-btn-spec-toggle:hover {
+  background: #00f0ff;
+  color: #050811;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+.cyber-btn-print {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cyber-btn-print:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+}
+
+/* Expanded Spec Sheet Accordion */
+.cyber-order-spec-expanded {
+  padding: 1.5rem;
+  background: #080c14;
+  border-top: 1px dashed rgba(0, 240, 255, 0.2);
+  animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Tab 2: Active Repairs Cards & 5-Step Mini Stepper
+   ========================================================================== */
+.cyber-repairs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cyber-repair-card {
+  background: #0d111a;
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 1.75rem;
+  position: relative;
+}
+
+.cyber-repair-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-device-title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cyber-tracking-code {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffaa00;
+  letter-spacing: 1px;
+}
+
+.cyber-device-name {
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cyber-repair-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.cyber-btn-track-detail {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  padding: 0.5rem 1.15rem;
+  text-decoration: none;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cyber-btn-track-detail:hover {
+  background: #ffaa00;
+  color: #050811;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+/* 5-Step Mini Stepper Timeline */
+.cyber-stepper-container {
+  margin: 1.75rem 0 1.25rem;
+  position: relative;
+}
+
+.cyber-stepper-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+  gap: 0.5rem;
+}
+
+.cyber-stepper-bar-bg {
+  position: absolute;
+  top: 15px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.cyber-stepper-bar-fill {
+  position: absolute;
+  top: 15px;
+  left: 10%;
+  height: 3px;
+  background: linear-gradient(90deg, #00f0ff, #ffaa00);
+  box-shadow: 0 0 8px #00f0ff;
+  z-index: 2;
+  transition: width 0.4s ease;
+}
+
+.cyber-step-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.cyber-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0d111a;
+  border: 2px solid #334155;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-step-node.is-done .cyber-step-circle {
+  border-color: #00ff66;
+  background: rgba(0, 255, 102, 0.15);
+  color: #00ff66;
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+}
+
+.cyber-step-node.is-active .cyber-step-circle {
+  border-color: #00f0ff;
+  background: #00f0ff;
+  color: #050811;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.8);
+  animation: activeNodePulse 1.8s infinite;
+}
+
+@keyframes activeNodePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 240, 255, 0.6); }
+  50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(0, 240, 255, 0.9); }
+}
+
+.cyber-step-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.cyber-step-node.is-done .cyber-step-label {
+  color: #cbd5e1;
+}
+
+.cyber-step-node.is-active .cyber-step-label {
+  color: #00f0ff;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+.cyber-repair-footer-note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 2px solid #ffaa00;
+  padding: 0.6rem 1rem;
+}
+
+/* ==========================================================================
+   Empty States
+   ========================================================================== */
+.cyber-empty-state {
+  background: #0d111a;
+  border: 1px dashed rgba(0, 240, 255, 0.25);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+
+.cyber-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.cyber-empty-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.cyber-empty-desc {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  max-width: 480px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.6;
+}
+
+.cyber-empty-cta {
+  display: inline-block;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #050811;
+  background: linear-gradient(135deg, #00f0ff, #0088ff);
+  padding: 0.75rem 2rem;
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all 0.2s ease;
+}
+
+.cyber-empty-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cyber-dashboard-root {
+    padding: 1.5rem 1rem 3rem;
+  }
+  .cyber-dashboard-header {
+    padding: 1.5rem;
+  }
+  .cyber-greeting-name {
+    font-size: 1.25rem;
+  }
+  .cyber-stepper-track {
+    gap: 0.2rem;
+  }
+  .cyber-step-circle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.68rem;
+  }
+  .cyber-step-label {
+    font-size: 0.7rem;
+  }
+}

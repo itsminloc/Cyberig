@@ -1,0 +1,441 @@
+/**
+ * Technician Ticket List Page Styles
+ * Cyberpunk HUD theme with Neon Amber/Yellow highlights for diagnostics
+ */
+
+.cyber-tech-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 1. Header Banner */
+.cyber-tech-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--cr-border-subtle);
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.cyber-tech-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, #ffaa00, #facc15, transparent);
+}
+
+.cyber-tech-badge-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: #ffaa00;
+  text-transform: uppercase;
+}
+
+.cyber-tech-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--cr-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cyber-tech-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cr-text-secondary);
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+/* 2. Telemetry Stat Cards */
+.cyber-tech-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.cyber-tech-stat-card {
+  background: var(--cr-bg-surface);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.cyber-tech-stat-card.is-amber {
+  border-color: rgba(255, 170, 0, 0.4);
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.08);
+}
+
+.cyber-tech-stat-card.is-cyan {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.08);
+}
+
+.cyber-tech-stat-label {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.775rem;
+  color: var(--cr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cyber-tech-stat-value {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--cr-text-primary);
+}
+
+.cyber-tech-stat-card.is-amber .cyber-tech-stat-value {
+  color: #ffaa00;
+  text-shadow: 0 0 15px rgba(255, 170, 0, 0.4);
+}
+
+.cyber-tech-stat-card.is-cyan .cyber-tech-stat-value {
+  color: var(--cr-primary-cyan);
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+/* 3. Toolbar & Tabs */
+.cyber-tech-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--cr-bg-surface-elevated);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.cyber-tech-tabs-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.cyber-tech-tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cr-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.cyber-tech-tab-btn:hover {
+  color: var(--cr-text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cyber-tech-tab-btn.active-tab {
+  background: rgba(255, 170, 0, 0.12);
+  border-color: #ffaa00;
+  color: #ffaa00;
+  box-shadow: 0 0 15px rgba(255, 170, 0, 0.25);
+}
+
+.cyber-tech-tab-btn.active-cyan {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+.cyber-tab-badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Search Row */
+.cyber-tech-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cyber-tech-search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--cr-text-muted);
+}
+
+.cyber-tech-search-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 2.6rem;
+  background: rgba(10, 12, 16, 0.85);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  color: var(--cr-text-primary);
+  font-size: 0.925rem;
+  transition: all 0.2s ease;
+}
+
+.cyber-tech-search-input:focus {
+  outline: none;
+  border-color: #ffaa00;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.25);
+  background: rgba(10, 12, 16, 1);
+}
+
+/* 4. Tickets List Cards */
+.cyber-tech-ticket-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cyber-tech-ticket-card {
+  background: var(--cr-bg-surface);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.cyber-tech-ticket-card:hover {
+  border-color: rgba(255, 170, 0, 0.4);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 170, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.cyber-tech-ticket-card.needs-diagnosis {
+  border-left: 4px solid #ffaa00;
+}
+
+.cyber-tech-ticket-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cyber-tech-code-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cyber-tech-ticket-code {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+}
+
+/* Priority Badges */
+.cyber-priority-pill {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cyber-priority-pill.urgent {
+  background: rgba(255, 0, 85, 0.15);
+  border: 1px solid var(--cr-primary-magenta);
+  color: #ff3377;
+}
+
+.cyber-priority-pill.standard {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--cr-border-cyan);
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-priority-pill.low {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-muted);
+}
+
+/* Status Pill */
+.cyber-status-pill {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cyber-status-pill.status-diagnosing {
+  background: rgba(255, 170, 0, 0.12);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  color: #ffaa00;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.2);
+}
+
+.cyber-status-pill.status-repairing {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--cr-border-cyan);
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-status-pill.status-received {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-secondary);
+}
+
+.cyber-status-pill.status-quoted {
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+.cyber-status-pill.status-completed {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.35);
+  color: var(--cr-neon-green);
+}
+
+/* Middle Content */
+.cyber-tech-ticket-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .cyber-tech-ticket-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cyber-tech-device-name {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+}
+
+.cyber-tech-info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--cr-text-secondary);
+}
+
+.cyber-tech-fault-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed var(--cr-border-subtle);
+  border-radius: 8px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cyber-tech-fault-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cr-text-muted);
+  text-transform: uppercase;
+}
+
+.cyber-tech-fault-desc {
+  font-size: 0.875rem;
+  color: var(--cr-text-primary);
+  line-height: 1.5;
+}
+
+/* Bottom Action Row */
+.cyber-tech-ticket-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cyber-tech-intake-time {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.775rem;
+  color: var(--cr-text-muted);
+}
+
+.cyber-tech-cta-diagnose-btn {
+  background: rgba(255, 170, 0, 0.12);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.cyber-tech-cta-diagnose-btn:hover {
+  background: #ffaa00;
+  color: #000000;
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.cyber-tech-cta-view-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.cyber-tech-cta-view-btn:hover {
+  border-color: var(--cr-border-cyan);
+  color: var(--cr-primary-cyan);
+}

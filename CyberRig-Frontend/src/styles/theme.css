@@ -1,0 +1,77 @@
+/**
+ * CyberRig Global Theme & Design Tokens
+ * Conforms to docs/DESIGN-SYSTEM.md and .skills/ui-gaming-theme.md
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+  /* Surfaces & Backgrounds */
+  --cr-bg-base: #0b0f19;
+  --cr-bg-surface: #111827;
+  --cr-bg-surface-elevated: #1e293b;
+  --cr-bg-glass: rgba(17, 24, 39, 0.78);
+  --cr-bg-glass-hover: rgba(30, 41, 59, 0.85);
+
+  /* Borders & Dividers */
+  --cr-border-subtle: rgba(255, 255, 255, 0.08);
+  --cr-border-card: rgba(255, 255, 255, 0.12);
+  --cr-border-focus: #00f0ff;
+  --cr-border-glow: rgba(0, 240, 255, 0.35);
+
+  /* Brand Neons & Accents */
+  --cr-primary-cyan: #00f0ff;
+  --cr-cyan-rgb: 0, 240, 255;
+  --cr-secondary-magenta: #ff007f;
+  --cr-magenta-rgb: 255, 0, 127;
+  --cr-accent-violet: #8b5cf6;
+  --cr-violet-rgb: 139, 92, 246;
+
+  /* Semantic Status Colors */
+  --cr-status-matrix-green: #10b981;
+  --cr-matrix-rgb: 16, 185, 129;
+  --cr-status-warning: #f59e0b;
+  --cr-warning-rgb: 245, 158, 11;
+  --cr-status-danger: #ef4444;
+  --cr-danger-rgb: 239, 68, 68;
+  --cr-status-info: #38bdf8;
+
+  /* Text Colors */
+  --cr-text-primary: #f8fafc;
+  --cr-text-secondary: #94a3b8;
+  --cr-text-muted: #64748b;
+  --cr-text-highlight: #ffffff;
+
+  /* Typography */
+  --cr-font-display: 'Orbitron', 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+  --cr-font-heading: 'Rajdhani', 'Orbitron', sans-serif;
+  --cr-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cr-font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows & Glows */
+  --cr-glow-cyan-sm: 0 0 10px rgba(0, 240, 255, 0.3);
+  --cr-glow-cyan-lg: 0 0 25px rgba(0, 240, 255, 0.45);
+  --cr-glow-magenta-sm: 0 0 10px rgba(255, 0, 127, 0.3);
+  --cr-glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+
+  /* Transitions */
+  --cr-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --cr-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --cr-transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--cr-bg-base);
+  color: var(--cr-text-primary);
+  font-family: var(--cr-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  overflow-x: hidden;
+}

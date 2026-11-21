@@ -1,0 +1,45 @@
+# CyberRig - AI Agent Rules & Operational Guidelines
+
+## 1. Mandatory Context & Protocol
+Mọi AI Agent khi thực hiện bất kỳ tác vụ nào (lập kế hoạch, viết code, sửa lỗi, refactor, review, hoặc tạo tài liệu) **BẮT BUỘC** phải:
+1. Đọc và tuân thủ tuyệt đối các quy tắc nghiệp vụ trong thư mục `.skills/`:
+   - [pc-compatibility-rules.md](file:///.skills/pc-compatibility-rules.md): Quy chuẩn kiểm tra tương thích phần cứng máy tính (Socket CPU, Chipset, DDR RAM, kích thước case/VGA, công suất nguồn PSU, khe cắm M.2/PCIe, v.v.).
+   - [repair-workflow-rules.md](file:///.skills/repair-workflow-rules.md): Quy trình vòng đời phiếu sửa chữa và bảo hành (Tiếp nhận -> Chuẩn đoán -> Báo giá -> Khách duyệt -> Thực hiện -> Kiểm thử QA -> Bàn giao & Bảo hành).
+   - [ui-gaming-theme.md](file:///.skills/ui-gaming-theme.md): Ngôn ngữ thiết kế giao diện Gaming/Cyberpunk (Dark theme, neon accents, glassmorphism, micro-interactions, layout components).
+
+2. Đọc và đối chiếu với các tài liệu kỹ thuật trong thư mục `docs/`:
+   - [SYSTEM-SPEC.md](file:///docs/SYSTEM-SPEC.md): Kiến trúc hệ sinh thái CyberRig, phân chia Module / Domain-Driven Design (DDD), phân tầng trách nhiệm.
+   - [DATABASE-SCHEMA.md](file:///docs/DATABASE-SCHEMA.md): Mô hình dữ liệu, quan hệ thực thể (Entity-Relationship), quy chuẩn đặt tên bảng và khóa ngoại.
+   - [DESIGN-SYSTEM.md](file:///docs/DESIGN-SYSTEM.md): Hệ thống design tokens, typography, colors, iconography, component design patterns.
+
+---
+
+## 2. Architectural & Engineering Rules
+- **Modular / Domain-Driven Architecture**:
+  - Mỗi domain nằm độc lập trong `src/modules/<domain_name>/`.
+  - Tuân thủ cấu trúc phân tầng: `model` (entity/types), `service` (business logic), `controller` (input/output handlers), `rules` (domain specific policy engines).
+  - Tránh phụ thuộc vòng (circular dependencies) giữa các modules. Sử dụng event hoặc core contracts nếu cần trao đổi dữ liệu chéo.
+- **Core Separation**:
+  - `src/core/` chỉ chứa hạ tầng nền tảng: cấu hình môi trường (`config.ts`), kết nối cơ sở dữ liệu (`db.ts`), middlewares chung và utilities cốt lõi.
+- **Type Safety**:
+  - 100% sử dụng TypeScript với strict mode, cấm lạm dụng kiểu `any`. Mọi interface phần cứng và phiếu sửa chữa phải được định nghĩa tường minh.
+- **UI Decoupling**:
+  - Giao diện người dùng trong `src/ui/` chỉ tiêu thụ contracts từ các modules và tôn trọng design system tại `docs/DESIGN-SYSTEM.md` và `.skills/ui-gaming-theme.md`.
+
+---
+
+## 3. Agile / Scrum Operational Protocol
+Mọi tác vụ kỹ thuật thực hiện trên CyberRig bắt buộc tuân thủ quy trình chuẩn Scrum tại `docs/scrum/`:
+1. **Liên kết với Scrum Task**:
+   - Mọi prompt phát triển hoặc refactor phải được map vào mã task chuẩn: `[SCRUM TASK] <PREFIX>-<ID>: <Mô tả>` tham chiếu từ [PRODUCT-BACKLOG.md](file:///docs/scrum/PRODUCT-BACKLOG.md).
+2. **Tuân thủ Definition of Ready (DoR)**:
+   - Trước khi bắt đầu code: Phải xác định rõ User Story, Tiêu chí chấp nhận (Acceptance Criteria - Gherkin format), phạm vi tệp thay đổi và độ phức tạp (Story Points <= 8 SP).
+3. **Nghiệm thu theo Definition of Done (DoD)**:
+   - Chỉ kết thúc task khi thỏa mãn 100% DoD tại [SCRUM-FRAMEWORK.md](file:///docs/scrum/SCRUM-FRAMEWORK.md):
+     - Không để file quá tải vi phạm SRP (tách biệt fixtures, mock, fallback khỏi business service).
+     - Biên dịch TypeScript thành công (`npx tsc --noEmit` thoát mã 0).
+     - Toàn bộ test suites liên quan vượt qua (`npm test`).
+     - Giao diện đạt chuẩn Design System Dual-Theme (Day / Night).
+     - Xác thực trực tiếp trên trình duyệt hoặc container Docker.
+     - Cập nhật tài liệu nghiệm thu [walkthrough.md](file:///walkthrough.md).
+

@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Admin Control Center Styles (#admin)
+   ========================================================================== */
+
+.data-table-frame {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  overflow-x: auto;
+}
+
+.minimal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.minimal-table th {
+  padding: 14px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+}
+
+.minimal-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.minimal-table td:nth-child(3),
+.minimal-table td:nth-child(4),
+.minimal-table td:nth-child(5) {
+  font-variant-numeric: tabular-nums;
+}
+
+.minimal-table tbody tr {
+  transition: var(--trans-smooth);
+}
+
+.minimal-table tbody tr:hover {
+  background: var(--bg-surface-elevated);
+}
+
+.action-pill-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}

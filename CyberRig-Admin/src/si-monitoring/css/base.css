@@ -1,0 +1,253 @@
+/* ==========================================================================
+   CyberRig Base Styles, Reset & Button Systems (High-Tech & Capsule)
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Skip to main content accessibility link */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--accent-primary);
+  color: var(--accent-contrast);
+  padding: 8px 18px;
+  border-radius: var(--radius-tech);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 2000;
+  transition: top 0.15s var(--ease-tactile);
+}
+
+.skip-link:focus {
+  top: 14px;
+  outline: 2px solid var(--accent-contrast);
+  outline-offset: 2px;
+}
+
+/* Focus Ring Standards (better-accessibility) */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Numerical Typography (better-typography) */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Headings Typography - Tall & Narrow High-Tech Condensed Aesthetic */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-condensed);
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   High-Tech Square Button System (With Elevation Shadow & Cyber Aesthetics)
+   100% Sharp 90-degree Corners (No rounded corners)
+   ========================================================================== */
+.tech-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 22px;
+  border-radius: 0; /* 100% Sharp Square */
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: var(--shadow-tech-btn);
+  transition-property: transform, opacity, background-color, border-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-tactile);
+}
+
+.tech-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.tech-btn:active {
+  transform: scale(0.96) translateY(0);
+  box-shadow: var(--shadow-tech-active);
+}
+
+.tech-btn-accent {
+  background: var(--accent-primary);
+  color: var(--accent-contrast);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 16px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.tech-btn-accent:hover {
+  background: #0cf54e;
+  border-color: #0cf54e;
+  box-shadow: 0 6px 22px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+body.theme-day .tech-btn-accent {
+  background: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.theme-day .tech-btn-accent:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.tech-btn-outline {
+  background: var(--bg-surface-elevated);
+  color: var(--text-main);
+  border-color: var(--border-medium);
+}
+
+.tech-btn-outline:hover {
+  background: var(--pill-bg);
+  border-color: var(--border-focus);
+  color: var(--accent-primary);
+}
+
+.tech-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-subtle);
+  box-shadow: none;
+}
+
+.tech-btn-ghost:hover {
+  background: var(--pill-bg);
+  color: var(--text-main);
+  border-color: var(--border-medium);
+}
+
+.tech-btn-large {
+  padding: 14px 34px;
+  font-size: 0.94rem;
+  letter-spacing: 0.06em;
+}
+
+/* Control Buttons - Converted to Sharp Square */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 0; /* 100% Sharp Square */
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: var(--shadow-tech-btn);
+  transition-property: transform, opacity, background-color, border-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-tactile);
+}
+
+.pill-btn:hover {
+  transform: translateY(-1px);
+}
+
+.pill-btn:active {
+  transform: scale(0.96);
+}
+
+.pill-btn-accent {
+  background: var(--accent-primary);
+  color: var(--accent-contrast);
+  border-color: var(--accent-primary);
+}
+
+.pill-btn-outline {
+  background: transparent;
+  color: var(--text-main);
+  border-color: var(--pill-border);
+}
+
+.pill-btn-ghost {
+  background: var(--pill-bg);
+  color: var(--text-main);
+  border-color: var(--pill-border);
+}
+
+/* Scroll Pop-out Reveal Engine */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Micro-vibration Keyframes for Telemetry Scanner HUD */
+@keyframes techRumble {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 0.5px); }
+  50% { transform: translate(1px, -0.5px); }
+  75% { transform: translate(-0.5px, -0.5px); }
+  100% { transform: translate(0.5px, 0.5px); }
+}
+
+/* Reduced Motion Mode (better-accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .tech-btn:hover,
+  .tech-btn:active,
+  .pill-btn:hover,
+  .pill-btn:active {
+    transform: none !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

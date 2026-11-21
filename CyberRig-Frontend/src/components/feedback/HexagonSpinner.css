@@ -1,0 +1,114 @@
+/* ==========================================================================
+   CyberRig Hexagon / Tech Radar Spinner Styles
+   Multi-axis rotating neon hexagons, radar sweep, and HUD telemetry
+   ========================================================================== */
+
+.cyber-spinner-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  padding: 16px;
+}
+
+/* Spinner Dimensions */
+.cyber-spinner-sm { width: 48px; height: 48px; }
+.cyber-spinner-md { width: 84px; height: 84px; }
+.cyber-spinner-lg { width: 128px; height: 128px; }
+.cyber-spinner-xl { width: 180px; height: 180px; }
+
+.cyber-spinner-svg-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cyber-spinner-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.35));
+}
+
+/* Multi-Axis Rotations */
+.hex-outer {
+  transform-origin: 50% 50%;
+  animation: cyber-spin-clockwise 7s linear infinite;
+}
+
+.hex-middle {
+  transform-origin: 50% 50%;
+  animation: cyber-spin-counter 4.5s linear infinite;
+}
+
+.radar-sweep {
+  transform-origin: 50% 50%;
+  animation: cyber-spin-clockwise 2.2s linear infinite;
+}
+
+.core-pulse {
+  transform-origin: 50% 50%;
+  animation: cyber-core-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes cyber-spin-clockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cyber-spin-counter {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes cyber-core-pulse {
+  0%, 100% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    filter: drop-shadow(0 0 12px #00f0ff);
+  }
+}
+
+/* Typography & HUD Labels */
+.cyber-spinner-label {
+  margin-top: 14px;
+  font-family: var(--cr-font-display, 'Orbitron', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--cr-primary-cyan, #00f0ff);
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cyber-spinner-sublabel {
+  margin-top: 4px;
+  font-family: var(--cr-font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  color: var(--cr-text-secondary, #94a3b8);
+  letter-spacing: 0.05em;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 12px;
+  background-color: var(--cr-primary-cyan, #00f0ff);
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

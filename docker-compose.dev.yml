@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cyberrig_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cyberrig_db
+      POSTGRES_USER: cyberrig_user
+      POSTGRES_PASSWORD: cyberrig_dev_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - cyberrig_pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyberrig_user -d cyberrig_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cyberrig_dev_net
+
+  redis:
+    image: redis:alpine
+    container_name: cyberrig_redis_dev
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - cyberrig_redis_data_dev:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cyberrig_dev_net
+
+volumes:
+  cyberrig_pgdata_dev:
+    name: cyberrig_pgdata_dev
+  cyberrig_redis_data_dev:
+    name: cyberrig_redis_data_dev
+
+networks:
+  cyberrig_dev_net:
+    name: cyberrig_dev_net

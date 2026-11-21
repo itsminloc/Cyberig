@@ -1,0 +1,33 @@
+{
+  "name": "@cyberrig/backend",
+  "version": "0.1.0",
+  "description": "CyberRig - Core Backend API, Domain Services, and Data Engine",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts",
+    "db:ping": "tsx src/core/db.ts",
+    "db:seed": "tsx src/core/seed.ts",
+    "test": "tsx --test src/**/*.spec.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.11.0",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.13",
+    "typescript": "^5.3.3"
+  }
+}

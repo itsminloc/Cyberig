@@ -1,0 +1,385 @@
+/* ==========================================================================
+   CyberRig TicketTrackingPage Styles
+   Cyberpunk Repair Tracking Portal
+   Strict Tokens: docs/DESIGN-SYSTEM.md & .skills/ui-gaming-theme.md
+   ========================================================================== */
+
+.cyber-tracking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 80px 20px;
+  box-sizing: border-box;
+}
+
+/* 1. Header Banner */
+.cyber-tracking-hero {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cyber-tracking-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(var(--cr-cyan-rgb), 0.12);
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.3);
+  color: var(--cr-primary-cyan);
+  font-family: var(--cr-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cyber-tracking-title {
+  font-family: var(--cr-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(var(--cr-cyan-rgb), 0.3);
+}
+
+.cyber-tracking-subtitle {
+  font-family: var(--cr-font-body);
+  font-size: 0.94rem;
+  color: var(--cr-text-secondary);
+  max-width: 720px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 2. Search Box & Quick Sample Bar */
+.cyber-tracking-search-card {
+  background: linear-gradient(180deg, rgba(23, 32, 54, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cyber-tracking-search-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cyber-search-input-wrapper {
+  flex: 1;
+  min-width: 260px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cyber-search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 1.1rem;
+  color: var(--cr-primary-cyan);
+  pointer-events: none;
+}
+
+.cyber-search-input {
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  background: rgba(11, 15, 25, 0.8);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  padding: 0 16px 0 44px;
+  color: #ffffff;
+  font-family: var(--cr-font-body);
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: all var(--cr-transition-fast);
+}
+
+.cyber-search-input:focus {
+  border-color: var(--cr-primary-cyan);
+  box-shadow: 0 0 15px rgba(var(--cr-cyan-rgb), 0.3);
+}
+
+.cyber-search-submit-btn {
+  height: 48px;
+  min-height: 48px;
+  padding: 0 24px;
+  background: var(--cr-primary-cyan);
+  color: #0b0f19;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--cr-font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 15px rgba(var(--cr-cyan-rgb), 0.4);
+  transition: all var(--cr-transition-fast);
+  flex-shrink: 0;
+}
+
+.cyber-search-submit-btn:hover {
+  background: #33f3ff;
+  box-shadow: 0 0 25px rgba(var(--cr-cyan-rgb), 0.6);
+  transform: translateY(-1px);
+}
+
+/* Quick Sample Chips */
+.cyber-quick-samples-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cyber-quick-label {
+  font-family: var(--cr-font-mono);
+  font-size: 0.74rem;
+  color: var(--cr-text-muted);
+  text-transform: uppercase;
+}
+
+.cyber-quick-chip {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-secondary);
+  font-family: var(--cr-font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all var(--cr-transition-fast);
+}
+
+.cyber-quick-chip:hover {
+  background: rgba(var(--cr-cyan-rgb), 0.12);
+  border-color: var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+}
+
+/* 3. Loading Spinner View */
+.cyber-tracking-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  min-height: 280px;
+}
+
+/* 4. Error Card */
+.cyber-tracking-error-card {
+  background: rgba(var(--cr-danger-rgb), 0.1);
+  border: 1px solid rgba(var(--cr-danger-rgb), 0.4);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.cyber-error-icon {
+  font-size: 2rem;
+  color: var(--cr-status-danger);
+  flex-shrink: 0;
+}
+
+.cyber-error-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cyber-error-title {
+  font-family: var(--cr-font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fca5a5;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cyber-error-message {
+  font-family: var(--cr-font-body);
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 5. Summary Device Card */
+.cyber-device-summary-card {
+  background: linear-gradient(180deg, rgba(23, 32, 54, 0.85) 0%, rgba(17, 24, 39, 0.92) 100%);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-device-summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cr-primary-cyan), var(--cr-secondary-magenta));
+}
+
+.cyber-device-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--cr-border-subtle);
+}
+
+.cyber-device-code-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cyber-device-code {
+  font-family: var(--cr-font-mono);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--cr-primary-cyan);
+  text-shadow: 0 0 12px rgba(var(--cr-cyan-rgb), 0.4);
+}
+
+.cyber-priority-pill {
+  font-family: var(--cr-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.cyber-priority-pill.priority-urgent {
+  background: rgba(var(--cr-danger-rgb), 0.2);
+  border: 1px solid var(--cr-status-danger);
+  color: #fca5a5;
+}
+
+.cyber-priority-pill.priority-standard {
+  background: rgba(var(--cr-cyan-rgb), 0.1);
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.3);
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-priority-pill.priority-low {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-muted);
+}
+
+/* Device Info Grid */
+.cyber-device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px 24px;
+}
+
+.cyber-device-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cyber-field-label {
+  font-family: var(--cr-font-body);
+  font-size: 0.75rem;
+  color: var(--cr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cyber-field-value {
+  font-family: var(--cr-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.cyber-field-value.text-cyan {
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-field-value.text-quote {
+  font-family: var(--cr-font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-field-value.text-mono {
+  font-family: var(--cr-font-mono);
+  font-size: 0.88rem;
+  color: var(--cr-text-secondary);
+}
+
+/* Tracking Content Stack */
+.cyber-tracking-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (< 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .cyber-tracking-container {
+    padding: 16px 12px 60px 12px;
+  }
+
+  .cyber-tracking-title {
+    font-size: 1.6rem;
+  }
+
+  .cyber-tracking-search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cyber-search-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cyber-device-grid {
+    grid-template-columns: 1fr;
+  }
+}

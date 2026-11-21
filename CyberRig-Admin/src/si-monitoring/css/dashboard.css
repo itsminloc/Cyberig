@@ -1,0 +1,519 @@
+/* ==========================================================================
+   CyberRig Customer Dashboard Stylesheet (#dashboard)
+   100% Icon-Free, Pure Typographic & Sharp Industrial Design Engine
+   Full Day/Night Theme Support
+   ========================================================================== */
+
+.dashboard-container {
+  min-height: calc(100vh - 72px);
+  padding: 32px 24px 80px;
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Minimalist Industrial Header Card */
+.dash-header-minimal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  padding: 26px 28px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.dash-user-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-identity-role {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+body.theme-day .dash-identity-role {
+  color: #2563eb;
+}
+
+.dash-identity-name {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  line-height: 1.05;
+  margin: 0;
+}
+
+/* Telemetry Metric Cards */
+.telemetry-minimal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.telemetry-minimal-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.theme-day .telemetry-minimal-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.telemetry-val-text {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.telemetry-lbl-text {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tab Navigation Strip */
+.dash-tab-cluster {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-tab-buttons-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dash-tab-pill {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: var(--trans-fast);
+}
+
+body.theme-day .dash-tab-pill {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #64748b;
+}
+
+.dash-tab-pill:hover {
+  background: var(--pill-hover);
+  color: var(--text-main);
+}
+
+.dash-tab-pill.is-active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--accent-contrast);
+}
+
+body.theme-day .dash-tab-pill.is-active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+/* Industrial Data Table Frame */
+.data-table-frame {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+}
+
+.minimal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.minimal-table th {
+  padding: 14px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-medium);
+  background: var(--bg-surface-elevated);
+}
+
+body.theme-day .minimal-table th {
+  background: #f8fafc;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+
+.minimal-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+body.theme-day .minimal-table td {
+  border-color: #f1f5f9;
+}
+
+.minimal-table tbody tr {
+  transition: var(--trans-fast);
+}
+
+.minimal-table tbody tr:hover {
+  background: var(--bg-surface-elevated);
+}
+
+body.theme-day .minimal-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* Empty State Card */
+.dash-empty-card {
+  text-align: center;
+  padding: 56px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  box-shadow: var(--shadow-card);
+}
+
+.dash-empty-badge {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.dash-empty-title {
+  font-family: var(--font-condensed);
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.dash-empty-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  max-width: 480px;
+  margin: 0 auto 24px;
+  line-height: 1.5;
+}
+
+/* Origin Tags */
+.origin-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 0;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.origin-tag.origin-cyberrig {
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-border);
+  background: var(--accent-subtle);
+}
+
+.origin-tag.origin-external {
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+/* Status Badges */
+.status-pill-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 0;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.status-pill-mono.is-received { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+.status-pill-mono.is-diagnosing { color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
+.status-pill-mono.is-quoted { color: #a855f7; border-color: rgba(168, 85, 247, 0.4); }
+.status-pill-mono.is-repairing { color: #3b82f6; border-color: rgba(59, 130, 246, 0.4); }
+.status-pill-mono.is-qc { color: #ec4899; border-color: rgba(236, 72, 153, 0.4); }
+.status-pill-mono.is-completed { color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
+.status-pill-mono.is-cancelled { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+
+/* ==========================================================================
+   Ticket Intake Modal Styling (Task 1 & Task 2)
+   100% Icon-Free Sharp Industrial Dialog
+   ========================================================================== */
+.ticket-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ticket-modal-overlay.is-active {
+  display: flex;
+}
+
+.ticket-modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-modal);
+  padding: 30px;
+  color: var(--text-main);
+  position: relative;
+}
+
+body.theme-day .ticket-modal-card {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.ticket-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ticket-modal-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.ticket-modal-title {
+  font-family: var(--font-condensed);
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.ticket-modal-close {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: var(--trans-fast);
+}
+
+.ticket-modal-close:hover {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* Radio Button Group for Origin Selection */
+.origin-selector-cluster {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .origin-selector-cluster {
+    grid-template-columns: 1fr;
+  }
+}
+
+.origin-option-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  padding: 14px;
+  cursor: pointer;
+  transition: var(--trans-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+body.theme-day .origin-option-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.origin-option-card.is-selected {
+  border-color: var(--accent-primary);
+  background: var(--accent-subtle);
+}
+
+body.theme-day .origin-option-card.is-selected {
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.origin-option-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.origin-option-card.is-selected .origin-option-title {
+  color: var(--accent-primary);
+}
+
+body.theme-day .origin-option-card.is-selected .origin-option-title {
+  color: #2563eb;
+}
+
+.origin-option-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Modal Form Fields */
+.modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .modal-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-field-full {
+  grid-column: 1 / -1;
+}
+
+.modal-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.modal-input,
+.modal-textarea,
+.modal-select {
+  width: 100%;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  padding: 10px 14px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;
+  transition: var(--trans-fast);
+}
+
+body.theme-day .modal-input,
+body.theme-day .modal-textarea,
+body.theme-day .modal-select {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.modal-input:focus,
+.modal-textarea:focus,
+.modal-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.modal-actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}

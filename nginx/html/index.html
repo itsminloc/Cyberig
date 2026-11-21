@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberRig — Hardware Perfection &amp; Diagnostic Lab</title>
+  <meta name="description"
+    content="Nền tảng lắp ráp PC hiệu năng cao, thẩm định tương thích tiêu chuẩn công nghiệp và hệ thống quản trị kho tối giản." />
+
+  <!-- Modern Minimalist & High-Tech Typography: Barlow Condensed, Space Grotesk, Plus Jakarta Sans, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Modular Component Stylesheets -->
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+  <!-- Accessible Skip to Main Content Link (better-accessibility) -->
+  <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+
+  <!-- 1. Top Accent Bar (GSAP / Osmo Style) -->
+  <div id="top-accent-bar" class="top-accent-bar"></div>
+
+  <!-- 2. Header Navigation -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Logo (Tight to Left Margin with High-Tech Graphic Emblem) -->
+      <a href="/" class="brand-logo" aria-label="CyberRig Home">
+        <div class="logo-emblem-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+            <circle cx="12" cy="12" r="3" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="logo-text-group">
+          <span>CYBERRIG</span>
+          <span class="logo-tag-badge">LAB // 01</span>
+        </div>
+      </a>
+
+      <!-- Navigation & Mega Menus -->
+      <nav class="nav-cluster">
+        <!-- Tab 1: Linh kiện PC (3-Column Mega Menu) -->
+        <div class="nav-item-wrapper">
+          <a href="/hardware" class="nav-link-btn">Linh kiện PC</a>
+          <div class="mega-menu-drawer mega-menu-3col">
+            <div>
+              <div class="mega-col-header">Vi xử lý &amp; Bo mạch</div>
+              <a href="/hardware?category=CPU" class="mega-link-item">
+                <span class="mega-link-title">Vi Xử Lý (CPU)</span>
+                <span class="mega-link-desc">Intel Core thế hệ 14 &amp; AMD Ryzen 7000/9000</span>
+              </a>
+              <a href="/hardware?category=MOTHERBOARD" class="mega-link-item">
+                <span class="mega-link-title">Bo Mạch Chủ (Mainboard)</span>
+                <span class="mega-link-desc">Chipset Z790, B760, X670E, B650</span>
+              </a>
+              <a href="/hardware?category=COOLER" class="mega-link-item">
+                <span class="mega-link-title">Tản Nhiệt (Cooler)</span>
+                <span class="mega-link-desc">Tản nhiệt nước AIO 360mm &amp; tản khí tháp đôi</span>
+              </a>
+            </div>
+            <div>
+              <div class="mega-col-header">Đồ họa &amp; Bộ nhớ</div>
+              <a href="/hardware?category=GPU" class="mega-link-item">
+                <span class="mega-link-title">Card Đồ Họa (VGA)</span>
+                <span class="mega-link-desc">NVIDIA GeForce RTX 40 Series &amp; Radeon</span>
+              </a>
+              <a href="/hardware?category=RAM" class="mega-link-item">
+                <span class="mega-link-title">Bộ Nhớ Trong (RAM)</span>
+                <span class="mega-link-desc">DDR5 6000MHz+ độ trễ thấp &amp; DDR4</span>
+              </a>
+              <a href="/hardware?category=STORAGE" class="mega-link-item">
+                <span class="mega-link-title">Ổ Cứng Lưu Trữ (SSD)</span>
+                <span class="mega-link-desc">M.2 NVMe PCIe Gen 4.0 / 5.0 tốc độ cao</span>
+              </a>
+            </div>
+            <div>
+              <div class="mega-col-header">Nguồn &amp; Khung máy</div>
+              <a href="/hardware?category=PSU" class="mega-link-item">
+                <span class="mega-link-title">Nguồn Máy Tính (PSU)</span>
+                <span class="mega-link-desc">Chuẩn ATX 3.0, 80 Plus Gold &amp; Platinum</span>
+              </a>
+              <a href="/hardware?category=CASE" class="mega-link-item">
+                <span class="mega-link-title">Vỏ Case Máy Tính</span>
+                <span class="mega-link-desc">Thiết kế Dual-Chamber, luồng gió tối ưu</span>
+              </a>
+              <a href="/builder" class="mega-link-item" style="background: var(--accent-subtle); border-radius: 0;">
+                <span class="mega-link-title" style="color: var(--accent-primary);">Tự Ráp Máy Tính</span>
+                <span class="mega-link-desc">Kiểm tra tương thích tự động tức thì</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: PC Setup & Equipments (4-Column Mega Menu) -->
+        <div class="nav-item-wrapper">
+          <a href="/equipments" class="nav-link-btn">PC Setup &amp; Equipments</a>
+          <div class="mega-menu-drawer mega-menu-4col">
+            <div>
+              <div class="mega-col-header">Màn hình</div>
+              <a href="/equipments?category=MONITOR" class="mega-link-item">
+                <span class="mega-link-title">Màn hình Gaming &amp; OLED</span>
+                <span class="mega-link-desc">Tần số quét 240Hz, 0.03ms Fast-OLED</span>
+              </a>
+              <a href="/equipments?category=MONITOR" class="mega-link-item">
+                <span class="mega-link-title">Màn hình Đồ Họa &amp; Cong</span>
+                <span class="mega-link-desc">Độ phân giải 4K, IPS Black, 1000R Super-UltraWide</span>
+              </a>
+            </div>
+            <div>
+              <div class="mega-col-header">Công thái học</div>
+              <a href="/equipments?category=DESK" class="mega-link-item">
+                <span class="mega-link-title">Bàn Nâng Hạ</span>
+                <span class="mega-link-desc">Động cơ kép thông minh, mặt gỗ sồi tự nhiên</span>
+              </a>
+              <a href="/equipments?category=CHAIR" class="mega-link-item">
+                <span class="mega-link-title">Ghế Ergonomic</span>
+                <span class="mega-link-desc">Herman Miller, Sihoo lưới thoáng khí hỗ trợ cột sống</span>
+              </a>
+            </div>
+            <div>
+              <div class="mega-col-header">Ngoại vi</div>
+              <a href="/equipments?category=KEYBOARD" class="mega-link-item">
+                <span class="mega-link-title">Bàn Phím Cơ</span>
+                <span class="mega-link-desc">Custom full nhôm CNC, Rapid Trigger từ tính</span>
+              </a>
+              <a href="/equipments?category=MOUSE" class="mega-link-item">
+                <span class="mega-link-title">Chuột Siêu Nhẹ</span>
+                <span class="mega-link-desc">Cảm biến quang học chính xác 32K DPI, polling 4000Hz</span>
+              </a>
+            </div>
+            <div>
+              <div class="mega-col-header">Không gian bàn</div>
+              <a href="/equipments?category=ACCESSORY" class="mega-link-item">
+                <span class="mega-link-title">Đèn Màn Hình &amp; Arm Kép</span>
+                <span class="mega-link-desc">Chống mỏi mắt BenQ Halo, tay nâng màn hình trợ lực</span>
+              </a>
+              <a href="/equipments?category=ACCESSORY" class="mega-link-item">
+                <span class="mega-link-title">Quản Lý Dây Cáp</span>
+                <span class="mega-link-desc">Khay đi dây ẩn gầm bàn, giải phóng không gian</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Dịch vụ (Dropdown Khối Riêng Biệt) -->
+        <div class="nav-item-wrapper">
+          <button type="button" class="nav-link-btn">Dịch vụ</button>
+          <div class="mega-menu-drawer mega-dropdown-simple">
+            <a href="#simulator-test" class="mega-link-item" onclick="openSimTestModal(); return false;">
+              <span class="mega-link-title">Kiểm tra độ tương thích</span>
+              <span class="mega-link-desc">Phân tích điện áp, socket và biên an toàn TDP</span>
+            </a>
+            <a href="#b2b-quote" class="mega-link-item" onclick="openB2BQuote(); return false;">
+              <span class="mega-link-title">Báo giá linh kiện theo số lượng</span>
+              <span class="mega-link-desc">Form yêu cầu báo giá B2B, phòng lab, dự án</span>
+            </a>
+            <a href="#assembly-service" class="mega-link-item" onclick="openAssemblyService(); return false;">
+              <span class="mega-link-title">Dịch vụ lắp ráp tận nơi</span>
+              <span class="mega-link-desc">Thông tin đặt lịch kỹ thuật viên chuyên nghiệp</span>
+            </a>
+            <a href="/repair-tracking" class="mega-link-item">
+              <span class="mega-link-title">Tra cứu tiến trình sửa chữa</span>
+              <span class="mega-link-desc">Theo dõi tiến độ chẩn đoán và bảo hành</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Direct Nav Links -->
+        <a href="/builder" class="nav-link-btn">Xây dựng cấu hình</a>
+        <a href="#dashboard" class="nav-link-btn" id="dash-nav-link" style="display: none;">Dàn Máy Của Tôi</a>
+        <a href="#technician" class="nav-link-btn" id="tech-nav-link"
+          style="display: none; color: #38bdf8; font-weight: 700;">[ BÀN KỸ THUẬT ]</a>
+        <a href="#admin" class="nav-link-btn" id="admin-nav-link"
+          style="display: none; color: #ef4444; font-weight: 700;">Quản Trị Kho</a>
+        <a href="/admin-monitoring/" class="nav-link-btn" id="si-monitoring-nav-link"
+          style="display: none; color: #06b6d4; font-weight: 700;">SI Monitoring Lab</a>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="header-actions">
+        <!-- Day / Night Toggle with Sun & Moon Icons -->
+        <button type="button" id="theme-toggle-btn" class="theme-toggle-icon-btn"
+          title="Chuyển đổi giao diện Sáng / Tối" aria-label="Chuyển đổi giao diện Sáng / Tối">
+          <svg class="theme-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            <path d="M19 3v4"></path>
+            <path d="M21 5h-4"></path>
+          </svg>
+        </button>
+
+        <!-- Unauthenticated Button -->
+        <button type="button" class="pill-btn pill-btn-accent" id="auth-open-btn">
+          Đăng Nhập
+        </button>
+
+        <!-- Authenticated Profile Widget -->
+        <div id="user-profile-widget" class="user-profile-anchor" style="display: none;">
+          <button type="button" class="user-pill-btn" id="user-menu-btn">
+            <span id="header-user-name">User</span>
+            <span id="header-user-role" class="role-badge-pill is-customer">CUSTOMER</span>
+          </button>
+
+          <div class="user-dropdown-panel" id="user-dropdown">
+            <div class="dropdown-meta-box">
+              <div class="dropdown-meta-name" id="dd-fullname">Nguyen Van A</div>
+              <div class="dropdown-meta-email" id="dd-email">user@example.com</div>
+            </div>
+            <a href="#dashboard" class="dropdown-nav-link" id="dd-dashboard-item">Dàn máy &amp; Thiết bị của tôi</a>
+            <a href="#technician" class="dropdown-nav-link" id="dd-tech-item"
+              style="display: none; color: #38bdf8; font-weight: 700;">Bàn Làm Việc Kỹ Thuật (Technician Lab)</a>
+            <a href="#admin" class="dropdown-nav-link" id="dd-admin-item"
+              style="display: none; color: #ef4444; font-weight: 700;">Trung Tâm Quản Trị (Admin Hub)</a>
+            <a href="/admin-monitoring/" class="dropdown-nav-link" id="dd-monitoring-item"
+              style="display: none; color: #06b6d4; font-weight: 700;">SI Monitoring &amp; Testing Lab</a>
+            <a href="/repair-tracking" class="dropdown-nav-link">Tra Cứu Phiếu Bảo Hành</a>
+            <a href="/builder" class="dropdown-nav-link">Cấu Hình PC Của Tôi</a>
+            <div style="border-top: 1px solid var(--border-subtle); margin-top: 6px; padding-top: 6px;">
+              <button type="button" class="dropdown-logout-action" id="logout-btn">Đăng Xuất</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Main Body View Routing -->
+  <main class="page-container" id="main-content">
+    <!-- =======================================================================
+         VIEW 1: LANDING PAGE (4-TIER VERTICAL SLIDING SYSTEM)
+         ======================================================================= -->
+    <div id="hero-view">
+      <!-- TIER 1: Visual Showcase with Dual Day/Night Backdrops (Full-bleed 100vh) -->
+      <section class="tier-showcase-stage reveal-hero" id="tier-hero">
+        <!-- Dual Atmospheric Backdrops with Smooth 0.8s Crossfade -->
+        <div class="hero-atmosphere-backdrop-night" aria-hidden="true"></div>
+        <div class="hero-atmosphere-backdrop-day" aria-hidden="true"></div>
+        <div class="hero-atmosphere-gradient" aria-hidden="true"></div>
+
+        <div class="hero-split-container">
+          <!-- Text Column (Centered in Night Theme, Left-aligned in Day Theme) -->
+          <div class="hero-text-column">
+            <div class="showcase-badge-pill">
+              CYBERRIG ARCHITECTURAL LAB &bull; VERIFIED COMPATIBILITY
+            </div>
+            <h1 class="showcase-headline">
+              Let's build a dream PC
+            </h1>
+            <p class="showcase-subtext">
+              Khởi tạo hệ thống máy tính lý tưởng của bạn ngay hôm nay với công cụ thẩm định tương thích tự động.
+            </p>
+
+            <!-- High-Tech Command Search Console (100% Ô vuông, Sạch sẽ) -->
+            <div class="tech-command-console">
+              <div class="tech-search-row">
+                <div class="search-input-wrapper">
+                  <span class="search-terminal-prefix">[ &gt; ]</span>
+                  <input type="text" id="tech-search-input" class="tech-search-input"
+                    placeholder="Tìm nhanh linh kiện (RTX 4090, i9-14900K, DDR5...) hoặc dịch vụ lab..."
+                    aria-label="Tìm kiếm linh kiện hoặc dịch vụ" />
+                </div>
+                <div class="search-actions-group">
+                  <button type="button" id="tech-search-btn" class="tech-btn tech-btn-accent">
+                    Tìm Kiếm
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick category chips -->
+              <div class="tech-chips-strip">
+                <span class="chips-label">Danh mục nhanh:</span>
+                <a href="/hardware?category=CPU" class="tech-chip" data-category="CPU">CPU</a>
+                <a href="/hardware?category=GPU" class="tech-chip" data-category="GPU">VGA Card</a>
+                <a href="/hardware?category=MOTHERBOARD" class="tech-chip" data-category="MOTHERBOARD">Mainboard</a>
+                <a href="/hardware?category=RAM" class="tech-chip" data-category="RAM">RAM DDR5</a>
+                <a href="/hardware?category=PSU" class="tech-chip" data-category="PSU">Nguồn PSU</a>
+                <a href="/hardware?category=COOLER" class="tech-chip" data-category="COOLER">Tản Nước AIO</a>
+                <a href="#b2b-quote" id="b2b-quick-tag" class="tech-chip"
+                  style="color: var(--accent-primary);">Báo Giá B2B</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column Visual Space for Day Theme -->
+          <div class="hero-visual-column" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- TIER 2: Compatibility Standards & Interactive %Bar Scanner HUD (Trọn vẹn 1 trang 100vh) -->
+      <section class="tier-standards reveal-tier2" id="tier-standards">
+        <div class="tier2-viewport-container">
+          <!-- Standards Group -->
+          <div class="tier2-left-col">
+            <div class="tier-header-box">
+              <div class="tier-tagline">Tại sao cần kiểm tra tương thích?</div>
+              <h2 class="tier-title">TIÊU CHUẨN THẨM ĐỊNH TƯƠNG THÍCH</h2>
+              <p class="tier-desc">
+                Thuật toán phân tích tự động kiểm tra chân cắm, chuẩn băng thông và điện áp để đảm bảo hệ thống vận hành bền bỉ 24/7.
+              </p>
+            </div>
+
+            <div class="standards-compact-list">
+              <div class="standard-compact-card">
+                <div class="standard-compact-num">01</div>
+                <div class="standard-compact-body">
+                  <h3 class="standard-compact-title">Chuẩn kết nối vật lý</h3>
+                  <p class="standard-compact-desc">Đồng bộ chính xác Socket CPU (LGA1700, AM5), RAM DDR4/DDR5 và kích thước chiều dài card đồ họa tương thích vỏ case.</p>
+                </div>
+              </div>
+
+              <div class="standard-compact-card">
+                <div class="standard-compact-num">02</div>
+                <div class="standard-compact-body">
+                  <h3 class="standard-compact-title">Điện năng &amp; Biên an toàn</h3>
+                  <p class="standard-compact-desc">Tính toán công suất tiêu thụ tối đa (Peak TDP) của CPU và GPU, tự động bổ sung biên dự phòng an toàn +20% cho nguồn PSU.</p>
+                </div>
+              </div>
+
+              <div class="standard-compact-card">
+                <div class="standard-compact-num">03</div>
+                <div class="standard-compact-body">
+                  <h3 class="standard-compact-title">Tối ưu hiệu năng trên giá</h3>
+                  <p class="standard-compact-desc">Cân đối băng thông giữa vi xử lý, card đồ họa và ổ cứng PCIe Gen 4/5 nhằm triệt tiêu hoàn toàn hiện tượng thắt cổ chai.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Simulator HUD -->
+          <div class="tier2-right-col">
+            <div class="compatibility-scanner-hud" id="compatibility-scanner-hud" role="region"
+              aria-label="Bộ mô phỏng thẩm định tương thích tự động">
+              <div class="scanner-header-row">
+                <div class="scanner-title-group">
+                  <div class="scanner-beacon-dot"></div>
+                  <div class="scanner-hud-title">SIMULATOR // ENGINE THẨM ĐỊNH TƯƠNG THÍCH</div>
+                </div>
+                <div class="scanner-percent-display"><span id="scanner-percent-val">0</span>%</div>
+              </div>
+
+              <!-- Progress Track Bar -->
+              <div class="scanner-track-container">
+                <div class="scanner-fill-bar" id="scanner-fill-bar"></div>
+              </div>
+
+              <!-- Dynamic Status Readout -->
+              <div class="scanner-status-readout" id="scanner-status-msg">
+                [ SẴN SÀNG ] Rê chuột vào khu vực này để bắt đầu quét toàn diện hệ thống...
+              </div>
+
+              <!-- 4 Telemetry Metrics Tiles -->
+              <div class="scanner-specs-grid">
+                <div class="scanner-metric-tile">
+                  <div class="metric-tile-lbl">01 // Socket CPU &amp; Main</div>
+                  <div class="metric-tile-val">LGA1700 / AM5 &bull; 100% Khớp</div>
+                </div>
+                <div class="scanner-metric-tile">
+                  <div class="metric-tile-lbl">02 // Điện Năng &amp; TDP</div>
+                  <div class="metric-tile-val">+25% Biên Dự Phòng PSU</div>
+                </div>
+                <div class="scanner-metric-tile">
+                  <div class="metric-tile-lbl">03 // Băng Thông Bus</div>
+                  <div class="metric-tile-val">PCIe Gen 5.0 &bull; Đồng Bộ</div>
+                </div>
+                <div class="scanner-metric-tile">
+                  <div class="metric-tile-lbl">04 // Kích Thước Vỏ Case</div>
+                  <div class="metric-tile-val">Vừa VGA 340mm &amp; AIO 360</div>
+                </div>
+              </div>
+
+              <!-- CTA Button (Kiểm tra tương thích linh kiện) -->
+              <button type="button" id="scanner-cta-btn" class="scanner-action-btn">
+                KIỂM TRA TƯƠNG THÍCH LINH KIỆN
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIER 3: Presets Cấu hình (4 Mục Hình Ảnh To Đẹp 1 Hàng - Trọn vẹn 1 trang 100vh) -->
+      <section class="tier-presets reveal-tier3" id="tier-presets">
+        <div class="tier3-viewport-container">
+          <!-- Tiêu đề nằm ở TRÊN CÙNG -->
+          <div class="tier-header-box tier-header-compact">
+            <div class="tier-tagline">Bộ cấu hình sẵn sàng</div>
+            <h2 class="tier-title">CẤU HÌNH TIÊU CHUẨN THEO TÁC VỤ</h2>
+            <p class="tier-desc">
+              Tuyển chọn các cấu hình đã qua kiểm thử tải nặng, sẵn sàng điều chỉnh theo nhu cầu riêng.
+            </p>
+          </div>
+
+          <!-- 4 Cột 1 Hàng: Hình ảnh to, rõ ràng, dáng đứng đồng bộ với Font Condensed -->
+          <div class="presets-4col-grid">
+            <!-- Preset 1: FPS Competitive -->
+            <div class="preset-card preset-card-large">
+              <div class="preset-thumb-frame">
+                <span class="preset-index-stamp">01 // FPS</span>
+                <img src="/assets/preset-fps-competitive.jpg" alt="CyberRig FPS Competitive Build"
+                  class="preset-thumb-img" loading="lazy" />
+                <div class="preset-thumb-gradient"></div>
+              </div>
+              <div class="preset-body-content">
+                <div>
+                  <span class="preset-task-badge">Esports &amp; FPS 240Hz+</span>
+                  <h3 class="preset-name">FPS Competitive</h3>
+                  <ul class="preset-specs-compact">
+                    <li><span class="spec-k">CPU:</span> i5-13600K</li>
+                    <li><span class="spec-k">VGA:</span> RTX 4060 8GB</li>
+                    <li><span class="spec-k">RAM:</span> 16GB DDR5</li>
+                    <li><span class="spec-k">PSU:</span> 650W Bronze</li>
+                  </ul>
+                </div>
+                <div class="preset-bottom-bar">
+                  <div class="preset-price-val">22.800.000 ₫</div>
+                  <a href="/builder?preset=fps-competitive" class="tech-btn tech-btn-outline tech-btn-xs preset-load-btn" data-preset="fps-competitive">Nạp Builder</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 2: AAA Gaming & MOBA -->
+            <div class="preset-card preset-card-large">
+              <div class="preset-thumb-frame">
+                <span class="preset-index-stamp">02 // AAA</span>
+                <img src="/assets/preset-aaa-gaming.jpg" alt="CyberRig AAA Gaming Build" class="preset-thumb-img"
+                  loading="lazy" />
+                <div class="preset-thumb-gradient"></div>
+              </div>
+              <div class="preset-body-content">
+                <div>
+                  <span class="preset-task-badge">Ray Tracing 2K/4K</span>
+                  <h3 class="preset-name">AAA Gaming &amp; MOBA</h3>
+                  <ul class="preset-specs-compact">
+                    <li><span class="spec-k">CPU:</span> R7 7800X3D</li>
+                    <li><span class="spec-k">VGA:</span> RTX 4070 Ti S</li>
+                    <li><span class="spec-k">RAM:</span> 32GB DDR5</li>
+                    <li><span class="spec-k">PSU:</span> 750W Gold</li>
+                  </ul>
+                </div>
+                <div class="preset-bottom-bar">
+                  <div class="preset-price-val">44.500.000 ₫</div>
+                  <a href="/builder?preset=aaa-gaming" class="tech-btn tech-btn-outline tech-btn-xs preset-load-btn" data-preset="aaa-gaming">Nạp Builder</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 3: Editor & Render 3D -->
+            <div class="preset-card preset-card-large">
+              <div class="preset-thumb-frame">
+                <span class="preset-index-stamp">03 // 3D</span>
+                <img src="/assets/preset-editor-3d.jpg" alt="CyberRig 3D Workstation Build" class="preset-thumb-img"
+                  loading="lazy" />
+                <div class="preset-thumb-gradient"></div>
+              </div>
+              <div class="preset-body-content">
+                <div>
+                  <span class="preset-task-badge">Đồ họa &amp; Kiến trúc</span>
+                  <h3 class="preset-name">Editor &amp; Render 3D</h3>
+                  <ul class="preset-specs-compact">
+                    <li><span class="spec-k">CPU:</span> i7-14700K</li>
+                    <li><span class="spec-k">VGA:</span> RTX 4080 16GB</li>
+                    <li><span class="spec-k">RAM:</span> 64GB DDR5</li>
+                    <li><span class="spec-k">PSU:</span> 850W ATX 3.0</li>
+                  </ul>
+                </div>
+                <div class="preset-bottom-bar">
+                  <div class="preset-price-val">69.800.000 ₫</div>
+                  <a href="/builder?preset=creator-3d" class="tech-btn tech-btn-outline tech-btn-xs preset-load-btn" data-preset="creator-3d">Nạp Builder</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preset 4: AutoCAD & Kỹ thuật -->
+            <div class="preset-card preset-card-large">
+              <div class="preset-thumb-frame">
+                <span class="preset-index-stamp">04 // CAD</span>
+                <img src="/assets/preset-autocad.jpg" alt="CyberRig AutoCAD & Simulation Build" class="preset-thumb-img"
+                  loading="lazy" />
+                <div class="preset-thumb-gradient"></div>
+              </div>
+              <div class="preset-body-content">
+                <div>
+                  <span class="preset-task-badge">Kỹ thuật &amp; Mô phỏng</span>
+                  <h3 class="preset-name">AutoCAD &amp; Kỹ thuật</h3>
+                  <ul class="preset-specs-compact">
+                    <li><span class="spec-k">CPU:</span> i5-13600K</li>
+                    <li><span class="spec-k">VGA:</span> RTX 4060 Ti 16G</li>
+                    <li><span class="spec-k">RAM:</span> 32GB DDR5</li>
+                    <li><span class="spec-k">PSU:</span> 750W Gold</li>
+                  </ul>
+                </div>
+                <div class="preset-bottom-bar">
+                  <div class="preset-price-val">29.500.000 ₫</div>
+                  <a href="/builder?preset=autocad-engineering" class="tech-btn tech-btn-outline tech-btn-xs preset-load-btn" data-preset="autocad-engineering">Nạp Builder</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIER 4: Ending Call To Action (Trọn vẹn 1 trang 100vh) -->
+      <section class="tier-ending reveal-tier4" id="tier-ending">
+        <div class="tier4-viewport-container">
+          <h2 class="ending-title">BẮT ĐẦU CHẨN ĐOÁN &amp; XÂY DỰNG NGAY</h2>
+          <p class="ending-subtitle">
+            Hệ thống kiểm tra điện áp, socket và tính toán công suất nguồn PSU chuẩn xác đến từng watt.
+          </p>
+          <div class="ending-actions">
+            <button type="button" id="cta-init-builder-btn" class="tech-btn tech-btn-accent" style="padding: 14px 32px; font-size: 1.15rem;">
+              Khởi Tạo Cấu Hình PC
+            </button>
+            <button type="button" id="cta-b2b-btn" class="tech-btn tech-btn-outline" style="padding: 14px 28px; font-size: 1.15rem;">
+              Báo Giá Doanh Nghiệp
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =======================================================================
+         VIEW 1.5: PC BUILDER PAGE (/builder)
+         ======================================================================= -->
+    <div id="builder-view" class="builder-view-container" style="display: none;"></div>
+
+    <!-- =======================================================================
+         VIEW 1.6: HARDWARE CATALOG (/hardware)
+         ======================================================================= -->
+    <div id="hardware-view" class="hardware-view-container" style="display: none;"></div>
+
+    <!-- =======================================================================
+         VIEW 1.6B: PC SETUP & EQUIPMENTS (/equipments)
+         ======================================================================= -->
+    <div id="equipments-view" class="hardware-view-container" style="display: none;"></div>
+
+    <!-- =======================================================================
+         VIEW 1.7: CHECKOUT & VIETQR GATEWAY (/checkout)
+         ======================================================================= -->
+    <div id="checkout-view" class="checkout-view-container" style="display: none;"></div>
+
+    <!-- =======================================================================
+         VIEW 1.8: WARRANTY & REPAIR TRACKING (/repair-tracking)
+         ======================================================================= -->
+    <div id="tracking-view" class="tracking-view-container" style="display: none;"></div>
+
+    <!-- =======================================================================
+         VIEW 1.9: TECHNICIAN DIAGNOSTIC WORKBENCH (#technician)
+         ======================================================================= -->
+    <div id="technician-view" class="technician-view-container" style="display: none;"></div>
+
+
+    <!-- =======================================================================
+         VIEW 2: CUSTOMER DASHBOARD (#dashboard)
+         ======================================================================= -->
+    <div id="customer-dashboard-view" class="dashboard-container" style="display: none;">
+      <div id="dash-skeleton" style="display: none; padding: 40px; text-align: center; color: var(--text-muted);">
+        Đang xác thực thông tin tài khoản...
+      </div>
+
+      <div id="dash-content-root" style="display: none;">
+        <div class="dash-header-minimal">
+          <div class="dash-user-row">
+            <div>
+              <div class="dash-identity-role">Trung tâm khách hàng</div>
+              <div class="dash-identity-name" id="dash-greeting-name">Khách hàng</div>
+            </div>
+            <div>
+              <span class="role-badge-pill is-customer" id="dash-user-role-badge">CUSTOMER</span>
+            </div>
+          </div>
+
+          <div class="telemetry-minimal-grid">
+            <div class="telemetry-minimal-card">
+              <div class="telemetry-val-text" id="telemetry-orders-count">0</div>
+              <div class="telemetry-lbl-text">Đơn hàng đã đặt</div>
+            </div>
+            <div class="telemetry-minimal-card">
+              <div class="telemetry-val-text" id="telemetry-repairs-count">0</div>
+              <div class="telemetry-lbl-text">Thiết bị đang bảo hành/sửa chữa</div>
+            </div>
+            <div class="telemetry-minimal-card">
+              <div class="telemetry-val-text" style="font-size: 1.15rem; color: var(--accent-primary);">HOẠT ĐỘNG</div>
+              <div class="telemetry-lbl-text">Trạng thái bảo hành</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-tab-cluster">
+          <div class="dash-tab-buttons-group">
+            <button type="button" class="dash-tab-pill is-active" id="dash-tab-orders-btn">
+              [ ĐƠN HÀNG CỦA TÔI (<span id="dash-orders-badge">0</span>) ]
+            </button>
+            <button type="button" class="dash-tab-pill" id="dash-tab-repairs-btn">
+              [ THIẾT BỊ SỬA CHỮA &amp; BẢO HÀNH (<span id="dash-repairs-badge">0</span>) ]
+            </button>
+          </div>
+          <div>
+            <button type="button" class="tech-btn tech-btn-accent" id="dash-open-ticket-modal-btn" style="padding: 10px 20px; font-size: 0.8rem;">
+              [ + TẠO PHIẾU KIỂM TRA / SỬA CHỮA ]
+            </button>
+          </div>
+        </div>
+
+        <div id="dash-tab-orders-content">
+          <div id="dash-orders-list"></div>
+        </div>
+
+        <div id="dash-tab-repairs-content" style="display: none;">
+          <div id="dash-repairs-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         VIEW 3: ADMIN CONTROL CENTER (#admin)
+         ======================================================================= -->
+    <div id="admin-control-center-view" class="dashboard-container" style="display: none;">
+      <!-- Access Denied (HTTP 403) for Non-Admin -->
+      <div id="admin-denied-box"
+        style="display: none; max-width: 520px; margin: 40px auto; background: var(--bg-card); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0; padding: 36px 30px; text-align: center;">
+        <div
+          style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: #ef4444; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
+          403 FORBIDDEN &bull; YÊU CẦU QUYỀN ADMIN
+        </div>
+        <h2
+          style="font-family: var(--font-sans); font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">
+          Truy cập bị từ chối
+        </h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
+          Tài khoản của bạn không có quyền hạn Quản trị viên (ADMIN) để truy cập trung tâm điều phối và kho hàng.
+        </p>
+        <a href="#dashboard" class="pill-btn pill-btn-outline">Về Dàn máy của tôi</a>
+      </div>
+
+      <!-- Admin Main Content -->
+      <div id="admin-content-root" style="display: none;">
+        <div class="dash-header-minimal" style="border-left: 3px solid #ef4444;">
+          <div class="dash-user-row">
+            <div>
+              <div class="dash-identity-role" style="color: #ef4444;">Hệ thống quản trị kho</div>
+              <div class="dash-identity-name" id="admin-greeting-name">ADMIN CONTROL HUB</div>
+            </div>
+            <div>
+              <span class="role-badge-pill is-admin">ROLE: ADMIN</span>
+            </div>
+          </div>
+
+          <div class="telemetry-minimal-grid">
+            <div class="telemetry-minimal-card">
+              <div class="telemetry-val-text" id="admin-kpi-total">0</div>
+              <div class="telemetry-lbl-text">Tổng linh kiện danh mục</div>
+            </div>
+            <div class="telemetry-minimal-card" id="admin-kpi-low-card">
+              <div class="telemetry-val-text" id="admin-kpi-low" style="color: #ef4444;">0</div>
+              <div class="telemetry-lbl-text">Cảnh báo sắp hết kho (&le; 2)</div>
+            </div>
+            <div class="telemetry-minimal-card">
+              <div class="telemetry-val-text" id="admin-kpi-value" style="font-size: 1.25rem;">0 ₫</div>
+              <div class="telemetry-lbl-text">Tổng giá trị tồn kho</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Action Toolbar -->
+        <div
+          style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0; padding: 14px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; flex: 1;">
+            <input type="text" id="admin-search-box" class="form-field-input"
+              placeholder="Tìm theo tên linh kiện, hãng..."
+              style="max-width: 280px; padding: 8px 16px; font-size: 0.82rem;" />
+            <select id="admin-cat-filter" class="form-field-input"
+              style="max-width: 180px; padding: 8px 16px; font-size: 0.82rem;">
+              <option value="ALL">Tất cả danh mục</option>
+              <option value="CPU">Vi Xử Lý (CPU)</option>
+              <option value="MOTHERBOARD">Mainboard</option>
+              <option value="RAM">RAM</option>
+              <option value="GPU">Card Đồ Họa (GPU)</option>
+              <option value="PSU">Nguồn Máy Tính</option>
+              <option value="CASE">Vỏ Case</option>
+              <option value="COOLER">Tản Nhiệt</option>
+              <option value="STORAGE">Ổ Cứng SSD</option>
+            </select>
+            <select id="admin-stock-filter" class="form-field-input"
+              style="max-width: 180px; padding: 8px 16px; font-size: 0.82rem;">
+              <option value="ALL">Tất cả tồn kho</option>
+              <option value="LOW">Sắp hết (&le; 2 chiếc)</option>
+              <option value="OUT">Hết hàng (0 chiếc)</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" id="admin-open-add-btn" class="pill-btn pill-btn-accent">
+              + Thêm Linh Kiện
+            </button>
+          </div>
+        </div>
+
+        <!-- Minimalist Hardware Data Table -->
+        <div class="data-table-frame">
+          <table class="minimal-table">
+            <thead>
+              <tr>
+                <th>MÃ ID</th>
+                <th>TÊN LINH KIỆN</th>
+                <th>CHỦNG LOẠI</th>
+                <th>THƯƠNG HIỆU</th>
+                <th style="text-align: right;">GIÁ NIÊM YẾT</th>
+                <th style="text-align: center;">TỒN KHO</th>
+                <th style="text-align: center;">TRẠNG THÁI</th>
+                <th style="text-align: right;">THAO TÁC</th>
+              </tr>
+            </thead>
+            <tbody id="admin-hardware-tbody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       4. MODALS (MINIMALIST & PILL STYLING, ZERO ICONS)
+       ======================================================================= -->
+  <!-- Auth Modal (Login / Register) -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal-dialog-box">
+      <button type="button" class="modal-close-pill" id="auth-close-btn">[ ĐÓNG ]</button>
+
+      <div class="modal-header-box">
+        <h2 class="modal-headline">CYBERRIG AUTH</h2>
+        <p class="modal-subtext">Đăng nhập tài khoản hoặc khởi tạo thành viên mới</p>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
+        <button type="button" class="pill-btn pill-btn-accent" id="tab-login"
+          style="padding: 6px 18px; font-size: 0.78rem;">Đăng Nhập</button>
+        <button type="button" class="pill-btn pill-btn-ghost" id="tab-register"
+          style="padding: 6px 18px; font-size: 0.78rem;">Đăng Ký</button>
+      </div>
+
+      <!-- 1-Click Demo Accounts -->
+      <div
+        style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 0; padding: 10px 14px; margin-bottom: 20px;">
+        <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">Tài khoản thử
+          nghiệm nhanh:</div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button type="button" class="pill-btn pill-btn-ghost" id="demo-customer"
+            style="padding: 4px 10px; font-size: 0.72rem;">Customer</button>
+          <button type="button" class="pill-btn pill-btn-ghost" id="demo-tech"
+            style="padding: 4px 10px; font-size: 0.72rem;">Technician</button>
+          <button type="button" class="pill-btn pill-btn-ghost" id="demo-admin"
+            style="padding: 4px 10px; font-size: 0.72rem;">Admin</button>
+        </div>
+      </div>
+
+      <div class="alert-banner" id="modal-alert"></div>
+
+      <form id="auth-form">
+        <div class="form-field-group" id="group-fullname" style="display: none;">
+          <label class="form-field-label" for="input-fullname">Họ và tên *</label>
+          <input type="text" id="input-fullname" class="form-field-input" placeholder="Nguyễn Văn A" />
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label" for="input-email">Địa chỉ Email *</label>
+          <input type="email" id="input-email" class="form-field-input" placeholder="name@example.com" required />
+        </div>
+
+        <div class="form-field-group" id="group-phone" style="display: none;">
+          <label class="form-field-label" for="input-phone">Số điện thoại</label>
+          <input type="tel" id="input-phone" class="form-field-input" placeholder="0901234567" />
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label" for="input-password">Mật khẩu *</label>
+          <input type="password" id="input-password" class="form-field-input" placeholder="Tối thiểu 6 ký tự"
+            required />
+        </div>
+
+        <button type="submit" class="pill-btn pill-btn-accent" id="modal-submit-btn"
+          style="width: 100%; padding: 12px; margin-top: 8px;">
+          Xác Nhận Đăng Nhập
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Add Hardware Modal -->
+  <div class="modal-backdrop" id="admin-add-modal">
+    <div class="modal-dialog-box" style="max-width: 540px;">
+      <button type="button" class="modal-close-pill" id="admin-add-close-btn">[ ĐÓNG ]</button>
+
+      <div class="modal-header-box">
+        <h2 class="modal-headline">THÊM LINH KIỆN MỚI</h2>
+        <p class="modal-subtext">Nhập thông số và số lượng tồn kho ban đầu</p>
+      </div>
+
+      <div class="alert-banner" id="admin-add-alert"></div>
+
+      <form id="admin-add-form">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-field-group">
+            <label class="form-field-label" for="add-input-cat">Danh mục *</label>
+            <select id="add-input-cat" class="form-field-input" required>
+              <option value="CPU">Vi Xử Lý (CPU)</option>
+              <option value="MOTHERBOARD">Mainboard</option>
+              <option value="RAM">RAM</option>
+              <option value="GPU">Card Đồ Họa (GPU)</option>
+              <option value="PSU">Nguồn Máy Tính</option>
+              <option value="CASE">Vỏ Case</option>
+              <option value="COOLER">Tản Nhiệt</option>
+              <option value="STORAGE">Ổ Cứng SSD</option>
+            </select>
+          </div>
+          <div class="form-field-group">
+            <label class="form-field-label" for="add-input-brand">Hãng sản xuất *</label>
+            <input type="text" id="add-input-brand" class="form-field-input" placeholder="ASUS, MSI, Intel..."
+              required />
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label" for="add-input-name">Tên linh kiện *</label>
+          <input type="text" id="add-input-name" class="form-field-input"
+            placeholder="VD: ASUS ROG Strix GeForce RTX 4080 OC" required />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-field-group">
+            <label class="form-field-label" for="add-input-price">Giá niêm yết (VNĐ) *</label>
+            <input type="number" id="add-input-price" class="form-field-input" placeholder="32000000" min="1000"
+              required />
+          </div>
+          <div class="form-field-group">
+            <label class="form-field-label" for="add-input-stock">Số lượng tồn ban đầu *</label>
+            <input type="number" id="add-input-stock" class="form-field-input" placeholder="10" min="0" required />
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label" for="add-input-specs">Thông số JSON (Tùy chọn)</label>
+          <textarea id="add-input-specs" class="form-field-input" rows="3"
+            style="font-family: var(--font-mono); font-size: 0.78rem;"
+            placeholder='{"socket": "LGA1700", "tdpWatts": 125}'></textarea>
+        </div>
+
+        <button type="submit" class="pill-btn pill-btn-accent" id="admin-add-submit-btn"
+          style="width: 100%; padding: 12px; margin-top: 8px;">
+          Xác Nhận Thêm Vào Kho
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Restock & Reprice Modal -->
+  <div class="modal-backdrop" id="admin-restock-modal">
+    <div class="modal-dialog-box" style="max-width: 440px;">
+      <button type="button" class="modal-close-pill" id="admin-restock-close-btn">[ ĐÓNG ]</button>
+
+      <div class="modal-header-box">
+        <h2 class="modal-headline">NHẬP KHO &amp; ĐỔI GIÁ</h2>
+        <div id="restock-item-name"
+          style="font-size: 0.84rem; color: var(--accent-primary); margin-top: 6px; font-weight: 600;"></div>
+      </div>
+
+      <div class="alert-banner" id="admin-restock-alert"></div>
+
+      <form id="admin-restock-form">
+        <input type="hidden" id="restock-item-id" />
+        <div class="form-field-group">
+          <label class="form-field-label" for="restock-input-add">Số lượng nhập thêm (Cộng dồn) *</label>
+          <input type="number" id="restock-input-add" class="form-field-input" min="0" value="5" required />
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label" for="restock-input-price">Giá bán mới (VNĐ) (Để trống nếu giữ giá cũ)</label>
+          <input type="number" id="restock-input-price" class="form-field-input" placeholder="Để trống nếu không đổi"
+            min="1000" />
+        </div>
+
+        <button type="submit" class="pill-btn pill-btn-accent" id="admin-restock-submit-btn"
+          style="width: 100%; padding: 12px; margin-top: 8px;">
+          Cập Nhật Kho &amp; Giá
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- B2B Bulk Quote Request Modal -->
+  <div class="modal-backdrop" id="b2b-modal">
+    <div class="modal-dialog-box" style="border-radius: 0px;">
+      <button type="button" class="modal-close-pill" onclick="closeB2BQuote()">[ ĐÓNG ]</button>
+      <div class="modal-header-box">
+        <h2 class="modal-headline">BÁO GIÁ DỰ ÁN &amp; DOANH NGHIỆP (B2B)</h2>
+        <p class="modal-subtext">Cung ứng linh kiện số lượng lớn và tư vấn cấu hình phòng máy chuyên biệt</p>
+      </div>
+      <div id="b2b-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.82rem; border-radius: 0px;"></div>
+      <form id="b2b-quote-form">
+        <div class="form-field-group">
+          <label class="form-field-label">Họ và tên người liên hệ *</label>
+          <input type="text" id="b2b-name" class="form-field-input" placeholder="Nguyễn Văn A" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Địa chỉ Email *</label>
+          <input type="email" id="b2b-email" class="form-field-input" placeholder="contact@company.com" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Số điện thoại liên hệ *</label>
+          <input type="tel" id="b2b-phone" class="form-field-input" placeholder="0901234567" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Nhu cầu dự án (Số lượng &amp; Mục đích sử dụng) *</label>
+          <textarea id="b2b-requirements" class="form-field-input" rows="3" placeholder="Ví dụ: Cần báo giá 15 bộ máy đồ họa 3D cho công ty kiến trúc..." required style="border-radius: 0px;"></textarea>
+        </div>
+        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
+          [ GỬI YÊU CẦU BÁO GIÁ DỰ ÁN ]
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Simulator Quick Test Modal (Task FE-POLISH-DAYNIGHT-V3) -->
+  <div class="modal-backdrop" id="simulator-test-modal">
+    <div class="modal-dialog-box" style="max-width: 540px; border-radius: 0px;">
+      <button type="button" class="modal-close-pill" id="sim-test-close-btn">[ ĐÓNG ]</button>
+      <div class="modal-header-box">
+        <h2 class="modal-headline">KIỂM TRA TƯƠNG THÍCH NHANH</h2>
+        <p class="modal-subtext">Chọn thử nghiệm cặp CPU và Bo Mạch Chủ để kiểm tra chuẩn socket và biên TDP tức thì.</p>
+      </div>
+      <form id="sim-test-form">
+        <div class="form-field-group">
+          <label class="form-field-label">1. Chọn Bộ Vi Xử Lý (CPU) *</label>
+          <select id="sim-test-cpu-select" class="form-field-input" required style="border-radius: 0px;">
+            <option value="i5-13600k" data-socket="LGA1700" data-tdp="125" data-name="Intel Core i5-13600K">Intel Core i5-13600K (LGA1700 • 125W TDP)</option>
+            <option value="i7-14700k" data-socket="LGA1700" data-tdp="253" data-name="Intel Core i7-14700K">Intel Core i7-14700K (LGA1700 • 253W TDP)</option>
+            <option value="i9-14900k" data-socket="LGA1700" data-tdp="253" data-name="Intel Core i9-14900K">Intel Core i9-14900K (LGA1700 • 253W TDP)</option>
+            <option value="r7-7800x3d" data-socket="AM5" data-tdp="120" data-name="AMD Ryzen 7 7800X3D">AMD Ryzen 7 7800X3D (AM5 • 120W TDP)</option>
+            <option value="r9-7950x" data-socket="AM5" data-tdp="170" data-name="AMD Ryzen 9 7950X">AMD Ryzen 9 7950X (AM5 • 170W TDP)</option>
+          </select>
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">2. Chọn Bo Mạch Chủ (Mainboard) *</label>
+          <select id="sim-test-mb-select" class="form-field-input" required style="border-radius: 0px;">
+            <option value="b760-plus" data-socket="LGA1700" data-name="ASUS TUF Gaming B760-PLUS WIFI">ASUS TUF Gaming B760-PLUS WIFI (Socket LGA1700 • DDR5)</option>
+            <option value="z790-tomahawk" data-socket="LGA1700" data-name="MSI MAG Z790 TOMAHAWK WIFI">MSI MAG Z790 TOMAHAWK WIFI (Socket LGA1700 • DDR5)</option>
+            <option value="b650-tomahawk" data-socket="AM5" data-name="MSI MAG B650 TOMAHAWK WIFI">MSI MAG B650 TOMAHAWK WIFI (Socket AM5 • DDR5)</option>
+            <option value="x670e-pro" data-socket="AM5" data-name="ASUS ROG STRIX X670E-A GAMING">ASUS ROG STRIX X670E-A GAMING (Socket AM5 • DDR5)</option>
+          </select>
+        </div>
+        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 14px; margin-top: 10px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
+          [ BẮT ĐẦU QUÉT TƯƠNG THÍCH ]
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assembly Service Modal -->
+  <div class="modal-backdrop" id="assembly-modal">
+    <div class="modal-dialog-box" style="border-radius: 0px;">
+      <button type="button" class="modal-close-pill" onclick="closeAssemblyService()">[ ĐÓNG ]</button>
+      <div class="modal-header-box">
+        <h2 class="modal-headline">DỊCH VỤ LẮP RÁP TẬN NƠI</h2>
+        <p class="modal-subtext">Kỹ thuật viên chuyên nghiệp hỗ trợ lắp ráp, đi dây và tối ưu hóa hệ thống tại nhà</p>
+      </div>
+      <div id="assembly-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.82rem; border-radius: 0px;"></div>
+      <form id="assembly-form">
+        <div class="form-field-group">
+          <label class="form-field-label">Họ và tên khách hàng *</label>
+          <input type="text" id="assembly-name" class="form-field-input" placeholder="Nguyễn Văn A" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Số điện thoại liên hệ *</label>
+          <input type="tel" id="assembly-phone" class="form-field-input" placeholder="0901234567" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Địa chỉ lắp đặt tận nơi *</label>
+          <input type="text" id="assembly-address" class="form-field-input" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành" required style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Thời gian mong muốn lắp đặt</label>
+          <input type="datetime-local" id="assembly-datetime" class="form-field-input" style="border-radius: 0px;" />
+        </div>
+        <div class="form-field-group">
+          <label class="form-field-label">Gói dịch vụ mong muốn *</label>
+          <select id="assembly-package" class="form-field-input" style="border-radius: 0px;">
+            <option>[ GÓI 1 ] Lắp ráp PC hoàn chỉnh &amp; Cài đặt Windows/Driver cơ bản</option>
+            <option>[ GÓI 2 ] Lắp ráp cao cấp kèm đi dây nghệ thuật &amp; Test stress bench</option>
+            <option>[ GÓI 3 ] Nâng cấp linh kiện / Tản nhiệt nước Custom theo yêu cầu</option>
+          </select>
+        </div>
+        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
+          [ XÁC NHẬN ĐẶT LỊCH LẮP RÁP ]
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       REPAIR & INSPECTION TICKET INTAKE MODAL (Task 1 & Task 2)
+       100% Icon-Free, Pure Typographic & Sharp Industrial Design
+       ======================================================================= -->
+  <div class="ticket-modal-overlay" id="ticket-create-modal">
+    <div class="ticket-modal-card">
+      <div class="ticket-modal-header">
+        <div>
+          <span class="ticket-modal-badge">[ CYBERRIG HARDWARE LAB // DỊCH VỤ KIỂM TRA &amp; SỬA CHỮA ]</span>
+          <h2 class="ticket-modal-title">TẠO PHIẾU TIẾP NHẬN THIẾT BỊ</h2>
+        </div>
+        <button type="button" class="ticket-modal-close" id="ticket-modal-close-btn">[ ĐÓNG ]</button>
+      </div>
+
+      <!-- Form Error / Success Alert -->
+      <div id="ticket-modal-alert" style="display: none; padding: 12px 16px; margin-bottom: 16px; font-size: 0.84rem; font-family: var(--font-mono); font-weight: 600;"></div>
+
+      <form id="ticket-create-form">
+        <!-- Dual Device Origin Selector -->
+        <label class="modal-label">1. NGUỒN GỐC THIẾT BỊ TIẾP NHẬN *</label>
+        <div class="origin-selector-cluster">
+          <div class="origin-option-card is-selected" id="origin-opt-cyberrig" data-origin="CYBERRIG">
+            <span class="origin-option-title">[ MÁY MUA TẠI CYBERRIG ]</span>
+            <span class="origin-option-desc">Dàn PC hoặc linh kiện mua tại CyberRig Lab (Hỗ trợ tra cứu theo Serial &amp; bảo hành ưu tiên)</span>
+          </div>
+          <div class="origin-option-card" id="origin-opt-external" data-origin="EXTERNAL">
+            <span class="origin-option-title">[ LINH KIỆN / MÁY MANG TỪ NGOÀI ]</span>
+            <span class="origin-option-desc">Linh kiện hoặc case PC mua nơi khác (Khách vãng lai mang đến đo xung, giám định và sửa chữa)</span>
+          </div>
+        </div>
+        <input type="hidden" id="ticket-input-origin" value="CYBERRIG" />
+
+        <!-- Customer Telemetry Grid -->
+        <div class="modal-form-grid">
+          <div>
+            <label class="modal-label" for="ticket-input-name">HỌ VÀ TÊN KHÁCH HÀNG *</label>
+            <input type="text" id="ticket-input-name" class="modal-input" placeholder="Ví dụ: Nguyễn Văn Khách" required />
+          </div>
+          <div>
+            <label class="modal-label" for="ticket-input-phone">SỐ ĐIỆN THOẠI LIÊN HỆ *</label>
+            <input type="tel" id="ticket-input-phone" class="modal-input" placeholder="0901234567" required />
+          </div>
+          <div>
+            <label class="modal-label" for="ticket-input-email">ĐỊA CHỈ EMAIL (NHẬN TIẾN ĐỘ)</label>
+            <input type="email" id="ticket-input-email" class="modal-input" placeholder="khachhang@example.com" />
+          </div>
+          <div>
+            <label class="modal-label" for="ticket-input-priority">MỨC ĐỘ ƯU TIÊN TIẾP NHẬN *</label>
+            <select id="ticket-input-priority" class="modal-select">
+              <option value="STANDARD">[ TIÊU CHUẨN ] Giám định thông thường trong 24h</option>
+              <option value="URGENT">[ GẤP // CẤP TỐC ] Giám định ưu tiên trong 4h</option>
+            </select>
+          </div>
+          <div class="modal-field-full">
+            <label class="modal-label" for="ticket-input-device">TÊN CẤU HÌNH HOẶC LOẠI LINH KIỆN *</label>
+            <input type="text" id="ticket-input-device" class="modal-input" placeholder="Ví dụ: PC Gaming Intel Core i7 / RTX 4070 Ti HOẶC VGA ASUS ROG STRIX 3080" required />
+          </div>
+          <div class="modal-field-full">
+            <label class="modal-label" for="ticket-input-serial">SỐ SERIAL / SERVICE TAG / PART NUMBER</label>
+            <input type="text" id="ticket-input-serial" class="modal-input" placeholder="Ví dụ: CR-SN-2026-9921 hoặc SN trên tem linh kiện (nếu có)" />
+          </div>
+          <div class="modal-field-full">
+            <label class="modal-label" for="ticket-input-condition">TÌNH TRẠNG NGOẠI QUAN BAN ĐẦU *</label>
+            <textarea id="ticket-input-condition" class="modal-textarea" rows="2" placeholder="Ví dụ: Máy còn nguyên vẹn, kính không trầy, quạt bám bụi, đầy đủ phụ kiện..." required></textarea>
+          </div>
+          <div class="modal-field-full">
+            <label class="modal-label" for="ticket-input-fault">MÔ TẢ HIỆN TƯỢNG LỖI / TRIỆU CHỨNG HƯ HỎNG *</label>
+            <textarea id="ticket-input-fault" class="modal-textarea" rows="3" placeholder="Ví dụ: Bật máy quạt quay nhưng màn hình đen, buzzer phát 3 tiếng bip, hoặc sập nguồn khi vào game..." required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-actions-bar">
+          <button type="button" class="tech-btn tech-btn-outline" id="ticket-modal-cancel-btn">
+            [ HỦY BỎ ]
+          </button>
+          <button type="submit" class="tech-btn tech-btn-accent" id="ticket-modal-submit-btn">
+            [ XÁC NHẬN TẠO PHIẾU TIẾP NHẬN ]
+          </button>
+        </div>
+      </form>
+
+      <!-- Success Result Screen -->
+      <div id="ticket-modal-success" style="display: none; text-align: center; padding: 24px 10px;">
+        <span class="ticket-modal-badge" style="color: #10b981;">[ TIẾP NHẬN THÀNH CÔNG // KHỞI TẠO MÃ PHIẾU ]</span>
+        <h3 class="ticket-modal-title" style="margin: 10px 0 6px;">PHIẾU TIẾP NHẬN ĐÃ ĐƯỢC TẠO</h3>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+          Hệ thống giám định CyberRig Lab đã ghi nhận thiết bị vào hàng đợi kiểm tra.
+        </p>
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); padding: 16px; margin-bottom: 24px;">
+          <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">MÃ TRA CỨU TIẾN TRÌNH:</div>
+          <div id="ticket-modal-result-code" style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent-primary); letter-spacing: 0.05em;">
+            TK-XXXXXXXX-XXXX
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="tech-btn tech-btn-accent" id="ticket-modal-track-btn">
+            [ THEO DÕI TIẾN ĐỘ NGAY ]
+          </button>
+          <button type="button" class="tech-btn tech-btn-outline" id="ticket-modal-done-btn">
+            [ ĐÓNG VÀ VỀ DASHBOARD ]
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Bootstrap Module -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,476 @@
+/* ==========================================================================
+   CyberRig Checkout & VietQR Banking Gateway Stylesheet
+   100% Icon-Free, Pure Typographic & Sharp Industrial Design Engine
+   Full Day/Night Theme Support
+   ========================================================================== */
+
+.checkout-view-container {
+  min-height: calc(100vh - 72px);
+  padding: 32px 24px 80px;
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: var(--font-body);
+}
+
+.checkout-shell {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* Header Bar */
+.checkout-header-bar {
+  margin-bottom: 28px;
+}
+
+.checkout-badge-mono {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.checkout-main-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  line-height: 1.05;
+  margin: 0 0 6px;
+}
+
+.checkout-main-subtext {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Split-View Layout */
+.checkout-split-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .checkout-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Industrial Card */
+.checkout-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.checkout-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.checkout-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkout-step-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 0.06em;
+}
+
+.checkout-card-title {
+  font-family: var(--font-condensed);
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+  color: var(--text-main);
+}
+
+/* Form Controls */
+.checkout-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .checkout-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkout-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkout-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.checkout-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.checkout-input {
+  background: var(--bg-surface-elevated, #1c1f21);
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  padding: 12px 14px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: var(--trans-fast);
+}
+
+body.theme-day .checkout-input {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+}
+
+.checkout-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+/* Payment Method Selection */
+.payment-selector-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment-method-panel {
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  border-radius: 0;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: var(--trans-fast);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.payment-method-panel:hover {
+  border-color: var(--border-focus);
+}
+
+.payment-method-panel.is-selected {
+  border-color: var(--accent-primary);
+  background: var(--accent-subtle);
+}
+
+.payment-marker {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+  padding: 2px 8px;
+  border-radius: 0;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.payment-method-panel.is-selected .payment-marker {
+  color: var(--accent-contrast, #000000);
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.payment-info {
+  flex: 1;
+}
+
+.payment-headline {
+  font-family: var(--font-condensed);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-main);
+  margin: 0 0 4px;
+}
+
+.payment-subtext {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Right Column: Build Items Summary */
+.checkout-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 440px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 20px;
+}
+
+.checkout-items-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.checkout-items-list::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+}
+
+.checkout-item-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+}
+
+.checkout-item-thumb {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border: 1px solid var(--border-medium);
+  border-radius: 0;
+  background: #000000;
+  flex-shrink: 0;
+}
+
+.checkout-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-item-cat {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+}
+
+.checkout-item-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 2px 0 4px;
+}
+
+.checkout-item-price {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Financial Ledger Breakdown */
+.checkout-ledger {
+  margin-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 16px;
+}
+
+.ledger-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.ledger-row-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  margin-top: 12px;
+  border-top: 1px solid var(--border-medium);
+}
+
+.ledger-total-lbl {
+  font-family: var(--font-condensed);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.ledger-total-val {
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+/* Order Success & Dynamic VietQR */
+.order-success-panel {
+  max-width: 820px;
+  margin: 20px auto 0;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-primary);
+  border-radius: 0;
+  padding: 40px 32px;
+  box-shadow: var(--shadow-card);
+}
+
+.order-success-code-box {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  background: var(--accent-subtle);
+  padding: 10px 24px;
+  margin: 16px 0 28px;
+  border-radius: 0;
+}
+
+/* Clean Banking Card (No Cartoon/Playful elements) */
+.banking-telemetry-box {
+  max-width: 440px;
+  margin: 0 auto 28px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 0;
+  padding: 24px;
+  text-align: center;
+}
+
+.banking-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.banking-provider-title {
+  font-family: var(--font-condensed);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  color: #1e3a8a;
+}
+
+.banking-network-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: #0284c7;
+  color: #ffffff;
+  padding: 3px 8px;
+}
+
+.banking-qr-frame {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 6px;
+}
+
+.banking-qr-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.banking-table {
+  width: 100%;
+  font-size: 0.85rem;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.banking-table td {
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.banking-table .lbl {
+  color: #64748b;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.banking-table .val {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.banking-table .val-highlight {
+  color: #16a34a;
+  font-size: 1.05rem;
+}
+
+.banking-table .val-code {
+  color: #2563eb;
+}
+
+.banking-expiry-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 14px;
+}
+
+/* Confirmation Status Badges */
+.paid-status-box {
+  display: inline-block;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #10b981;
+  border: 1px solid #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  margin-top: 16px;
+}

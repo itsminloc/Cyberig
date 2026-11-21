@@ -1,0 +1,17 @@
+# Dependencies & Build outputs
+node_modules/
+dist/
+coverage/
+
+# Environment & Secrets (CHỈ giữ lại .env.example)
+.env
+.env.*
+!.env.example
+
+# Logs & OS / Office temp files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+~$*.docx
+~$*.xlsx

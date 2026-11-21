@@ -1,0 +1,56 @@
+{
+  "name": "cyberrig",
+  "version": "0.1.0",
+  "description": "CyberRig - Ecosystem for PC Hardware Retail, Custom PC Compatibility Builder, and Repair/Warranty Tracking",
+  "workspaces": [
+    "CyberRig-Backend",
+    "CyberRig-Frontend",
+    "CyberRig-Admin"
+  ],
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts",
+    "db:ping": "tsx src/core/db.ts",
+    "db:seed": "tsx src/core/seed.ts",
+    "test": "tsx --test src/**/*.spec.ts tests/**/*.spec.ts",
+    "test:backend": "tsx --test CyberRig-Backend/src/**/*.spec.ts",
+    "test:frontend": "tsx --test CyberRig-Frontend/src/**/*.spec.ts",
+    "test:admin": "tsx --test CyberRig-Admin/src/**/*.spec.ts",
+    "test:monorepo": "tsx --test CyberRig-Backend/src/**/*.spec.ts CyberRig-Frontend/src/**/*.spec.ts CyberRig-Admin/src/**/*.spec.ts tests/**/*.spec.ts",
+    "build": "tsc",
+    "lint": "eslint src/ --ext .ts,.tsx"
+  },
+  "keywords": [
+    "cyberrig",
+    "pc-builder",
+    "hardware-retail",
+    "repair-ticket-tracking",
+    "modular-architecture"
+  ],
+  "author": "CyberRig Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.11.0",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "tsx": "^4.23.13",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

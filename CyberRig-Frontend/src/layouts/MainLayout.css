@@ -1,0 +1,167 @@
+/* ==========================================================================
+   CyberRig Main Layout Styles
+   Gaming Ambient Atmosphere with Cyber Grid & Glow Spots
+   Strict Mobile Optimization (< 768px): Zero Horizontal Overflow
+   ========================================================================== */
+
+.cyber-layout-root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--cr-bg-base);
+  color: var(--cr-text-primary);
+  overflow-x: hidden;
+}
+
+/* Ambient Cyber Lighting & Tech Grid */
+.cyber-layout-ambient {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-spot-cyan {
+  position: absolute;
+  top: -150px;
+  left: 15%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--cr-cyan-rgb), 0.12) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.ambient-spot-magenta {
+  position: absolute;
+  top: 30%;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--cr-magenta-rgb), 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.ambient-spot-violet {
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--cr-violet-rgb), 0.09) 0%, transparent 70%);
+  filter: blur(70px);
+}
+
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, #000 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, #000 60%, transparent 100%);
+}
+
+/* Main Content Area */
+.cyber-layout-main {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  padding-top: 104px;
+  /* Space for floating navbar */
+  padding-bottom: 60px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+/* Layout Footer */
+.cyber-layout-footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--cr-border-subtle);
+  background: rgba(11, 15, 25, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 32px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cyber-footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cyber-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cyber-status-pulse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--cr-font-mono);
+  font-size: 0.75rem;
+  color: var(--cr-status-matrix-green);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cr-status-matrix-green);
+  box-shadow: 0 0 8px var(--cr-status-matrix-green);
+}
+
+.cyber-footer-copy {
+  font-family: var(--cr-font-body);
+  font-size: 0.78rem;
+  color: var(--cr-text-muted);
+}
+
+/* Mobile Responsive Optimization (< 768px) */
+@media (max-width: 768px) {
+  .cyber-layout-root {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .cyber-layout-main {
+    padding-top: 86px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+  }
+
+  .cyber-layout-footer {
+    padding: 24px 16px;
+  }
+
+  .cyber-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,610 @@
+/* ==========================================================================
+   CyberRig Admin Control Center & Inventory Hub - Cyberpunk Neon Styling
+   Task FE-10 / Sprint 5
+   Color Palette: Admin Red #FF003C, Neon Cyan #00F0FF, Amber #FFAA00, Dark Canvas #07090E
+   ========================================================================== */
+
+.cyber-admin-page-root {
+  min-height: 100vh;
+  background-color: #07090e;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(255, 0, 60, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.06) 0%, transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  color: #f8fafc;
+  padding: 2rem 1.5rem 5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cyber-admin-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   1. Header & Admin Command HUD
+   ========================================================================== */
+.cyber-admin-header {
+  position: relative;
+  background: #0d111a;
+  border: 1px solid rgba(255, 0, 60, 0.35);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  box-shadow: 0 0 30px rgba(255, 0, 60, 0.1), inset 0 0 25px rgba(255, 0, 60, 0.03);
+}
+
+.cyber-admin-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 3px;
+  background: #ff003c;
+  box-shadow: 0 0 12px #ff003c;
+}
+
+.cyber-admin-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-admin-brand-box {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.cyber-admin-shield-icon {
+  width: 54px;
+  height: 54px;
+  background: rgba(255, 0, 60, 0.12);
+  border: 2px solid #ff003c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  box-shadow: 0 0 16px rgba(255, 0, 60, 0.5);
+}
+
+.cyber-admin-title-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cyber-admin-badge-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: #ff003c;
+  text-transform: uppercase;
+}
+
+.cyber-admin-main-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(255, 0, 60, 0.5);
+}
+
+.cyber-admin-role-pill {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 6px 16px;
+  border-radius: 2px;
+  background: rgba(255, 0, 60, 0.15);
+  border: 1px solid #ff003c;
+  color: #ff003c;
+  box-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+  text-transform: uppercase;
+}
+
+/* KPI Cards Grid */
+.cyber-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.cyber-kpi-card {
+  background: rgba(17, 22, 34, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid #00f0ff;
+  padding: 1.15rem 1.35rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.25s ease;
+}
+
+.cyber-kpi-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.cyber-kpi-card.is-danger {
+  border-left-color: #ff003c;
+  background: rgba(255, 0, 60, 0.05);
+  border-color: rgba(255, 0, 60, 0.35);
+  animation: dangerPulse 2s infinite ease-in-out;
+}
+
+@keyframes dangerPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.45); }
+}
+
+.cyber-kpi-card.is-green {
+  border-left-color: #00ff66;
+}
+
+.cyber-kpi-icon {
+  font-size: 2rem;
+}
+
+.cyber-kpi-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.cyber-kpi-val {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.cyber-kpi-card.is-danger .cyber-kpi-val {
+  color: #ff003c;
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
+}
+
+.cyber-kpi-card.is-green .cyber-kpi-val {
+  color: #00ff66;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+.cyber-kpi-label {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   2. Toolbar: Search, Filters & CTA
+   ========================================================================== */
+.cyber-admin-toolbar {
+  background: #0d111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.cyber-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.cyber-search-box {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 380px;
+}
+
+.cyber-search-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem 0.65rem 2.4rem;
+  border-radius: 3px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cyber-search-input:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.cyber-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.cyber-filter-select {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f8fafc;
+  font-size: 0.88rem;
+  padding: 0.65rem 1rem;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cyber-filter-select:focus {
+  border-color: #00f0ff;
+}
+
+.cyber-btn-add-hardware {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff003c, #b3002a);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+}
+
+.cyber-btn-add-hardware:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 60, 0.75);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. Hardware Data Grid Table
+   ========================================================================== */
+.cyber-grid-wrapper {
+  background: #0d111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+  overflow-x: auto;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.cyber-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.cyber-admin-table th {
+  background: rgba(17, 22, 34, 0.95);
+  color: #00f0ff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+  white-space: nowrap;
+}
+
+.cyber-admin-table td {
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.cyber-admin-table tr:hover td {
+  background: rgba(0, 240, 255, 0.02);
+}
+
+.cyber-cat-pill {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+}
+
+.cyber-item-name {
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cyber-item-model {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.cyber-price-tag {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: #00f0ff;
+}
+
+/* Stock Badges */
+.cyber-stock-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.cyber-stock-badge.is-in-stock {
+  background: rgba(0, 255, 102, 0.12);
+  border: 1px solid #00ff66;
+  color: #00ff66;
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.25);
+}
+
+.cyber-stock-badge.is-low {
+  background: rgba(255, 170, 0, 0.15);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+  animation: stockPulse 1.5s infinite alternate;
+}
+
+@keyframes stockPulse {
+  0% { box-shadow: 0 0 6px rgba(255, 170, 0, 0.3); }
+  100% { box-shadow: 0 0 16px rgba(255, 170, 0, 0.7); }
+}
+
+.cyber-stock-badge.is-out {
+  background: rgba(255, 0, 60, 0.15);
+  border: 1px solid #ff003c;
+  color: #ff003c;
+}
+
+/* Table Row Actions */
+.cyber-actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cyber-btn-restock {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  color: #00f0ff;
+  cursor: pointer;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  transition: all 0.2s ease;
+}
+
+.cyber-btn-restock:hover {
+  background: #00f0ff;
+  color: #050811;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+.cyber-btn-delete {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  background: rgba(255, 0, 60, 0.1);
+  border: 1px solid rgba(255, 0, 60, 0.4);
+  color: #ff003c;
+  cursor: pointer;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  transition: all 0.2s ease;
+}
+
+.cyber-btn-delete:hover {
+  background: #ff003c;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 0, 60, 0.6);
+}
+
+/* ==========================================================================
+   4. Cyberpunk Modal Windows
+   ========================================================================== */
+.cyber-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 15, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cyber-admin-modal {
+  width: 100%;
+  max-width: 620px;
+  background: #0d111a;
+  border: 1px solid rgba(255, 0, 60, 0.4);
+  box-shadow: 0 0 40px rgba(255, 0, 60, 0.2), 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  padding: 2rem;
+  position: relative;
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.cyber-modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.cyber-modal-close-btn:hover {
+  border-color: #ff003c;
+  color: #ff003c;
+}
+
+.cyber-modal-header {
+  margin-bottom: 1.5rem;
+}
+
+.cyber-modal-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: #ff003c;
+  margin-bottom: 4px;
+}
+
+.cyber-modal-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.cyber-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.cyber-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.cyber-form-label {
+  display: block;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.cyber-form-input,
+.cyber-form-select,
+.cyber-form-textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.92rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cyber-form-input:focus,
+.cyber-form-select:focus,
+.cyber-form-textarea:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.cyber-form-textarea {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  resize: vertical;
+}
+
+.cyber-modal-alert {
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.cyber-modal-alert.is-error {
+  background: rgba(255, 0, 60, 0.12);
+  border: 1px solid #ff003c;
+  color: #ff4d6d;
+}
+
+.cyber-modal-alert.is-success {
+  background: rgba(0, 255, 102, 0.12);
+  border: 1px solid #00ff66;
+  color: #00ff66;
+}
+
+.cyber-modal-submit-btn {
+  width: 100%;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff003c, #b3002a);
+  border: none;
+  padding: 0.85rem;
+  cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+}
+
+.cyber-modal-submit-btn:hover {
+  box-shadow: 0 0 30px rgba(255, 0, 60, 0.75);
+}
+
+.cyber-modal-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,569 @@
+/**
+ * DiagnosticEditorPage Styles
+ * High-tech Split-View diagnostic editor with Cyberpunk aesthetics
+ */
+
+.cyber-diag-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header & Breadcrumb */
+.cyber-diag-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--cr-border-subtle);
+  padding-bottom: 1rem;
+}
+
+.cyber-diag-back-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-secondary);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.cyber-diag-back-btn:hover {
+  border-color: var(--cr-border-cyan);
+  color: var(--cr-primary-cyan);
+  background: rgba(0, 240, 255, 0.06);
+}
+
+.cyber-diag-ticket-badge {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 8px;
+}
+
+/* Main Split-View Layout */
+.cyber-diag-split-layout {
+  display: grid;
+  grid-template-columns: 46% 54%;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .cyber-diag-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Column: Diagnostics Notes & Info */
+.cyber-diag-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Section Box */
+.cyber-diag-card {
+  background: var(--cr-bg-surface);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cyber-diag-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.75rem;
+}
+
+/* Ticket Info Grid */
+.cyber-diag-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.cyber-diag-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cyber-diag-meta-label {
+  font-size: 0.75rem;
+  color: var(--cr-text-muted);
+  text-transform: uppercase;
+}
+
+.cyber-diag-meta-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cr-text-primary);
+}
+
+/* Textarea Diagnostic Notes */
+.cyber-diag-textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 0.85rem;
+  background: rgba(10, 12, 16, 0.85);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  color: var(--cr-text-primary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cyber-diag-textarea:focus {
+  outline: none;
+  border-color: #ffaa00;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.25);
+  background: rgba(10, 12, 16, 1);
+}
+
+/* Quick Tags */
+.cyber-quick-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.cyber-quick-tag-label {
+  font-size: 0.75rem;
+  color: var(--cr-text-muted);
+}
+
+.cyber-quick-tag-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 14px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  color: var(--cr-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cyber-quick-tag-btn:hover {
+  border-color: #ffaa00;
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.08);
+}
+
+/* Labor Cost Input */
+.cyber-cost-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cyber-cost-input {
+  width: 100%;
+  padding: 0.75rem 3.5rem 0.75rem 1rem;
+  background: rgba(10, 12, 16, 0.85);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  color: #ffaa00;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--cr-font-mono, monospace);
+  transition: all 0.2s ease;
+}
+
+.cyber-cost-input:focus {
+  outline: none;
+  border-color: #ffaa00;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.25);
+}
+
+.cyber-cost-unit {
+  position: absolute;
+  right: 1rem;
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--cr-text-muted);
+  font-weight: 600;
+}
+
+.cyber-cost-presets {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cyber-preset-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--cr-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cyber-preset-pill:hover {
+  border-color: var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+}
+
+/* Right Column: Quoted Parts & Cost Summary */
+.cyber-diag-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cyber-parts-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cyber-btn-add-part {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.cyber-btn-add-part:hover {
+  background: var(--cr-primary-cyan);
+  color: #000000;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+/* Parts Table / List */
+.cyber-parts-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--cr-text-muted);
+  border: 1px dashed var(--cr-border-subtle);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-quoted-part-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  background: var(--cr-bg-surface-elevated);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 10px;
+  gap: 1rem;
+  transition: all 0.18s ease;
+}
+
+.cyber-quoted-part-item:hover {
+  border-color: var(--cr-border-cyan);
+}
+
+.cyber-part-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cyber-part-brand {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.7rem;
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-part-name {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--cr-text-primary);
+  line-height: 1.35;
+}
+
+.cyber-part-unit-price {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.825rem;
+  color: var(--cr-text-muted);
+}
+
+/* Quantity Controls (>= 44px touch target) */
+.cyber-qty-controller {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.cyber-qty-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 6px;
+  color: var(--cr-text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.cyber-qty-btn:hover:not(:disabled) {
+  background: var(--cr-primary-cyan);
+  color: #000000;
+}
+
+.cyber-qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cyber-qty-val {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+  min-width: 32px;
+  text-align: center;
+}
+
+.cyber-part-subtotal {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffaa00;
+  min-width: 110px;
+  text-align: right;
+}
+
+.cyber-part-del-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(255, 0, 85, 0.08);
+  border: 1px solid rgba(255, 0, 85, 0.2);
+  border-radius: 8px;
+  color: var(--cr-primary-magenta);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.15s ease;
+}
+
+.cyber-part-del-btn:hover {
+  background: var(--cr-primary-magenta);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+}
+
+/* Cost Summary Card (Sticky) */
+.cyber-summary-box {
+  background: var(--cr-bg-surface);
+  border: 1px solid rgba(255, 170, 0, 0.4);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 170, 0, 0.08);
+}
+
+.cyber-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: var(--cr-text-secondary);
+}
+
+.cyber-summary-row.total-row {
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  padding-top: 1rem;
+}
+
+.cyber-summary-total-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cyber-summary-total-price {
+  font-family: var(--cr-font-mono, monospace);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffaa00;
+  text-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
+}
+
+/* Error Banner */
+.cyber-diag-error-banner {
+  background: rgba(255, 0, 85, 0.12);
+  border: 1px solid var(--cr-primary-magenta);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  color: #ff4d79;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+}
+
+/* Action Button */
+.cyber-btn-submit-quote {
+  background: linear-gradient(135deg, #ffaa00, #f59e0b);
+  border: none;
+  border-radius: 10px;
+  color: #000000;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 54px;
+  box-shadow: 0 0 25px rgba(255, 170, 0, 0.4);
+  transition: all 0.22s ease;
+  width: 100%;
+}
+
+.cyber-btn-submit-quote:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(255, 170, 0, 0.65);
+}
+
+.cyber-btn-submit-quote:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Success Overlay Modal */
+.cyber-diag-success-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 12, 0.88);
+  backdrop-filter: blur(12px);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.cyber-diag-success-card {
+  background: var(--cr-bg-surface);
+  border: 1px solid var(--cr-neon-green);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  max-width: 540px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 255, 136, 0.2);
+}
+
+.cyber-success-badge-icon {
+  font-size: 3.5rem;
+}
+
+.cyber-success-title {
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--cr-text-primary);
+}
+
+.cyber-success-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cr-text-secondary);
+  line-height: 1.6;
+}
+
+.cyber-success-btn-group {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.cyber-success-btn-primary {
+  flex: 1;
+  background: var(--cr-neon-green);
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.cyber-success-btn-secondary {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cr-text-primary);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+}

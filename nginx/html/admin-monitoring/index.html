@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberRig — SI Monitoring & Interactive Testing Lab</title>
+  <meta name="description" content="Hệ thống giám sát tích hợp thời gian thực (SI Monitoring) và phòng Lab kiểm thử kịch bản (Scenario Testing Lab) cho CyberRig Enterprise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin-monitoring/monitoring.css" />
+</head>
+<body>
+
+  <!-- Top Mission Control Header -->
+  <header class="soc-header">
+    <div class="soc-brand">
+      <span class="soc-badge-env" id="sseIndicator">
+        <span class="pulse-dot"></span> STREAM CONNECTED [SSE]
+      </span>
+      <div class="soc-title-wrap">
+        <h1>CYBERRIG // SI MONITORING & TESTING LAB</h1>
+        <p id="socUserDisplay">OPERATOR: QUẢN TRỊ VIÊN HỆ THỐNG [ADMIN]</p>
+      </div>
+    </div>
+
+    <!-- Dual-Mode Switcher Tabs -->
+    <div class="soc-mode-switch">
+      <button type="button" class="mode-tab-btn is-active" id="tabRealtime">
+        <span>[01] REAL-TIME MONITORING</span>
+      </button>
+      <button type="button" class="mode-tab-btn" id="tabScenario">
+        <span>[02] SCENARIO TESTING LAB</span>
+      </button>
+    </div>
+
+    <!-- Quick Navigation Links -->
+    <div class="soc-nav-actions">
+      <a href="/#admin" class="soc-nav-btn is-accent" id="navToAdminOps">
+        <span>&larr; Quản Lý Kho Bán Lẻ</span>
+      </a>
+      <a href="/" class="soc-nav-btn" id="navToStorefront">
+        <span>Cổng Khách Hàng</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main class="soc-main">
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 1: REAL-TIME MONITORING MODE -->
+    <!-- ========================================================================= -->
+    <section class="soc-view-section is-visible" id="sectionRealtime">
+      
+      <!-- Top Telemetry Row -->
+      <div class="telemetry-row">
+        <div class="metric-box is-cyan">
+          <div class="metric-label">HÀNG ĐỢI RABBITMQ (TỔNG SỐ)</div>
+          <div class="metric-value" id="brokerTotal">1,420</div>
+          <div class="metric-sub">
+            <span>Exchange: cyberrig.orders</span>
+            <span style="color: var(--color-cyan);">ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="metric-box is-green">
+          <div class="metric-label">READY TRONG HÀNG ĐỢI</div>
+          <div class="metric-value" id="brokerReady">8</div>
+          <div class="metric-sub">
+            <span>Consumers: 4 workers</span>
+            <span style="color: var(--color-green);">ACK: 99.8%</span>
+          </div>
+        </div>
+
+        <div class="metric-box is-amber">
+          <div class="metric-label">DEAD LETTER QUEUE (DLQ)</div>
+          <div class="metric-value" id="dlqCountBadge">1 msgs [1 pending]</div>
+          <div class="metric-sub">
+            <span>Queue: cyberrig.orders.dlq</span>
+            <span style="color: var(--color-amber);">ISOLATED</span>
+          </div>
+        </div>
+
+        <div class="metric-box is-green">
+          <div class="metric-label">THROUGHPUT THỜI GIAN THỰC</div>
+          <div class="metric-value" id="brokerThroughput">24 rps</div>
+          <div class="metric-sub">
+            <span>P95 Latency: 16.4ms</span>
+            <span style="color: var(--color-green);">P0 ZERO-OVERHEAD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container Infrastructure Matrix -->
+      <div class="section-headline">HẠ TẦNG DỊCH VỤ DOCKER CONTAINERS (ZERO-OVERHEAD HEALTH PROBE)</div>
+      <div class="container-grid" id="containerGrid">
+        <!-- Injected dynamically by monitoring.js -->
+      </div>
+
+      <!-- Dead Letter Queue (DLQ) Inspector -->
+      <div class="dlq-panel">
+        <div class="dlq-panel-header">
+          <div class="dlq-title">
+            <span>DEAD LETTER QUEUE (DLQ) INSPECTOR & POISON PILL QUARANTINE</span>
+          </div>
+          <div>
+            <button type="button" class="btn-terminal-clear" id="btnClearDlq">XÓA RỖNG DLQ</button>
+          </div>
+        </div>
+        <div class="dlq-table-wrap">
+          <table class="dlq-table">
+            <thead>
+              <tr>
+                <th>MÃ THÔNG ĐIỆP</th>
+                <th>EXCHANGE NGUỒN</th>
+                <th>NGUYÊN NHÂN TỪ CHỐI (FAILURE REASON)</th>
+                <th>SỐ LẦN THỬ LẠI</th>
+                <th>TRẠNG THÁI</th>
+                <th style="text-align: right;">THAO TÁC</th>
+              </tr>
+            </thead>
+            <tbody id="dlqTableBody">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: INTERACTIVE SCENARIO TESTING MODE -->
+    <!-- ========================================================================= -->
+    <section class="soc-view-section" id="sectionScenario">
+      <div class="section-headline">PHÒNG LAB KIỂM THỬ KỊCH BẢN TÍCH HỢP (INTERACTIVE SCENARIO TESTING DECK)</div>
+      <p style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-bottom: 16px;">
+        Nhấn nút để kích hoạt các kịch bản kiểm thử độc lập. Hệ thống sẽ tự động phát sinh tải, thử nghiệm lỗi, khóa kho nguyên tử hoặc gọi mô hình AI mà không can thiệp vào cơ sở dữ liệu bán lẻ chính.
+      </p>
+
+      <div class="scenario-grid" id="scenarioGrid">
+        <!-- Injected dynamically by monitoring.js -->
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- COMMON: LIVE TERMINAL EVENT & TELEMETRY STREAM LOG -->
+    <!-- ========================================================================= -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <span>&gt;_ LIVE TELEMETRY & EVENT STREAM CONSOLE (SSE)</span>
+        </div>
+        <div class="terminal-controls">
+          <label for="logFilterSelect" style="color: var(--text-dim); font-size: 0.7rem;">KÊNH:</label>
+          <select id="logFilterSelect" class="terminal-filter-select">
+            <option value="ALL">TẤT CẢ (ALL CHANNELS)</option>
+            <option value="BROKER">BROKER (RABBITMQ)</option>
+            <option value="DLQ">DEAD LETTER (DLQ)</option>
+            <option value="SCENARIO">SCENARIO TEST</option>
+            <option value="HEALTH">CONTAINER HEALTH</option>
+            <option value="SECURITY">SECURITY / RATE LIMIT</option>
+          </select>
+          <button type="button" class="btn-terminal-clear" id="btnClearLogs">XÓA MÀN HÌNH</button>
+        </div>
+      </div>
+      <div class="terminal-logs" id="terminalLogs">
+        <!-- Real-time log entries stream here -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Access Denied Modal (If user is not logged in as ADMIN) -->
+  <div class="auth-gate-modal" id="authGateModal">
+    <div class="auth-gate-box">
+      <h2>TRUY CẬP BỊ TỪ CHỐI (403 FORBIDDEN)</h2>
+      <p>
+        Khu vực SI Monitoring & Testing Lab chỉ dành riêng cho tài khoản có vai trò <strong>ADMIN</strong>. Vui lòng đăng nhập bằng tài khoản quản trị viên để tiếp tục.
+      </p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <a href="/#login" class="soc-nav-btn is-accent" style="padding: 10px 20px;">ĐĂNG NHẬP VỚI QUYỀN ADMIN</a>
+        <a href="/" class="soc-nav-btn" style="padding: 10px 20px;">QUAY LẠI TRANG CHỦ</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/admin-monitoring/monitoring.js"></script>
+</body>
+</html>

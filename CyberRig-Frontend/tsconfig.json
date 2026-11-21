@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "../../modules/*": ["../CyberRig-Backend/src/modules/*"],
+      "../../../modules/*": ["../CyberRig-Backend/src/modules/*"],
+      "../../core/*": ["../CyberRig-Backend/src/core/*"],
+      "../../../core/*": ["../CyberRig-Backend/src/core/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.spec.ts", "node_modules", "dist"]
+}

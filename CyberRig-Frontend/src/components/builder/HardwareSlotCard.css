@@ -1,0 +1,339 @@
+/* ==========================================================================
+   CyberRig HardwareSlotCard Styles
+   Aesthetic: High-Tech Gaming / Glassmorphism / Neon Spec Badges
+   Strict Tokens: docs/DESIGN-SYSTEM.md & .skills/ui-gaming-theme.md
+   ========================================================================== */
+
+.cyber-slot-card {
+  position: relative;
+  background: var(--cr-bg-surface);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all var(--cr-transition-normal);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.cyber-slot-card:hover {
+  border-color: rgba(var(--cr-cyan-rgb), 0.3);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.7);
+}
+
+/* Conflict Highlights */
+.cyber-slot-card.has-error {
+  border-color: var(--cr-status-danger);
+  box-shadow: 0 0 15px rgba(var(--cr-danger-rgb), 0.25);
+}
+
+.cyber-slot-card.has-warning {
+  border-color: var(--cr-status-warning);
+  box-shadow: 0 0 12px rgba(var(--cr-warning-rgb), 0.2);
+}
+
+/* Slot Header */
+.cyber-slot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cyber-slot-label-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cyber-slot-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(var(--cr-cyan-rgb), 0.1);
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-slot-title {
+  font-family: var(--cr-font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cr-text-primary);
+  text-transform: uppercase;
+}
+
+.cyber-slot-status-pill {
+  font-family: var(--cr-font-mono);
+  font-size: 0.65rem;
+  color: var(--cr-text-muted);
+}
+
+/* ==========================================================================
+   EMPTY STATE: Dashed LED Button
+   ========================================================================== */
+
+.cyber-slot-empty-btn {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--cr-border-subtle);
+  border-radius: 8px;
+  color: var(--cr-text-secondary);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all var(--cr-transition-fast);
+  box-sizing: border-box;
+}
+
+.cyber-slot-empty-btn:hover {
+  background: rgba(var(--cr-cyan-rgb), 0.06);
+  border-color: var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+  box-shadow: 0 0 16px rgba(var(--cr-cyan-rgb), 0.22);
+}
+
+.cyber-slot-empty-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cyber-slot-empty-icon {
+  font-size: 1.25rem;
+  opacity: 0.45;
+  filter: grayscale(40%);
+  transition: all var(--cr-transition-fast);
+}
+
+.cyber-slot-empty-btn:hover .cyber-slot-empty-icon {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.1);
+}
+
+.cyber-slot-empty-title {
+  font-family: var(--cr-font-heading);
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--cr-text-secondary);
+  letter-spacing: 0.02em;
+  transition: color var(--cr-transition-fast);
+}
+
+.cyber-slot-empty-btn:hover .cyber-slot-empty-title {
+  color: var(--cr-text-primary);
+}
+
+.cyber-slot-empty-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--cr-font-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-slot-plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(var(--cr-cyan-rgb), 0.15);
+  color: var(--cr-primary-cyan);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   SELECTED STATE: Active Component Card
+   ========================================================================== */
+
+.cyber-slot-selected-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid var(--cr-border-subtle);
+  border-left: 3px solid var(--cr-primary-cyan);
+  border-radius: 8px;
+}
+
+.cyber-slot-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cyber-slot-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cyber-slot-item-name {
+  font-family: var(--cr-font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cr-text-primary);
+  line-height: 1.25;
+}
+
+.cyber-slot-brand-tag {
+  font-family: var(--cr-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--cr-primary-cyan);
+  background: rgba(var(--cr-cyan-rgb), 0.1);
+  border: 1px solid rgba(var(--cr-cyan-rgb), 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cyber-slot-model-code {
+  font-family: var(--cr-font-mono);
+  font-size: 0.72rem;
+  color: var(--cr-text-muted);
+}
+
+/* Spec Pill Badges Row */
+.cyber-slot-specs-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.cyber-spec-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--cr-font-mono);
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--cr-border-subtle);
+  color: var(--cr-text-secondary);
+}
+
+.cyber-spec-pill.pill-accent {
+  background: rgba(var(--cr-cyan-rgb), 0.1);
+  border-color: rgba(var(--cr-cyan-rgb), 0.3);
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-spec-pill.pill-wattage {
+  background: rgba(var(--cr-warning-rgb), 0.1);
+  border-color: rgba(var(--cr-warning-rgb), 0.3);
+  color: var(--cr-status-warning);
+}
+
+/* Price & Action Buttons */
+.cyber-slot-right-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cyber-slot-price {
+  font-family: var(--cr-font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cr-primary-cyan);
+  text-shadow: 0 0 10px rgba(var(--cr-cyan-rgb), 0.4);
+}
+
+.cyber-slot-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cyber-slot-action-btn {
+  height: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--cr-border-subtle);
+  border-radius: 6px;
+  color: var(--cr-text-secondary);
+  font-family: var(--cr-font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all var(--cr-transition-fast);
+}
+
+.cyber-slot-action-btn:hover {
+  background: rgba(var(--cr-cyan-rgb), 0.12);
+  border-color: var(--cr-primary-cyan);
+  color: var(--cr-primary-cyan);
+}
+
+.cyber-slot-action-btn.btn-remove:hover {
+  background: rgba(var(--cr-danger-rgb), 0.15);
+  border-color: var(--cr-status-danger);
+  color: var(--cr-status-danger);
+}
+
+/* Slot Conflict Alert Banner */
+.cyber-slot-conflict-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: var(--cr-font-body);
+}
+
+.cyber-slot-conflict-banner.is-error {
+  background: rgba(var(--cr-danger-rgb), 0.12);
+  border: 1px solid rgba(var(--cr-danger-rgb), 0.4);
+  color: #fca5a5;
+}
+
+.cyber-slot-conflict-banner.is-warning {
+  background: rgba(var(--cr-warning-rgb), 0.12);
+  border: 1px solid rgba(var(--cr-warning-rgb), 0.4);
+  color: #fcd34d;
+}
+
+@media (max-width: 640px) {
+  .cyber-slot-selected-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cyber-slot-right-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--cr-border-subtle);
+    padding-top: 10px;
+    margin-top: 4px;
+  }
+}
