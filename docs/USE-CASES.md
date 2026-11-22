@@ -16,7 +16,8 @@ flowchart TD
     Customer["👤 Khách Hàng Thành Viên (Customer)"]
     Tech["🔧 Kỹ Thuật Viên (Technician)"]
     Admin["👑 Quản Trị Viên (Admin)"]
-    DevOps["⚡ DevOps / QA Engineer"]
+    DevOps["⚡ DevOps / QA Engineer (Quyền ADMIN)"]
+    VietQR["🏦 «system» Cổng Thanh Toán VietQR (Webhook HMAC)"]
 
     %% Phân hệ 1: Retail & Builder
     subgraph Sub1["[1] Phân Hệ Phần Cứng & PC Builder"]
@@ -30,13 +31,13 @@ flowchart TD
     %% Phân hệ 2: Checkout & Orders
     subgraph Sub2["[2] Phân Hệ Đơn Hàng & Thanh Toán"]
         UC06(["UC-06: Chuyển cấu hình sang Checkout"])
-        UC07(["UC-07: Đặt hàng & Thanh toán VietQR động"])
-        UC08(["UC-08: Tra cứu trạng thái đơn hàng"])
+        UC07(["UC-07: Đặt hàng & Thanh toán VietQR (Webhook HMAC)"])
+        UC08(["UC-08: Tra cứu trạng thái đơn hàng (Anti-IDOR & PII Mask)"])
     end
 
     %% Phân hệ 3: Repair & Warranty
     subgraph Sub3["[3] Phân Hệ Bảo Hành & Sửa Chữa"]
-        UC09(["UC-09: Tra cứu tiến độ phiếu bảo hành"])
+        UC09(["UC-09: Tra cứu tiến độ phiếu bảo hành (Rate Limit & PII Mask)"])
         UC10(["UC-10: Phê duyệt báo giá sửa chữa 2 chiều"])
         UC11(["UC-11: Tiếp nhận máy tại quầy Lab"])
         UC12(["UC-12: Giám định lỗi & Lập báo giá vật tư"])
@@ -52,8 +53,8 @@ flowchart TD
     %% Phân hệ 5: Admin, Security & Monitoring
     subgraph Sub5["[5] Quản Trị Kho, Bảo Mật & SI Monitoring"]
         UC16(["UC-16: Quản trị kho linh kiện & Tồn kho an toàn"])
-        UC17(["UC-17: Phân quyền & Quản lý người dùng"])
-        UC18(["UC-18: Giám sát SOC Real-time SSE & Health Probes"])
+        UC17(["UC-17: Xác thực JWT, 2FA TOTP & Phân quyền RBAC"])
+        UC18(["UC-18: Giám sát SOC Real-time SSE & Audit Logs"])
         UC19(["UC-19: Kích hoạt 6 kịch bản kiểm thử Lab"])
         UC20(["UC-20: Kiểm tra & Phát lại thông điệp DLQ"])
     end
@@ -74,22 +75,29 @@ flowchart TD
     Customer -- Kế thừa quyền Guest --> Guest
     Customer --> UC14
 
+    %% Mối liên kết Hệ thống thanh toán ngoài
+    VietQR -. Webhook HMAC-SHA256 .-> UC07
+
     %% Mối liên kết Kỹ thuật viên
     Tech --> UC11
     Tech --> UC12
     Tech --> UC13
     Tech --> UC15
 
-    %% Mối liên kết Quản trị viên
+    %% Mối liên kết Quản trị viên (khớp middleware requireRoles('ADMIN'))
     Admin --> UC16
     Admin --> UC17
     Admin --> UC18
+    Admin --> UC19
+    Admin --> UC20
 
-    %% Mối liên kết DevOps / QA
+    %% Mối liên kết DevOps / QA (vận hành bằng tài khoản quyền ADMIN)
     DevOps --> UC18
     DevOps --> UC19
     DevOps --> UC20
 ```
+
+> **Lưu ý bảo mật xuyên suốt:** Tất cả Use Case nội bộ (`UC-11`..`UC-20`) yêu cầu xác thực JWT (`HttpOnly` Cookie Refresh Token Rotation + Redis `jti` Blacklist) và kiểm tra phân quyền RBAC (`UC-17`), hỗ trợ bảo vệ 2 lớp **2FA TOTP** (`/api/auth/2fa/*`). Toàn bộ nhóm API giám sát SOC (`UC-18`..`UC-20`) yêu cầu quyền `ADMIN` và kết nối SSE dùng vé một lần (`/api/monitoring/stream-ticket`).
 
 ---
 
@@ -97,11 +105,12 @@ flowchart TD
 
 | Tác nhân (Actor) | Bản chất vai trò | Trách nhiệm & Quyền hạn chính |
 | :--- | :--- | :--- |
-| **Khách Vãng Lai (Guest)** | Người dùng ngoài internet chưa đăng nhập | • Tìm kiếm linh kiện, xem catalog phần cứng.<br>• Sử dụng công cụ PC Builder thẩm định tương thích socket/công suất.<br>• Đặt mua hàng, quét mã VietQR và tra cứu đơn hàng công khai.<br>• Tra cứu tiến độ phiếu bảo hành và duyệt/từ chối báo giá trực tuyến. |
-| **Khách Hàng (Customer)** | Khách hàng đã có tài khoản định danh | • Toàn bộ quyền hạn của Guest.<br>• Quản trị dàn máy cá nhân, xem toàn bộ lịch sử đơn hàng và bảo hành tập trung trên Customer Dashboard. |
-| **Kỹ Thuật Viên (Technician)** | Nhân sự kỹ thuật phòng Lab bảo hành | • Tiếp nhận thiết bị tại quầy (thiết bị mua tại cửa hàng hoặc ngoài).<br>• Kiểm định phần cứng, ghi nhận lỗi, lập báo giá linh kiện + công thợ.<br>• Cập nhật các chặng chuyển trạng thái của phiếu theo State Machine. |
-| **Quản Trị Viên (Admin)** | Quản lý cửa hàng và vận hành kinh doanh | • Thêm mới linh kiện, cập nhật giá, điều chỉnh tồn kho an toàn.<br>• Ngừng kinh doanh sản phẩm (Soft delete), theo dõi chỉ số tồn kho.<br>• Phân quyền tài khoản người dùng và thiết lập tham số hệ thống. |
-| **Kỹ Sư DevOps / QA (System Operator)** | Kỹ sư vận hành, kiểm thử chất lượng | • Giám sát SOC thời gian thực (trạng thái Docker container, broker queues).<br>• Phân tích thông điệp lỗi trong Dead Letter Queue (DLQ) và bấm phát lại (Replay).<br>• Kích hoạt 6 kịch bản kiểm thử tích hợp tại Testing Lab để đánh giá hồi quy. |
+| **Khách Vãng Lai (Guest)** | Người dùng ngoài internet chưa đăng nhập | • Tìm kiếm linh kiện, xem catalog phần cứng.<br>• Sử dụng công cụ PC Builder thẩm định tương thích socket/công suất.<br>• Đặt mua hàng, quét mã VietQR và tra cứu đơn hàng (qua `?phone=` chống IDOR, dữ liệu PII được che mờ).<br>• Tra cứu tiến độ phiếu bảo hành (giới hạn 30 req/phút, che mờ PII) và duyệt/từ chối báo giá trực tuyến. |
+| **Khách Hàng (Customer)** | Khách hàng đã có tài khoản định danh (`CUSTOMER`) | • Toàn bộ quyền hạn của Guest.<br>• Đăng nhập JWT (`HttpOnly` Cookie), bật/tắt bảo mật 2 lớp 2FA TOTP.<br>• Quản trị dàn máy cá nhân, xem toàn bộ lịch sử đơn hàng và bảo hành tập trung trên Customer Dashboard. |
+| **Kỹ Thuật Viên (Technician)** | Nhân sự kỹ thuật phòng Lab bảo hành (`TECHNICIAN`) | • Tiếp nhận thiết bị tại quầy (thiết bị mua tại cửa hàng hoặc ngoài).<br>• Kiểm định phần cứng, ghi nhận lỗi, lập báo giá linh kiện + công thợ.<br>• Cập nhật các chặng chuyển trạng thái của phiếu theo State Machine. |
+| **Quản Trị Viên (Admin)** | Quản lý cửa hàng và vận hành hệ thống (`ADMIN`) | • Thêm mới linh kiện, cập nhật giá, điều chỉnh tồn kho an toàn, soft-delete.<br>• Quản trị phân quyền RBAC, chính sách xác thực JWT/2FA TOTP.<br>• Truy cập toàn bộ Dark SOC (`/admin-monitoring/`), xem Nhật ký Kiểm toán Bảo mật (`Audit Logs`), kích hoạt Testing Lab và phát lại DLQ. |
+| **Kỹ Sư DevOps / QA (System Operator)** | Kỹ sư vận hành, kiểm thử chất lượng (dùng tài khoản quyền `ADMIN`) | • Giám sát SOC thời gian thực (SSE qua Single-use Ticket, trạng thái Docker container, broker queues) và tra cứu `Audit Logs`.<br>• Phân tích thông điệp lỗi trong Dead Letter Queue (DLQ) và bấm phát lại (Replay).<br>• Kích hoạt 6 kịch bản kiểm thử tích hợp tại Testing Lab để đánh giá hồi quy. |
+| **Cổng Thanh Toán VietQR (`«system»`)** | Hệ thống ngân hàng bên thứ ba (Webhook HMAC-SHA256) | • Gửi yêu cầu callback có chữ ký mật mã `HMAC-SHA256` (`X-CyberRig-Signature`, `X-CyberRig-Timestamp`) tới `POST /api/orders/:id/confirm` để xác nhận thanh toán thực tế và chuyển trạng thái đơn sang `PAID`. |
 
 ---
 
@@ -115,9 +124,9 @@ flowchart TD
 | **UC-04** | Tự phối linh kiện & Thẩm định tương thích Socket/TDP | PC Builder | Guest, Customer | Must |
 | **UC-05** | Tra cứu danh mục PC Setup & Thiết bị không gian làm việc | Equipments | Guest, Customer | Should |
 | **UC-06** | Chuyển giỏ hàng cấu hình sang trang Checkout Split-View | Checkout | Guest, Customer | Must |
-| **UC-07** | Đặt hàng & Thanh toán bằng cổng động VietQR Napas 247 | Checkout | Guest, Customer | Must |
-| **UC-08** | Tra cứu tình trạng đơn hàng công khai theo mã | Orders | Guest, Customer | Should |
-| **UC-09** | Tra cứu tiến độ phiếu bảo hành với Timeline 6 chặng | Repair Tickets | Guest, Customer | Must |
+| **UC-07** | Đặt hàng & Thanh toán VietQR Napas 247 (Xác thực Webhook HMAC-SHA256) | Checkout | Guest, Customer, VietQR Webhook | Must |
+| **UC-08** | Tra cứu tình trạng đơn hàng theo mã (Chống IDOR & Che mờ PII) | Orders | Guest, Customer | Should |
+| **UC-09** | Tra cứu tiến độ phiếu bảo hành 6 chặng (Rate Limit 30 req/phút & PII Masking) | Repair Tickets | Guest, Customer | Must |
 | **UC-10** | Khách hàng phê duyệt hoặc từ chối báo giá sửa chữa | Repair Tickets | Guest, Customer | Must |
 | **UC-11** | Tiếp nhận thiết bị sửa chữa tại quầy Lab (Internal/External) | Technician Hub | Technician | Must |
 | **UC-12** | Soạn biên bản chẩn đoán & Lập báo giá vật tư chi tiết | Technician Hub | Technician | Must |
@@ -125,8 +134,8 @@ flowchart TD
 | **UC-14** | Quản lý dàn máy & Lịch sử dịch vụ cá nhân (Dashboard) | Customer Hub | Customer | Should |
 | **UC-15** | Quản lý hàng đợi sửa chữa theo trạng thái (Workbench) | Technician Hub | Technician | Must |
 | **UC-16** | Quản trị kho hàng, nhập bổ sung & Cảnh báo tồn kho | Admin Hub | Admin | Must |
-| **UC-17** | Phân quyền truy cập hệ thống RBAC (JWT & Route Guards) | Security | Admin, System | Must |
-| **UC-18** | Giám sát SOC thời gian thực với In-Memory Telemetry & SSE | SI Monitoring | Admin, DevOps/QA | Must |
+| **UC-17** | Xác thực JWT (`HttpOnly` Rotation), 2FA TOTP & Phân quyền RBAC | Security | Admin, System | Must |
+| **UC-18** | Giám sát SOC thời gian thực (SSE Ticket) & Nhật ký Kiểm toán (Audit Logs) | SI Monitoring | Admin, DevOps/QA | Must |
 | **UC-19** | Kích hoạt 6 kịch bản kiểm thử tích hợp tự động | Testing Lab | Admin, DevOps/QA | Must |
 | **UC-20** | Kiểm tra, phân tích và phát lại (Replay) thông điệp lỗi DLQ | SI Monitoring | Admin, DevOps/QA | Must |
 
@@ -172,10 +181,11 @@ flowchart TD
      - Cú pháp chuyển khoản bắt buộc: `CYBERRIG ORD-2026-8891`.
      - Đồng hồ đếm ngược 15:00 phút.
   7. Khách hàng mở ứng dụng ngân hàng quét mã và thanh toán.
-  8. Hệ thống nhận tín hiệu thanh toán thành công (Webhook/Simulate), cập nhật trạng thái `PAID` và hiển thị màn hình xác nhận hoàn tất.
+  8. Cổng thanh toán VietQR (`«system»`) gửi Webhook kèm chữ ký `HMAC-SHA256` (`X-CyberRig-Signature`, `X-CyberRig-Timestamp`) tới `POST /api/orders/:id/confirm` (hoặc quản trị viên `ADMIN` xác nhận; môi trường dev/demo hỗ trợ `/simulate-payment`). Backend xác thực chữ ký chống giả mạo & Replay Attack, trừ tồn kho vật lý, cập nhật trạng thái `PAID` và hiển thị màn hình xác nhận hoàn tất.
 - **Luồng phụ / Ngoại lệ (Extensions)**:
   - *5a. Hết hàng trong kho (Zero Stock)*: Một linh kiện vừa bị đặt hết bởi khách hàng khác $\rightarrow$ Hệ thống trả về thông báo lỗi 409 Conflict, giải phóng phiên giữ hàng và thông báo người dùng đổi linh kiện khác.
   - *6a. Hết thời gian chờ thanh toán (15 phút)*: Khách hàng không chuyển khoản $\rightarrow$ Hệ thống tự động kích hoạt hủy đơn, Redis tự động hoàn trả số lượng linh kiện về kho sẵn sàng bán.
+  - *8a. Chữ ký Webhook không hợp lệ / quá hạn*: Request thiếu hoặc sai chữ ký `HMAC-SHA256` hoặc lệch timestamp vượt cửa sổ cho phép $\rightarrow$ Backend từ chối `401/403` và ghi nhận nhật ký kiểm toán bảo mật (`Audit Logs`).
 
 ---
 
@@ -199,11 +209,11 @@ flowchart TD
 ---
 
 ### 4.4. UC-20: Giám Sát SOC & Phân Tích, Phát Lại (Replay) Lỗi Trong Dead Letter Queue (DLQ)
-- **Mục tiêu**: Kỹ sư vận hành/DevOps phát hiện thông điệp lỗi độc hại (Poison Message), cách ly an toàn và kích hoạt thử lại sau khi xử lý gốc rễ.
-- **Tiền điều kiện**: Người dùng đăng nhập với quyền `ADMIN` hoặc `DEVOPS`.
+- **Mục tiêu**: Quản trị viên / Kỹ sư vận hành DevOps phát hiện thông điệp lỗi độc hại (Poison Message), cách ly an toàn, kích hoạt thử lại sau khi xử lý gốc rễ và theo dõi nhật ký kiểm toán bảo mật (`Audit Logs`).
+- **Tiền điều kiện**: Người dùng đăng nhập bằng tài khoản có quyền `ADMIN` (JWT hợp lệ, hỗ trợ 2FA TOTP); mọi endpoint `/api/monitoring/*` được bảo vệ bởi `authenticateToken` + `requireRoles('ADMIN')`.
 - **Luồng sự kiện chính (Main Success Scenario)**:
   1. Người dùng truy cập trang `/admin-monitoring/`, mặc định tại tab `[01] REAL-TIME MONITORING`.
-  2. Giao diện kết nối dòng sự kiện Server-Sent Events (SSE) hiển thị trạng thái 4 container Docker và chỉ số hàng đợi.
+  2. Giao diện xin vé kết nối một lần (`POST /api/monitoring/stream-ticket`), sau đó kết nối dòng sự kiện Server-Sent Events (`GET /api/monitoring/stream`) hiển thị trạng thái 4 container Docker, chỉ số hàng đợi và có thể tra cứu nhật ký kiểm toán (`GET /api/monitoring/audit-logs`).
   3. Khi có thông điệp hỏng (VD: JSON sai cấu trúc hoặc dịch vụ bên thứ ba mất kết nối sau 3 lần retry NACK), hệ thống tự động đẩy vào Dead Letter Queue.
   4. Bảng điều khiển DLQ phát chuông cảnh báo và hiển thị bản ghi mới:
      - `Message ID`: Mã thông điệp.
