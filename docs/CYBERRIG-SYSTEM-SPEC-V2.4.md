@@ -4,7 +4,7 @@
 > **Mã Dự Án**: `CR-2026-ENT`  
 > **Phiên Bản Tài Liệu**: `v2.4.1-STABLE` (Đã đối chiếu và đồng bộ 100% với Codebase thực tế)  
 > **Mô Hình Vận Hành**: Agile / Scrum kết hợp Vòng đời Tác tử **ADLC (Agentic Development Life Cycle)**  
-> **Quy Mô Dự Án**: 3 Sprint liên tục (10.5 tuần / 75 ngày làm việc / 156 Story Points)  
+> **Quy Mô Dự Án**: 4 Sprint liên tục (11.5 tuần / 182 Story Points — 10 Epics / 37 User Stories / 44 Sub-tasks trên Jira `SCRUM`)  
 > **Kiến Trúc Triển Khai**: Clean Monorepo, Single Responsibility Principle (SRP), Single-Origin Gateway  
 > **Chủ Sở Hữu**: Nhóm Kỹ Sư Phát Triển CyberRig & Ban Giám Sát Kỹ Thuật
 
@@ -16,7 +16,7 @@
 - [PHẦN 3: KIẾN TRÚC PHÂN MIỀN MONOREPO & BẢO MẬT](#phần-3-kiến-trúc-phân-miền-monorepo--bảo-mật)
 - [PHẦN 4: HỆ THỐNG TÁC NHÂN & MA TRẬN 20 USE CASES](#phần-4-hệ-thống-tác-nhân--ma-trận-20-use-cases)
 - [PHẦN 5: ĐẶC TẢ CHI TIẾT CÁC QUY TẮC NGHIỆP VỤ & STATE MACHINE](#phần-5-đặc-tả-chi-tiết-các-quy-tắc-nghiệp-vụ--state-machine)
-- [PHẦN 6: KẾ HOẠCH TRIỂN KHAI 3 SPRINT & SEQUENCE FLOWS (156 SP)](#phần-6-kế-hoạch-triển-khai-3-sprint--sequence-flows-156-sp)
+- [PHẦN 6: KẾ HOẠCH TRIỂN KHAI 4 SPRINT & SEQUENCE FLOWS (182 SP)](#phần-6-kế-hoạch-triển-khai-4-sprint--sequence-flows-182-sp)
 - [PHẦN 7: MA TRẬN PHÂN CÔNG RACI, TIÊU CHUẨN DoR & DoD](#phần-7-ma-trận-phân-công-raci-tiêu-chuẩn-dor--dod)
 
 ---
@@ -239,11 +239,11 @@ Theo `CyberRig-Backend/src/modules/monitoring/scenario-runner.service.ts`, 6 k�
 
 ---
 
-# PHẦN 6: KẾ HOẠCH TRIỂN KHAI 3 SPRINT & SEQUENCE FLOWS (156 SP)
+# PHẦN 6: KẾ HOẠCH TRIỂN KHAI 4 SPRINT & SEQUENCE FLOWS (182 SP)
 
 ```mermaid
 gantt
-    title LỘ TRÌNH TRIỂN KHAI 3 SPRINT DỰ ÁN CYBERRIG (10.5 TUẦN - 156 STORY POINTS)
+    title LỘ TRÌNH TRIỂN KHAI 4 SPRINT DỰ ÁN CYBERRIG (11.5 TUẦN - 182 STORY POINTS)
     dateFormat  YYYY-MM-DD
     section Sprint 1: MVP Core (58 SP)
     Catalog & Filtering (US-01, 02)       :done, s1_1, 2026-09-01, 7d
@@ -257,6 +257,9 @@ gantt
     RBAC JWT Security (US-15)             :done, s3_1, 2026-10-19, 7d
     Redis Atomic Lock & Admin Hub (US-16,17):done, s3_2, after s3_1, 8d
     SOC SSE, DLQ Replay & Test Lab (US-18,19,20):done, s3_3, after s3_2, 9d
+    section Sprint 4: Hardening & DevSecOps (26 SP)
+    HttpOnly, Anti-IDOR, HMAC & 2FA (US-33..36):done, s4_1, 2026-11-15, 4d
+    GitHub Actions 4 Jobs & Docs Sync (US-37,38):done, s4_2, after s4_1, 3d
 ```
 
 ## 6.1. Sequence Flow 1: Kiểm Tra Tương Thích & Đặt Mua Dàn Máy
@@ -319,21 +322,21 @@ sequenceDiagram
 
 # PHẦN 7: MA TRẬN PHÂN CÔNG RACI, TIÊU CHUẨN DoR & DoD
 
-## 7.1. Bảng Ma Trận Phân Công Trách Nhiệm RACI (6 Vị Trí Kỹ Thuật)
+## 7.1. Bảng Ma Trận Phân Công Trách Nhiệm RACI (5 Vị Trí Kỹ Thuật)
 
-| Hạng Mục Trách Nhiệm Kỹ Thuật | TV 1 (PO/Lead) | TV 2 (FE 1) | TV 3 (FE 2) | TV 4 (BE 1) | TV 5 (BE 2) | TV 6 (DevOps) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| Quản trị Backlog & Tạo tác ADLC (`intent`, `spec`, `plan`) | **A / R** | C | C | C | C | I |
-| Thiết kế Kiến trúc Monorepo & Quy chuẩn Clean Code | **A / R** | C | C | C | C | C |
-| Lập trình Giao diện Catalog, PC Builder & Dual-Theme | I | **A / R** | C | C | I | I |
-| Lập trình Rule Engine Thẩm Định Tương Thích (4 Rules) | C | C | I | **A / R** | C | I |
-| Lập trình Giao diện Giỏ Hàng & Cổng Checkout VietQR | I | C | **A / R** | I | C | I |
-| Xây dựng Finite State Machine Bảo Hành & Duyệt Báo Giá | C | I | C | **A / R** | I | I |
-| Cài đặt Phân Quyền Bảo Mật RBAC JWT & Route Guards | C | I | I | C | **A / R** | C |
-| Cài đặt Bộ Khóa Tồn Kho Nguyên Tử Redis Atomic Lock | I | I | C | C | **A / R** | C |
-| Xây dựng Bảng Điều Khiển Dark SOC & Real-time SSE | I | I | I | I | C | **A / R** |
-| Xây dựng Dead Letter Queue & 6 Kịch Bản Testing Lab | I | I | I | I | C | **A / R** |
-| Đóng gói Docker Compose, Nginx Reverse Proxy Gateway | C | I | I | I | I | **A / R** |
+| Hạng Mục Trách Nhiệm Kỹ Thuật | TV 1 (PO/FE) | TV 2 (FE/UI) | TV 3 (BE Core) | TV 4 (BE/Sec) | TV 5 (Ops/QA) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Quản trị Backlog, Jira `SCRUM` & Tạo tác ADLC (`intent`, `spec`, `plan`) | **A / R** | C | C | C | I |
+| Thiết kế Kiến trúc Monorepo & Quy chuẩn Clean Code | **A / R** | C | C | C | C |
+| Lập trình Giao diện Giỏ Hàng, Checkout VietQR & Customer Hub | **A / R** | C | I | C | I |
+| Lập trình Giao diện Catalog, PC Builder, Dual-Theme & Tech UI | C | **A / R** | C | I | I |
+| Lập trình Rule Engine Thẩm Định Tương Thích (4 Rules) | C | C | **A / R** | C | I |
+| Xây dựng Finite State Machine Bảo Hành, Báo Giá & Redis Atomic Lock | C | I | **A / R** | C | I |
+| Thiết kế PostgreSQL Schema, Admin Control Center (`#admin`) | C | I | C | **A / R** | C |
+| Gia cố Bảo Mật OWASP (RBAC JWT `HttpOnly`, 2FA TOTP, HMAC Webhook, Anti-IDOR) | C | I | C | **A / R** | C |
+| Xây dựng Bảng Điều Khiển Dark SOC, Telemetry SSE & Audit Logs Viewer | I | I | I | C | **A / R** |
+| Xây dựng Dead Letter Queue (DLQ) & 6 Kịch Bản Testing Lab | I | I | I | C | **A / R** |
+| Đóng gói Docker Compose, Nginx Hardening, 24 Spec Tests & GitHub Actions CI/CD | C | I | I | C | **A / R** |
 
 *(Quy ước: **R** = Responsible; **A** = Accountable; **C** = Consulted; **I** = Informed)*
 

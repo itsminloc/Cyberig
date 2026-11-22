@@ -1,0 +1,290 @@
+﻿Issue Type,Issue ID,Parent,Summary,Epic Name,Sprint,Story Points,Priority,Components,Labels,Status,Description
+Epic,EPIC-01,,EPIC-01: Retail Hardware & PC Builder Tương Thích,EPIC-01: Retail Hardware & PC Builder Tương Thích,,24,High,cmp-hardware-builder,sprint-1,Done,"Danh mục linh kiện đa tiêu chí, thuật toán thẩm định tương thích Socket/TDP và bộ lắp ráp PC Builder 8 khoang.
+Phụ trách chính: TV 2"
+Epic,EPIC-02,,EPIC-02: Luồng Đặt Hàng & Cổng Thanh Toán VietQR,EPIC-02: Luồng Đặt Hàng & Cổng Thanh Toán VietQR,,18,High,cmp-checkout-orders,sprint-1,Done,"Luồng chuyển cấu hình sang Checkout Split-View, lưu Price Snapshot, sinh mã VietQR Napas 247 và tra cứu đơn hàng.
+Phụ trách chính: TV 1"
+Epic,EPIC-03,,EPIC-03: Vòng Đời Phiếu Sửa Chữa & Duyệt Báo Giá 2 Chiều,EPIC-03: Vòng Đời Phiếu Sửa Chữa & Duyệt Báo Giá 2 Chiều,,16,High,cmp-repair-tracking,sprint-1,Done,"Finite State Machine kiểm soát phiếu bảo hành, cổng tra cứu /repair-tracking và phê duyệt báo giá 2 chiều.
+Phụ trách chính: TV 3"
+Epic,EPIC-04,,EPIC-04: Industrial Design System & Dual-Theme (Day/Night),EPIC-04: Industrial Design System & Dual-Theme (Day/Night),,13,High,cmp-portals-ui,sprint-2,Done,"Chuẩn hóa Design System v2.1 bo góc 0px, viền HUD và chuyển đổi Dual-Theme Day/Night 60 FPS đạt WCAG 2.1 AA.
+Phụ trách chính: TV 2"
+Epic,EPIC-05,,"EPIC-05: Studio Media Assets, PC Setup & Workbenches","EPIC-05: Studio Media Assets, PC Setup & Workbenches",,25,High,cmp-portals-ui,sprint-2,Done,"Bộ ảnh Studio 8 loại linh kiện, trang /equipments 20 thiết bị Setup, Tech Workbench và Customer Unified Hub.
+Phụ trách chính: TV 1"
+Epic,EPIC-06,,EPIC-06: Phân Quyền RBAC & Khóa Kho Nguyên Tử Redis,EPIC-06: Phân Quyền RBAC & Khóa Kho Nguyên Tử Redis,,13,High,cmp-admin-security,sprint-3,Done,"Phân quyền RBAC 3 vai trò (CUSTOMER, TECHNICIAN, ADMIN) và khóa tồn kho nguyên tử Redis Lua Script chống bán âm.
+Phụ trách chính: TV 4"
+Epic,EPIC-07,,EPIC-07: Cổng Quản Trị Kho Admin Control Center & KPI,EPIC-07: Cổng Quản Trị Kho Admin Control Center & KPI,,13,High,cmp-admin-security,sprint-3,Done,"Admin Control Center (#admin) quản trị kho CRUD, Restock, Soft Delete và cảnh báo tồn kho thấp.
+Phụ trách chính: TV 4"
+Epic,EPIC-08,,"EPIC-08: SI Monitoring Mission Control, DLQ & 6 Scenarios Lab","EPIC-08: SI Monitoring Mission Control, DLQ & 6 Scenarios Lab",,26,High,cmp-si-monitoring,sprint-3,Done,"Dark SOC (/admin-monitoring/), In-Memory Ring Buffer SSE Telemetry, Dead Letter Queue Replay và 6 kịch bản Lab.
+Phụ trách chính: TV 5"
+Epic,EPIC-09,,EPIC-09: Container Hóa Docker Compose & Chuỗi Tạo Tác ADLC,EPIC-09: Container Hóa Docker Compose & Chuỗi Tạo Tác ADLC,,8,High,cmp-si-monitoring,sprint-3,Done,"Đóng gói Docker Compose 4 containers + Nginx Reverse Proxy và chuẩn hóa cấu trúc Clean Code Monorepo / ADLC.
+Phụ trách chính: TV 5"
+Epic,EPIC-10,,"EPIC-10: Gia Cố Bảo Mật OWASP Top 10, DevSecOps CI/CD & Docs Sync","EPIC-10: Gia Cố Bảo Mật OWASP Top 10, DevSecOps CI/CD & Docs Sync",,26,High,cmp-devsecops-ci,sprint-4,Done,"3 giai đoạn bảo mật OWASP (HttpOnly Rotation, Redis Blacklist, Anti-IDOR, PII Masking, RBAC SOC, HMAC Webhook, 2FA TOTP, Audit Logs), GitHub Actions 4-Job CI/CD và đồng bộ Use Case v2.1.
+Phụ trách chính: TV 4"
+Story,CRIG-US-01,EPIC-01,CRIG-US-01: Tra cứu & Lọc linh kiện phần cứng đa tiêu chí (/hardware),,CRIG Sprint 1: Core Value MVP,5,High,cmp-hardware-builder,sprint-1;frontend,Done,"Là khách hàng, tôi muốn lọc linh kiện theo danh mục (8 nhóm), khoảng giá và thương hiệu để tìm phụ tùng PC phù hợp.
+
+Acceptance Criteria:
+- Given người dùng mở /hardware When lọc theo danh mục CPU và khoảng giá Then danh sách cập nhật tức thì đúng thông số kỹ thuật JSONB.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP1-01,CRIG-US-01,[SCRUM TASK] FE-01: Xây dựng giao diện /hardware và bộ lọc đa tiêu chí,,CRIG Sprint 1: Core Value MVP,,High,cmp-hardware-builder,sprint-1,Done,Sub-task thuộc CRIG-US-01 — Phụ trách: TV 2
+Story,CRIG-US-02,EPIC-01,"CRIG-US-02: Thuật toán thẩm định tương thích 4 Rules (Socket, RAM, Clearance, Power)",,CRIG Sprint 1: Core Value MVP,8,Highest,cmp-hardware-builder,sprint-1;backend;rule-engine,Done,"Là người tự lắp PC, tôi muốn hệ thống kiểm tra tức thì Socket CPU-Mainboard, chuẩn RAM DDR4/DDR5, kích thước VGA/Case để không mua nhầm linh kiện xung đột.
+
+Acceptance Criteria:
+- Given đã chọn CPU Socket AM5 When chọn Mainboard Socket LGA1700 Then trả lỗi xung đột đỏ và khóa nút đặt mua.
+
+Thành viên phụ trách: TV 3"
+Sub-task,TASK-SP1-02,CRIG-US-02,[SCRUM TASK] BE-01: Cài đặt CompatibilityService 4 Rules (POST /api/compatibility/validate),,CRIG Sprint 1: Core Value MVP,,Highest,cmp-hardware-builder,sprint-1,Done,Sub-task thuộc CRIG-US-02 — Phụ trách: TV 3
+Story,CRIG-US-03,EPIC-01,CRIG-US-03: Tính toán tổng công suất TDP & khuyến nghị PSU biên an toàn >= 25%,,CRIG Sprint 1: Core Value MVP,3,High,cmp-hardware-builder,sprint-1;backend,Done,"Là người dùng, tôi muốn hệ thống tính tổng điện năng TDP và khuyến nghị công suất nguồn PSU đủ biên an toàn.
+
+Acceptance Criteria:
+- Given tổng TDP vượt ngưỡng PSU đã chọn When kiểm định tương thích Then hiển thị cảnh báo nguồn yếu kèm công suất tối thiểu.
+
+Thành viên phụ trách: TV 3"
+Sub-task,TASK-SP1-03,CRIG-US-03,[SCRUM TASK] BE-02: Cài đặt PowerRule tính tổng TDP và biên an toàn PSU >= 25%,,CRIG Sprint 1: Core Value MVP,,High,cmp-hardware-builder,sprint-1,Done,Sub-task thuộc CRIG-US-03 — Phụ trách: TV 3
+Story,CRIG-US-04,EPIC-01,CRIG-US-04: Giao diện PC Builder 8 khoang & Thanh tiến trình tương thích (0-100%),,CRIG Sprint 1: Core Value MVP,5,High,cmp-hardware-builder,sprint-1;frontend,Done,"Là người dùng, tôi muốn phối 8 khoang linh kiện tại /builder và xem thanh tiến trình tương thích cập nhật trực quan.
+
+Acceptance Criteria:
+- Given cấu hình đủ linh kiện không xung đột When kiểm tra hoàn tất Then thanh tương thích đạt 100% và mở nút Tiến hành mua.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP1-04,CRIG-US-04,[SCRUM TASK] FE-02: Xây dựng /builder 8 khoang và LiveCompatibilityBar,,CRIG Sprint 1: Core Value MVP,,High,cmp-hardware-builder,sprint-1,Done,Sub-task thuộc CRIG-US-04 — Phụ trách: TV 2
+Story,CRIG-US-05,EPIC-01,CRIG-US-05: Chọn nhanh cấu hình gợi ý định sẵn theo ngân sách (Preset Tiers),,CRIG Sprint 1: Core Value MVP,3,Medium,cmp-hardware-builder,sprint-1;frontend,Done,"Là người mới, tôi muốn bấm 1 click để nạp nhanh cấu hình Gaming Ultra, Workstation hoặc Office vào PC Builder.
+
+Acceptance Criteria:
+- Given người dùng chọn Preset Tier When bấm Áp dụng Then 8 khoang linh kiện được nạp đồng bộ và kiểm định 100% tương thích.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP1-05,CRIG-US-05,[SCRUM TASK] FE-03: Tích hợp bộ Preset Tiers 1-click nạp nhanh vào PC Builder,,CRIG Sprint 1: Core Value MVP,,Medium,cmp-hardware-builder,sprint-1,Done,Sub-task thuộc CRIG-US-05 — Phụ trách: TV 2
+Story,CRIG-US-06,EPIC-02,CRIG-US-06: Chuyển cấu hình từ PC Builder sang trang Checkout Split-View,,CRIG Sprint 1: Core Value MVP,5,High,cmp-checkout-orders,sprint-1;frontend,Done,"Là khách hàng, sau khi phối PC xong tôi muốn chuyển thẳng danh sách linh kiện sang /checkout để đặt hàng.
+
+Acceptance Criteria:
+- Given cấu hình hợp lệ tại /builder When bấm Tiến hành mua cấu hình Then /checkout hiển thị đầy đủ từng món và tổng tiền.
+
+Thành viên phụ trách: TV 1"
+Sub-task,TASK-SP1-06,CRIG-US-06,[SCRUM TASK] FE-04: Xây dựng luồng đồng bộ giỏ PC Builder sang /checkout Split-View,,CRIG Sprint 1: Core Value MVP,,High,cmp-checkout-orders,sprint-1,Done,Sub-task thuộc CRIG-US-06 — Phụ trách: TV 1
+Story,CRIG-US-07,EPIC-02,CRIG-US-07: Tạo đơn hàng & Lưu cố định Price Snapshot tại thời điểm đặt,,CRIG Sprint 1: Core Value MVP,5,Highest,cmp-checkout-orders,sprint-1;backend,Done,"Là hệ thống, tôi muốn truy vấn đơn giá từ DB để lưu Price Snapshot bất biến (price_at_purchase), không tin giá client gửi.
+
+Acceptance Criteria:
+- Given client gửi POST /api/orders When đơn hàng được lưu Then order_items ghi nhận đúng đơn giá hiện hành từ PostgreSQL.
+
+Thành viên phụ trách: TV 4"
+Sub-task,TASK-SP1-07,CRIG-US-07,[SCRUM TASK] BE-03: Xây dựng OrderService (POST /api/orders) với Price Snapshot từ DB,,CRIG Sprint 1: Core Value MVP,,Highest,cmp-checkout-orders,sprint-1,Done,Sub-task thuộc CRIG-US-07 — Phụ trách: TV 4
+Story,CRIG-US-08,EPIC-02,CRIG-US-08: Cổng thanh toán tự động VietQR Napas 247 động kèm đếm ngược 15 phút,,CRIG Sprint 1: Core Value MVP,5,Highest,cmp-checkout-orders,sprint-1;vietqr,Done,"Là người mua, tôi muốn quét mã VietQR động chứa chính xác số tiền và cú pháp CYBERRIG <orderCode> cùng đồng hồ đếm ngược 15:00.
+
+Acceptance Criteria:
+- Given đơn hàng tạo thành công When hiển thị khung thanh toán Then mã VietQR khớp số tiền và tự hủy hoàn kho sau 15 phút nếu chưa thanh toán.
+
+Thành viên phụ trách: TV 1"
+Sub-task,TASK-SP1-08,CRIG-US-08,[SCRUM TASK] FE-05: Tích hợp khung sinh mã VietQR Napas 247 động & Countdown 15 phút,,CRIG Sprint 1: Core Value MVP,,Highest,cmp-checkout-orders,sprint-1,Done,Sub-task thuộc CRIG-US-08 — Phụ trách: TV 1
+Story,CRIG-US-09,EPIC-02,CRIG-US-09: Tra cứu trạng thái đơn hàng theo mã đơn (/orders/:code),,CRIG Sprint 1: Core Value MVP,3,Medium,cmp-checkout-orders,sprint-1;frontend,Done,"Là khách hàng, tôi muốn tra cứu trạng thái thanh toán và xử lý của đơn hàng bằng mã đơn.
+
+Acceptance Criteria:
+- Given nhập đúng mã đơn hàng When gọi GET /api/orders/:id Then hiển thị trạng thái PENDING/PAID/CANCELLED rõ ràng.
+
+Thành viên phụ trách: TV 1"
+Sub-task,TASK-SP1-09,CRIG-US-09,[SCRUM TASK] FE-06: Xây dựng giao diện tra cứu đơn hàng theo mã đơn,,CRIG Sprint 1: Core Value MVP,,Medium,cmp-checkout-orders,sprint-1,Done,Sub-task thuộc CRIG-US-09 — Phụ trách: TV 1
+Story,CRIG-US-10,EPIC-03,CRIG-US-10: Finite State Machine kiểm soát vòng đời phiếu sửa chữa 8 trạng thái,,CRIG Sprint 1: Core Value MVP,5,Highest,cmp-repair-tracking,sprint-1;backend;fsm,Done,"Là hệ thống, tôi muốn kiểm soát chặt chuyển trạng thái phiếu bảo hành (RECEIVED -> DIAGNOSING -> QUOTED -> WAITING_CUSTOMER -> REPAIRING -> TESTING_QC -> COMPLETED/CANCELLED).
+
+Acceptance Criteria:
+- Given phiếu đang ở RECEIVED When cố chuyển thẳng sang COMPLETED Then FSM từ chối chuyển bước bất hợp lệ.
+
+Thành viên phụ trách: TV 3"
+Sub-task,TASK-SP1-10,CRIG-US-10,[SCRUM TASK] BE-04: Xây dựng RepairTicket FSM 8 trạng thái & kiểm thử chuyển trạng thái,,CRIG Sprint 1: Core Value MVP,,Highest,cmp-repair-tracking,sprint-1,Done,Sub-task thuộc CRIG-US-10 — Phụ trách: TV 3
+Story,CRIG-US-11,EPIC-03,CRIG-US-11: Cổng tra cứu tiến độ phiếu bảo hành công khai (/repair-tracking),,CRIG Sprint 1: Core Value MVP,5,High,cmp-repair-tracking,sprint-1;frontend,Done,"Là khách hàng gửi máy, tôi muốn nhập mã phiếu để xem Stepper tiến độ 6 chặng và biên bản chẩn đoán lỗi.
+
+Acceptance Criteria:
+- Given nhập mã phiếu hợp lệ When truy vấn GET /api/tickets/:id/timeline Then hiển thị đúng chặng hiện tại và lịch sử cập nhật.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP1-11,CRIG-US-11,[SCRUM TASK] FE-07: Xây dựng trang /repair-tracking với Stepper timeline 6 chặng,,CRIG Sprint 1: Core Value MVP,,High,cmp-repair-tracking,sprint-1,Done,Sub-task thuộc CRIG-US-11 — Phụ trách: TV 2
+Story,CRIG-US-12,EPIC-03,CRIG-US-12: Khách hàng phê duyệt hoặc từ chối báo giá sửa chữa 2 chiều,,CRIG Sprint 1: Core Value MVP,3,High,cmp-repair-tracking,sprint-1;backend,Done,"Là khách hàng, tôi muốn xem bảng báo giá và xác nhận Đồng ý sửa chữa hoặc Từ chối trực tuyến.
+
+Acceptance Criteria:
+- Given phiếu ở trạng thái QUOTED/WAITING_CUSTOMER When khách duyệt báo giá Then phiếu chuyển REPAIRING và ghi nhận thời gian duyệt.
+
+Thành viên phụ trách: TV 3"
+Sub-task,TASK-SP1-12,CRIG-US-12,[SCRUM TASK] BE-05: Xây dựng luồng duyệt/từ chối báo giá 2 chiều & đồng bộ FSM,,CRIG Sprint 1: Core Value MVP,,High,cmp-repair-tracking,sprint-1,Done,Sub-task thuộc CRIG-US-12 — Phụ trách: TV 3
+Story,CRIG-US-13,EPIC-03,CRIG-US-13: Kỹ thuật viên lập biên bản chẩn đoán & báo giá vật tư + công thợ,,CRIG Sprint 1: Core Value MVP,3,High,cmp-repair-tracking,sprint-1;backend,Done,"Là kỹ thuật viên, tôi muốn tạo báo giá gồm linh kiện thay thế từ kho và tiền công để gửi khách hàng duyệt.
+
+Acceptance Criteria:
+- Given KTV gửi POST /api/tickets/:id/quotation When dữ liệu hợp lệ Then tổng chi phí được tính chính xác và chuyển phiếu sang QUOTED.
+
+Thành viên phụ trách: TV 3"
+Story,CRIG-US-14,EPIC-04,"CRIG-US-14: Chuẩn hóa Design System v2.1 Cyberpunk (bo góc 0px, font kỹ thuật, viền HUD)",,CRIG Sprint 2: UI/UX Excellence,5,High,cmp-portals-ui,sprint-2;design-system,Done,"Là người dùng, tôi muốn toàn bộ giao diện tuân thủ ngôn ngữ Tech Industrial 0px sắc nét và hệ thống typography đồng bộ.
+
+Acceptance Criteria:
+- Given duyệt các trang chính When kiểm tra CSS tokens Then 100% thành phần tuân thủ STYLE_GUIDE.md v2.1.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-01,CRIG-US-14,"[SCRUM TASK] FE-08: Xây dựng Design Tokens v2.1 (0px corners, Barlow Condensed, HUD border)",,CRIG Sprint 2: UI/UX Excellence,,High,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-14 — Phụ trách: TV 2
+Story,CRIG-US-15,EPIC-04,CRIG-US-15: Hệ thống Dual-Theme (Day / Night Mode) 60 FPS đạt chuẩn WCAG 2.1 AA,,CRIG Sprint 2: UI/UX Excellence,5,High,cmp-portals-ui,sprint-2;dual-theme,Done,"Là người dùng, tôi muốn chuyển đổi tức thì giữa Night Theme và Day Theme không giật layout và đủ độ tương phản.
+
+Acceptance Criteria:
+- Given bấm nút đổi Theme When hoán đổi CSS variables Then phản hồi <16ms, lưu LocalStorage và tương phản >= 4.5:1.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-02,CRIG-US-15,[SCRUM TASK] FE-09: Triển khai Dual-Theme Day/Night đạt chuẩn WCAG 2.1 AA,,CRIG Sprint 2: UI/UX Excellence,,High,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-15 — Phụ trách: TV 2
+Story,CRIG-US-16,EPIC-04,CRIG-US-16: Khắc phục lem mờ bóng đổ Day Theme & Tối ưu hiệu năng render 60 FPS,,CRIG Sprint 2: UI/UX Excellence,3,Medium,cmp-portals-ui,sprint-2;ui-polish,Done,"Là người dùng, tôi muốn giao diện Sáng sắc nét không lem bóng mờ và cuộn mượt 60 FPS.
+
+Acceptance Criteria:
+- Given đang ở Day Mode When cuộn danh mục lớn Then không xảy ra giật khung hình hay lem viền card.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-03,CRIG-US-16,[SCRUM TASK] FE-10: Tinh chỉnh shadow Day Theme và tối ưu hiệu năng 60 FPS,,CRIG Sprint 2: UI/UX Excellence,,Medium,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-16 — Phụ trách: TV 2
+Story,CRIG-US-17,EPIC-05,CRIG-US-17: Bộ hình ảnh Studio thực tế cho 8 nhóm linh kiện (0% placeholder),,CRIG Sprint 2: UI/UX Excellence,5,High,cmp-portals-ui,sprint-2;media,Done,"Là khách hàng, tôi muốn xem ảnh chụp thực tế chất lượng cao cho 8 nhóm linh kiện phần cứng.
+
+Acceptance Criteria:
+- Given duyệt /hardware và /builder When tải ảnh sản phẩm Then 100% dùng ảnh Studio thật, không còn ảnh giữ chỗ.
+
+Thành viên phụ trách: TV 1"
+Sub-task,TASK-SP2-04,CRIG-US-17,[SCRUM TASK] FE-11: Nạp và tối ưu bộ ảnh Studio thực tế cho 8 nhóm linh kiện,,CRIG Sprint 2: UI/UX Excellence,,High,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-17 — Phụ trách: TV 1
+Story,CRIG-US-18,EPIC-05,CRIG-US-18: Trang danh mục PC Setup & Thiết bị không gian làm việc (/equipments),,CRIG Sprint 2: UI/UX Excellence,5,Medium,cmp-portals-ui,sprint-2;frontend,Done,"Là khách hàng, tôi muốn duyệt và đặt mua 20 thiết bị ngoại vi công thái học (Màn hình OLED, Ghế, Bàn nâng hạ, Audio).
+
+Acceptance Criteria:
+- Given truy cập /equipments When lọc theo nhóm thiết bị Then hiển thị đủ 20 sản phẩm với thông số chuẩn.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-05,CRIG-US-18,[SCRUM TASK] FE-12: Xây dựng trang /equipments với 20 thiết bị PC Setup,,CRIG Sprint 2: UI/UX Excellence,,Medium,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-18 — Phụ trách: TV 2
+Story,CRIG-US-19,EPIC-05,CRIG-US-19: Bàn làm việc Kỹ thuật viên (Technician Workbench) Split-View chia hàng đợi,,CRIG Sprint 2: UI/UX Excellence,5,High,cmp-portals-ui;cmp-repair-tracking,sprint-2;workbench,Done,"Là kỹ thuật viên, tôi muốn giao diện Split-View quản lý hàng đợi phiếu sửa chữa theo trạng thái và lập báo giá nhanh tại quầy.
+
+Acceptance Criteria:
+- Given đăng nhập TECHNICIAN vào #technician When chọn phiếu Then thao tác chẩn đoán và chuyển FSM mượt mà.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-06,CRIG-US-19,[SCRUM TASK] FE-13: Hoàn thiện giao diện Technician Workbench Split-View (#technician),,CRIG Sprint 2: UI/UX Excellence,,High,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-19 — Phụ trách: TV 2
+Story,CRIG-US-20,EPIC-05,CRIG-US-20: Cổng thông tin khách hàng tập trung (Customer Unified Hub #dashboard),,CRIG Sprint 2: UI/UX Excellence,5,Medium,cmp-portals-ui,sprint-2;customer-hub,Done,"Là khách hàng thành viên, tôi muốn xem lại dàn máy đã mua, lịch sử đơn hàng và phiếu bảo hành tập trung tại #dashboard.
+
+Acceptance Criteria:
+- Given đăng nhập CUSTOMER When truy cập #dashboard Then hiển thị chính xác đơn hàng và phiếu sửa chữa của riêng tài khoản đó.
+
+Thành viên phụ trách: TV 1"
+Sub-task,TASK-SP2-07,CRIG-US-20,[SCRUM TASK] FE-14: Xây dựng Customer Unified Hub (#dashboard) kết nối API khách hàng,,CRIG Sprint 2: UI/UX Excellence,,Medium,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-20 — Phụ trách: TV 1
+Story,CRIG-US-21,EPIC-05,CRIG-US-21: Phản hồi vi tương tác (Micro-interactions) & Nút '+ Chọn' đồng bộ nhanh,,CRIG Sprint 2: UI/UX Excellence,3,Low,cmp-portals-ui,sprint-2;ux,Done,"Là người dùng, tôi muốn có phản hồi xúc giác/âm thanh nhẹ và nút '+ Chọn' đẩy thẳng linh kiện vào PC Builder.
+
+Acceptance Criteria:
+- Given bấm '+ Chọn' tại Catalog When chuyển sang Builder Then linh kiện đã được gán đúng khoang.
+
+Thành viên phụ trách: TV 2"
+Sub-task,TASK-SP2-08,CRIG-US-21,[SCRUM TASK] FE-15: Tinh chỉnh Micro-interactions scale(0.96) và nút '+ Chọn' thông minh,,CRIG Sprint 2: UI/UX Excellence,,Low,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-21 — Phụ trách: TV 2
+Story,CRIG-US-22,EPIC-05,CRIG-US-22: Bộ kiểm thử giao diện UI specs & tương thích đa độ phân giải,,CRIG Sprint 2: UI/UX Excellence,2,Medium,cmp-portals-ui,sprint-2;qa,Done,"Là QA, tôi muốn có bộ kiểm thử tự động cho các component frontend chính (auth, builder, checkout, tickets, portals).
+
+Acceptance Criteria:
+- Given chạy bộ UI specs When hoàn tất Then 100% bài test UI vượt qua không lỗi hồi quy.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP2-09,CRIG-US-22,[SCRUM TASK] QA-01: Viết 8 file UI/Admin spec tests xác thực giao diện và luồng người dùng,,CRIG Sprint 2: UI/UX Excellence,,Medium,cmp-portals-ui,sprint-2,Done,Sub-task thuộc CRIG-US-22 — Phụ trách: TV 5
+Story,CRIG-US-23,EPIC-06,"CRIG-US-23: Phân quyền truy cập RBAC 3 vai trò (CUSTOMER, TECHNICIAN, ADMIN) & Route Guards",,CRIG Sprint 3: Enterprise Core & Monitoring,5,Highest,cmp-admin-security,sprint-3;rbac,Done,"Là hệ thống, tôi muốn bảo vệ toàn bộ API nội bộ bằng JWT authentication và middleware phân quyền RBAC.
+
+Acceptance Criteria:
+- Given tài khoản CUSTOMER gọi API của TECHNICIAN/ADMIN Then hệ thống từ chối với HTTP 403 Forbidden.
+
+Thành viên phụ trách: TV 4"
+Sub-task,TASK-SP3-01,CRIG-US-23,"[SCRUM TASK] CORE-01: Xây dựng auth.middleware.ts (authenticateToken, requireRoles) & JWT util",,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-admin-security,sprint-3,Done,Sub-task thuộc CRIG-US-23 — Phụ trách: TV 4
+Story,CRIG-US-24,EPIC-06,"CRIG-US-24: Khóa tồn kho nguyên tử Redis Atomic Stock Reservation (Lua Script, TTL 15m)",,CRIG Sprint 3: Enterprise Core & Monitoring,8,Highest,cmp-admin-security;cmp-checkout-orders,sprint-3;redis,Done,"Là hệ thống, tôi muốn khóa giữ hàng nguyên tử trong 15 phút bằng Redis Lua Script để triệt tiêu bán khống (Zero Oversell).
+
+Acceptance Criteria:
+- Given 5 yêu cầu mua đồng thời SKU còn 1 chiếc When thực thi Lua script Then chỉ đúng 1 đơn thành công, 4 đơn trả 409 Conflict.
+
+Thành viên phụ trách: TV 3"
+Sub-task,TASK-SP3-02,CRIG-US-24,[SCRUM TASK] CORE-02: Cài đặt LUA_RESERVE_STOCK chống Race Condition & rollback khi thiếu hàng,,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-admin-security,sprint-3,Done,Sub-task thuộc CRIG-US-24 — Phụ trách: TV 3
+Story,CRIG-US-25,EPIC-07,"CRIG-US-25: Cổng Quản trị kho hàng Admin Control Center (#admin: CRUD, Restock, Soft Delete)",,CRIG Sprint 3: Enterprise Core & Monitoring,8,Highest,cmp-admin-security,sprint-3;admin,Done,"Là quản trị viên, tôi muốn thêm/sửa linh kiện, nhập bổ sung kho (Restock) và ngừng bán an toàn (Soft Delete is_active=FALSE).
+
+Acceptance Criteria:
+- Given đăng nhập ADMIN vào #admin When thực hiện Restock hoặc Soft Delete Then tồn kho và trạng thái cập nhật chuẩn xác.
+
+Thành viên phụ trách: TV 4"
+Sub-task,TASK-SP3-03,CRIG-US-25,[SCRUM TASK] BE-06: Xây dựng Admin CRUD/Restock/Soft-Delete API & PostgreSQL seed.ts,,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-admin-security,sprint-3,Done,Sub-task thuộc CRIG-US-25 — Phụ trách: TV 4
+Sub-task,TASK-SP3-04,CRIG-US-25,[SCRUM TASK] FE-16: Hoàn thiện bảng điều khiển Admin Control Center (#admin),,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-admin-security,sprint-3,Done,Sub-task thuộc CRIG-US-25 — Phụ trách: TV 4
+Story,CRIG-US-26,EPIC-07,CRIG-US-26: Telemetry tồn kho & Cảnh báo linh kiện sắp hết hàng (Low Stock Alert),,CRIG Sprint 3: Enterprise Core & Monitoring,5,Medium,cmp-admin-security,sprint-3;kpi,Done,"Là quản trị viên, tôi muốn theo dõi KPI tồn kho an toàn và nhận cảnh báo khi số lượng linh kiện xuống dưới ngưỡng.
+
+Acceptance Criteria:
+- Given linh kiện có stock_quantity <= 3 When mở Admin Dashboard Then hiển thị cảnh báo tồn kho thấp nổi bật.
+
+Thành viên phụ trách: TV 4"
+Sub-task,TASK-SP3-05,CRIG-US-26,[SCRUM TASK] BE-07: Xây dựng API thống kê KPI tồn kho và cảnh báo Low Stock Alert,,CRIG Sprint 3: Enterprise Core & Monitoring,,Medium,cmp-admin-security,sprint-3,Done,Sub-task thuộc CRIG-US-26 — Phụ trách: TV 4
+Story,CRIG-US-27,EPIC-08,CRIG-US-27: Bảng điều khiển giám sát Dark SOC Mission Control Dual-Mode (/admin-monitoring/),,CRIG Sprint 3: Enterprise Core & Monitoring,8,Highest,cmp-si-monitoring,sprint-3;soc,Done,"Là Admin/DevOps, tôi muốn bảng điều khiển Dark SOC chuyển đổi linh hoạt giữa Real-Time Monitoring và Scenario Testing Lab.
+
+Acceptance Criteria:
+- Given truy cập /admin-monitoring/ When chuyển đổi giữa 2 tab Then dữ liệu hiển thị trực quan không rò rỉ bộ nhớ.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP3-06,CRIG-US-27,[SCRUM TASK] FE-17: Thiết kế & lập trình Dark SOC Dashboard Dual-Mode (/admin-monitoring/),,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-27 — Phụ trách: TV 5
+Story,CRIG-US-28,EPIC-08,CRIG-US-28: Động cơ Telemetry In-Memory Ring Buffer & Stream Server-Sent Events (SSE),,CRIG Sprint 3: Enterprise Core & Monitoring,5,Highest,cmp-si-monitoring,sprint-3;sse,Done,"Là kỹ sư hệ thống, tôi muốn giám sát trạng thái 4 container Docker và thông lượng queue qua Ring Buffer 200 bản ghi trên RAM (Zero-DB overhead).
+
+Acceptance Criteria:
+- Given mở kết nối SSE /api/monitoring/stream When hệ thống vận hành Then đẩy metrics chu kỳ 1000ms không gây tải DB.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP3-07,CRIG-US-28,[SCRUM TASK] BE-08: Xây dựng In-Memory Ring Buffer Telemetry & SSE Event Hub,,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-28 — Phụ trách: TV 5
+Story,CRIG-US-29,EPIC-08,CRIG-US-29: Dead Letter Queue (DLQ) Inspector & Cơ chế Phát lại (Replay) Poison Message,,CRIG Sprint 3: Enterprise Core & Monitoring,5,High,cmp-si-monitoring,sprint-3;dlq,Done,"Là DevOps/QA, tôi muốn tự động cách ly thông điệp lỗi (NACK) vào DLQ và cung cấp nút Replay phát lại sau khi xử lý sự cố.
+
+Acceptance Criteria:
+- Given xuất hiện Poison Message trong DLQ When bấm Replay Then thông điệp tái nạp hàng đợi chính và biến mất khỏi DLQ.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP3-08,CRIG-US-29,[SCRUM TASK] BE-09: Xây dựng DLQ Quarantine Storage & API Replay / Clear DLQ,,CRIG Sprint 3: Enterprise Core & Monitoring,,High,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-29 — Phụ trách: TV 5
+Story,CRIG-US-30,EPIC-08,CRIG-US-30: Phòng Lab 6 kịch bản kiểm thử tích hợp tự động & monitoring.spec.ts,,CRIG Sprint 3: Enterprise Core & Monitoring,8,Highest,cmp-si-monitoring,sprint-3;testing-lab,Done,"Là QA/DevOps, tôi muốn chạy trực tiếp 6 kịch bản (Order Pipeline, Stock Check, Trigger DLQ, AI Mapping, Rate Limit, Health) và có bộ test tự động.
+
+Acceptance Criteria:
+- Given kích hoạt từng kịch bản trên Lab When hoàn tất Then trả đầy đủ dấu vết từng bước và monitoring.spec.ts đạt 100% PASS.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP3-09,CRIG-US-30,[SCRUM TASK] BE-10: Xây dựng scenario-runner.service.ts cho 6 kịch bản kiểm thử Lab,,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-30 — Phụ trách: TV 5
+Sub-task,TASK-SP3-10,CRIG-US-30,[SCRUM TASK] QA-02: Viết bộ kiểm thử tích hợp monitoring.spec.ts & health.spec.ts,,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-30 — Phụ trách: TV 5
+Story,CRIG-US-31,EPIC-09,"CRIG-US-31: Đóng gói cụm Docker Compose 4 containers, Nginx Gateway & Chuẩn hóa Clean Code ADLC",,CRIG Sprint 3: Enterprise Core & Monitoring,8,Highest,cmp-si-monitoring,sprint-3;docker;adlc,Done,"Là đội ngũ vận hành, tôi muốn khởi động đồng bộ 4 containers (Postgres, Redis, App, Nginx) có cô lập mạng nội bộ và mã nguồn đạt chuẩn Clean Code/SRP.
+
+Acceptance Criteria:
+- Given chạy docker compose up When gọi /healthz Then toàn bộ dịch vụ báo HEALTHY và mọi file tuân thủ SRP <= 300 dòng.
+
+Thành viên phụ trách: TV 5"
+Sub-task,TASK-SP3-11,CRIG-US-31,"[SCRUM TASK] DEVOPS-01: Cấu hình Docker Compose 4 containers, Nginx Gateway & Clean Code Monorepo",,CRIG Sprint 3: Enterprise Core & Monitoring,,Highest,cmp-si-monitoring,sprint-3,Done,Sub-task thuộc CRIG-US-31 — Phụ trách: TV 5
+Story,CRIG-US-33,EPIC-10,"CRIG-US-33: Gia cố phiên & Token (HttpOnly Cookie Rotation, Reuse Detection, Redis Blacklist & Lockout)",,CRIG Sprint 4: Security Hardening & DevSecOps,5,Highest,cmp-admin-security,sprint-4;security-hardening;owasp-top-10,Done,"Là hệ thống, tôi muốn lưu Refresh Token trong HttpOnly Cookie với xoay vòng + phát hiện tái sử dụng (Reuse Detection), thu hồi ngay qua Redis jti Blacklist và khóa brute-force.
+
+Acceptance Criteria:
+- Given gọi POST /api/auth/refresh bằng token cũ đã xoay vòng Then thu hồi toàn bộ token family và trả HTTP 401.
+- Given đã logout qua POST /api/auth/logout When dùng lại Access Token cũ Then Redis jti Blacklist chặn với HTTP 401.
+
+Thành viên phụ trách: TV 4"
+Sub-task,CORE-SEC-01,CRIG-US-33,"[SCRUM TASK] CORE-SEC-01: Triển khai cookie.util.ts, Refresh Token Rotation & Reuse Detection",,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-33 — Phụ trách: TV 4
+Sub-task,CORE-SEC-02,CRIG-US-33,[SCRUM TASK] CORE-SEC-02: Triển khai Redis jti Blacklist & Brute-Force Account Lockout,,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-33 — Phụ trách: TV 4
+Story,CRIG-US-34,EPIC-10,"CRIG-US-34: Chống IDOR, Che mờ PII & Khóa RBAC ADMIN cho SOC Monitoring + Single-use SSE Ticket",,CRIG Sprint 4: Security Hardening & DevSecOps,5,Highest,cmp-admin-security;cmp-si-monitoring,sprint-4;security-hardening;owasp-top-10,Done,"Là hệ thống, tôi muốn chống IDOR (?phone=) trên Orders, che mờ PII (pii-mask.util.ts) cho khách vãng lai, khóa toàn bộ /api/monitoring/* bằng requireRoles('ADMIN') và dùng vé SSE một lần.
+
+Acceptance Criteria:
+- Given gọi /api/monitoring/telemetry chưa có JWT ADMIN Then trả HTTP 401/403.
+- Given kết nối /api/monitoring/stream Then phải xin vé 1 lần qua POST /api/monitoring/stream-ticket.
+
+Thành viên phụ trách: TV 4"
+Sub-task,BE-SEC-03,CRIG-US-34,[SCRUM TASK] BE-SEC-03: Triển khai Anti-IDOR (?phone=) cho Orders & PII Masking (pii-mask.util.ts),,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-34 — Phụ trách: TV 4
+Sub-task,BE-SEC-04,CRIG-US-34,[SCRUM TASK] BE-SEC-04: Khóa requireRoles('ADMIN') cho monitoringRouter & Single-use SSE Ticket,,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-34 — Phụ trách: TV 5
+Story,CRIG-US-35,EPIC-10,CRIG-US-35: Xác thực Webhook Thanh toán VietQR bằng chữ ký HMAC-SHA256 & Chống Replay Attack,,CRIG Sprint 4: Security Hardening & DevSecOps,5,Highest,cmp-checkout-orders,sprint-4;security-hardening;owasp-top-10,Done,"Là hệ thống thanh toán, tôi muốn xác thực POST /api/orders/:id/confirm qua X-CyberRig-Signature và X-CyberRig-Timestamp bằng crypto.timingSafeEqual để chống giả mạo thanh toán.
+
+Acceptance Criteria:
+- Given request không có quyền ADMIN gửi /confirm sai chữ ký HMAC hoặc quá hạn timestamp Then từ chối 401/403 và ghi Audit Log.
+
+Thành viên phụ trách: TV 4"
+Sub-task,BE-SEC-05,CRIG-US-35,[SCRUM TASK] BE-SEC-05: Cài đặt hmac-webhook.util.ts xác thực chữ ký HMAC-SHA256 & cửa sổ chống Replay,,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-checkout-orders,sprint-4,Done,Sub-task thuộc CRIG-US-35 — Phụ trách: TV 4
+Sub-task,BE-SEC-06,CRIG-US-35,[SCRUM TASK] BE-SEC-06: Bảo vệ POST /api/orders/:id/confirm & tách /simulate-payment cho dev,,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-checkout-orders,sprint-4,Done,Sub-task thuộc CRIG-US-35 — Phụ trách: TV 1
+Story,CRIG-US-36,EPIC-10,CRIG-US-36: Bảo mật 2 lớp MFA/2FA TOTP (RFC 6238) & Nhật ký Kiểm toán bất biến (audit_logs),,CRIG Sprint 4: Security Hardening & DevSecOps,5,High,cmp-admin-security;cmp-si-monitoring,sprint-4;mfa-2fa;audit-log,Done,"Là quản trị viên và khách hàng, tôi muốn bật/tắt 2FA TOTP chuẩn Google Authenticator (/api/auth/2fa/*) và tra cứu nhật ký kiểm toán append-only tại SOC.
+
+Acceptance Criteria:
+- Given đã bật 2FA qua /2fa/setup & /verify Then đăng nhập tiếp theo bắt buộc mã OTP 6 chữ số hợp lệ.
+- Given ADMIN gọi GET /api/monitoring/audit-logs Then trả về đầy đủ sự kiện bảo mật.
+
+Thành viên phụ trách: TV 4"
+Sub-task,BE-SEC-07,CRIG-US-36,[SCRUM TASK] BE-SEC-07: Xây dựng totp.util.ts (RFC 6238) & mfa.service.ts (/api/auth/2fa/*),,CRIG Sprint 4: Security Hardening & DevSecOps,,High,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-36 — Phụ trách: TV 4
+Sub-task,BE-SEC-08,CRIG-US-36,"[SCRUM TASK] BE-SEC-08: Tạo bảng audit_logs (seed.ts), audit-log.service.ts & GET /api/monitoring/audit-logs",,CRIG Sprint 4: Security Hardening & DevSecOps,,High,cmp-admin-security,sprint-4,Done,Sub-task thuộc CRIG-US-36 — Phụ trách: TV 3
+Story,CRIG-US-37,EPIC-10,CRIG-US-37: Pipeline DevSecOps 4-Job trên GitHub Actions & Test Runner đa nền tảng,,CRIG Sprint 4: Security Hardening & DevSecOps,4,Highest,cmp-devsecops-ci,sprint-4;devsecops;ci-cd,Done,"Là kỹ sư DevOps/QA, tôi muốn mọi push/PR kích hoạt tự động 4 job (TS+173 Tests, Gitleaks, Semgrep OSS, Trivy CVE) chạy ổn định trên Windows & Ubuntu Node 22.
+
+Acceptance Criteria:
+- Given push hoặc mở PR vào main When workflow security-scan.yml chạy Then 4/4 job đạt PASS và 173/173 tests vượt qua.
+
+Thành viên phụ trách: TV 5"
+Sub-task,DEVOPS-02,CRIG-US-37,"[SCRUM TASK] DEVOPS-02: Cấu hình .github/workflows/security-scan.yml (4 jobs), .gitleaks.toml & .gitignore",,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-37 — Phụ trách: TV 5
+Sub-task,DEVOPS-03,CRIG-US-37,[SCRUM TASK] DEVOPS-03: Xây dựng scripts/run-tests.mjs đa nền tảng & security-hardening.spec.ts (SEC-01..10),,CRIG Sprint 4: Security Hardening & DevSecOps,,Highest,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-37 — Phụ trách: TV 5
+Story,CRIG-US-38,EPIC-10,CRIG-US-38: Đồng bộ Biểu đồ Use Case v2.1 (Tác nhân hệ thống VietQR) & Tài liệu Dự án,,CRIG Sprint 4: Security Hardening & DevSecOps,2,Medium,cmp-devsecops-ci,sprint-4;docs,Done,"Là Product Owner, tôi muốn đồng bộ sơ đồ Use Case v2.1, kiến trúc bảo mật, hồ sơ Scrum 5 thành viên và Báo cáo Word.
+
+Acceptance Criteria:
+- Given rà soát toàn bộ tài liệu When đối chiếu với mã nguồn Then 20 UC, 6 tác nhân, 5 thành viên và 4 Sprint khớp 100%.
+
+Thành viên phụ trách: TV 1"
+Sub-task,DOC-01,CRIG-US-38,[SCRUM TASK] DOC-01: Vẽ lại diagram_usecase_master.png (3000x4359) & diagram_security_architecture.png,,CRIG Sprint 4: Security Hardening & DevSecOps,,Medium,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-38 — Phụ trách: TV 2
+Sub-task,DOC-02,CRIG-US-38,"[SCRUM TASK] DOC-02: Đồng bộ SECURITY-DESIGN.md, USE-CASES.md, docs/scrum/* & TAI-LIEU-BAO-CAO.docx",,CRIG Sprint 4: Security Hardening & DevSecOps,,Medium,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-38 — Phụ trách: TV 1

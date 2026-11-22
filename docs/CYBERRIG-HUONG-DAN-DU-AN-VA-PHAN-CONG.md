@@ -2,8 +2,8 @@
 
 > **Hệ thống**: CyberRig Ecosystem  
 > **Mô hình**: Agile / Scrum kết hợp Vòng đời Tác tử ADLC (Agentic Development Life Cycle)  
-> **Thời gian dự án**: 2.5 Tháng (10.5 tuần / 75 ngày) - Gồm 3 Sprint  
-> **Tổng khối lượng**: 156 Story Points (31 User Stories phân bổ qua 9 Epics)  
+> **Thời gian dự án**: 11.5 Tuần (3 Sprint nghiệp vụ chính 2.5 tháng + 1 Hardening Sprint — tổng 4 Sprint)  
+> **Tổng khối lượng**: 182 Story Points (10 Epics • 37 User Stories • 44 Sub-tasks — Jira Key: `SCRUM`)  
 > **Mục đích**: Tài liệu bàn giao nhóm, làm rõ bài toán, hướng dẫn vẽ sơ đồ Use-Case và phân công chi tiết công việc.
 
 ---
@@ -13,7 +13,7 @@
 | Thuộc tính | Chi tiết định nghĩa |
 | :--- | :--- |
 | **Tên dự án** | **CyberRig** - Hệ sinh thái Bán lẻ Phần cứng PC, Bộ Lắp Ráp PC Tương Thích & Quản Lý Vòng Đời Bảo Hành / Sửa Chữa |
-| **Mô hình quản trị** | Scrum 3 Sprint (2.5 tháng) + ADLC (Agentic Development Life Cycle) với chuỗi tạo tác kiểm toán |
+| **Mô hình quản trị** | Scrum 4 Sprint (Jira `SCRUM`, 182 SP) + ADLC (Agentic Development Life Cycle) + DevSecOps CI/CD 4-Job |
 | **Công nghệ Frontend** | React 19, TypeScript, Vanilla CSS, Thiết kế công nghiệp Cyberpunk, Dual-Theme (Day/Night) |
 | **Công nghệ Backend** | Node.js (v20+), Express 5, TypeScript, Modular Architecture (Domain-Driven Design) |
 | **Cơ sở dữ liệu & Cache**| PostgreSQL 16 (Relational DB), Redis 7 Alpine (Atomic Stock Reservation qua Lua Script) |
@@ -80,12 +80,13 @@ Phần này cung cấp căn cứ chuẩn xác để các thành viên tiến hà
 
 ![Sơ Đồ Use-Case Tổng Thể Toàn Hệ Thống CyberRig](file:///d:/Project/cyberig/docs/diagrams/diagram_usecase_master.png)
 
-### 3.1. Danh Sách 5 Tác Nhân Hệ Thống (Actors)
-1. **Khách Vãng Lai (Guest)**: Người dùng chưa đăng nhập. Xem catalog, sử dụng PC Builder, tra cứu bảo hành, duyệt báo giá trực tuyến, đặt hàng và quét mã VietQR.
-2. **Khách Hàng (Customer)**: Người dùng có tài khoản đã đăng nhập. Kế thừa toàn bộ quyền của Guest; có thêm Customer Unified Hub (`#dashboard`) quản lý dàn máy cá nhân, lịch sử đơn hàng và thiết bị gửi sửa chữa.
-3. **Kỹ Thuật Viên (Technician)**: Nhân sự phòng Lab. Tiếp nhận máy tại quầy (thiết bị mua tại cửa hàng hoặc ngoài), soạn biên bản chẩn đoán, lập bảng báo giá linh kiện + công thợ, cập nhật trạng thái phiếu bảo hành theo State Machine.
-4. **Quản Trị Viên (Admin)**: Quản lý cửa hàng. Quản lý danh mục linh kiện (CRUD), nhập kho bổ sung (Restock), soft-delete, phân quyền RBAC, theo dõi KPI tồn kho an toàn và doanh thu.
-5. **Kỹ Sư DevOps / QA (System Operator)**: Giám sát SOC thời gian thực, quản lý và phát lại thông điệp lỗi trong Dead Letter Queue (DLQ), kích hoạt 6 kịch bản kiểm thử tích hợp tại Testing Lab.
+### 3.1. Danh Sách Tác Nhân Hệ Thống (5 Tác Nhân Người Dùng & 1 Hệ Thống Ngoài)
+1. **Khách Vãng Lai (Guest)**: Người dùng chưa đăng nhập. Xem catalog, sử dụng PC Builder, đặt hàng và quét mã VietQR, tra cứu đơn hàng/phiếu bảo hành (áp dụng Anti-IDOR, Rate Limit & PII Masking) và duyệt báo giá trực tuyến.
+2. **Khách Hàng (Customer)**: Người dùng có tài khoản đã đăng nhập (`CUSTOMER`, hỗ trợ 2FA TOTP). Kế thừa toàn bộ quyền của Guest; có thêm Customer Unified Hub (`#dashboard`) quản lý dàn máy cá nhân, lịch sử đơn hàng và thiết bị gửi sửa chữa.
+3. **Kỹ Thuật Viên (Technician)**: Nhân sự phòng Lab (`TECHNICIAN`). Tiếp nhận máy tại quầy (thiết bị mua tại cửa hàng hoặc ngoài), soạn biên bản chẩn đoán, lập bảng báo giá linh kiện + công thợ, cập nhật trạng thái phiếu bảo hành theo State Machine.
+4. **Quản Trị Viên (Admin)**: Quản lý cửa hàng và hệ thống (`ADMIN`). Quản lý danh mục linh kiện (CRUD), nhập kho bổ sung (Restock), soft-delete, quản trị RBAC/JWT/2FA TOTP, xem Audit Logs, vận hành SOC/Testing Lab/DLQ và theo dõi KPI tồn kho an toàn.
+5. **Kỹ Sư DevOps / QA (System Operator — Quyền `ADMIN`)**: Giám sát SOC thời gian thực (SSE Ticket & Audit Logs), quản lý và phát lại thông điệp lỗi trong Dead Letter Queue (DLQ), kích hoạt 6 kịch bản kiểm thử tích hợp tại Testing Lab.
+6. **Cổng Thanh Toán VietQR (`«system»` Webhook HMAC-SHA256)**: Tác nhân hệ thống ngoài gửi tín hiệu xác nhận giao dịch có chữ ký `HMAC-SHA256` (`X-CyberRig-Signature`) tới `POST /api/orders/:id/confirm` để chuyển trạng thái đơn hàng sang `PAID`.
 
 ---
 
@@ -99,9 +100,9 @@ Phần này cung cấp căn cứ chuẩn xác để các thành viên tiến hà
 | **UC-04** | Tự phối linh kiện & Thẩm định tương thích Socket/TDP | Package 1: Hardware & Builder | Guest, Customer | Must |
 | **UC-05** | Xem danh mục PC Setup & Thiết bị không gian làm việc | Package 1: Hardware & Builder | Guest, Customer | Should |
 | **UC-06** | Chuyển giỏ hàng cấu hình sang Checkout Split-View | Package 2: Checkout & Orders | Guest, Customer | Must |
-| **UC-07** | Đặt hàng & Thanh toán bằng mã VietQR Napas 247 động | Package 2: Checkout & Orders | Guest, Customer | Must |
-| **UC-08** | Tra cứu trạng thái đơn hàng công khai theo mã | Package 2: Checkout & Orders | Guest, Customer | Should |
-| **UC-09** | Tra cứu tiến độ phiếu bảo hành với Timeline 6 chặng | Package 3: Repair & Warranty | Guest, Customer | Must |
+| **UC-07** | Đặt hàng & Thanh toán VietQR Napas 247 (Xác thực Webhook HMAC) | Package 2: Checkout & Orders | Guest, Customer, VietQR Webhook | Must |
+| **UC-08** | Tra cứu trạng thái đơn hàng theo mã (Anti-IDOR & PII Masking) | Package 2: Checkout & Orders | Guest, Customer | Should |
+| **UC-09** | Tra cứu tiến độ phiếu bảo hành 6 chặng (Rate Limit & PII Masking) | Package 3: Repair & Warranty | Guest, Customer | Must |
 | **UC-10** | Khách hàng duyệt hoặc từ chối báo giá sửa chữa 2 chiều | Package 3: Repair & Warranty | Guest, Customer | Must |
 | **UC-11** | Tiếp nhận thiết bị sửa chữa tại quầy Lab | Package 3: Repair & Warranty | Technician | Must |
 | **UC-12** | Soạn biên bản chẩn đoán & Lập báo giá vật tư Lab | Package 3: Repair & Warranty | Technician | Must |
@@ -109,8 +110,8 @@ Phần này cung cấp căn cứ chuẩn xác để các thành viên tiến hà
 | **UC-14** | Quản lý dàn máy & Lịch sử mua hàng cá nhân | Package 4: Portals & Hubs | Customer | Should |
 | **UC-15** | Quản lý hàng đợi sửa chữa theo trạng thái (Workbench) | Package 4: Portals & Hubs | Technician | Must |
 | **UC-16** | Quản trị kho hàng, nhập bổ sung & Cảnh báo tồn kho | Package 5: Admin & SOC | Admin | Must |
-| **UC-17** | Phân quyền truy cập RBAC (JWT & Route Guards) | Package 5: Admin & SOC | Admin, System | Must |
-| **UC-18** | Giám sát SOC thời gian thực với Telemetry SSE | Package 5: Admin & SOC | Admin, DevOps/QA | Must |
+| **UC-17** | Xác thực JWT (`HttpOnly` Rotation), 2FA TOTP & Phân quyền RBAC | Package 5: Admin & SOC | Admin, System | Must |
+| **UC-18** | Giám sát SOC Real-time SSE (Ticket) & Nhật ký Audit Logs | Package 5: Admin & SOC | Admin, DevOps/QA | Must |
 | **UC-19** | Kích hoạt 6 kịch bản kiểm thử tích hợp tự động | Package 5: Admin & SOC | Admin, DevOps/QA | Must |
 | **UC-20** | Phân tích, cô lập & Phát lại (Replay) thông điệp lỗi DLQ | Package 5: Admin & SOC | Admin, DevOps/QA | Must |
 
@@ -140,7 +141,7 @@ Phần này cung cấp căn cứ chuẩn xác để các thành viên tiến hà
   2. Điền thông tin người nhận, chọn phương thức thanh toán VietQR và bấm `[ XÁC NHẬN ĐẶT HÀNG ]`.
   3. Backend thực thi Redis Lua script khóa kho nguyên tử (TTL 15 phút), tạo Price Snapshot và sinh mã đơn hàng `ORD-XXXXXX`.
   4. Giao diện hiển thị khung mã VietQR động chứa số tài khoản, số tiền chính xác và cú pháp chuyển khoản bắt buộc `CYBERRIG ORD-XXXXXX` kèm đồng hồ đếm ngược 15:00.
-  5. Khách hàng quét mã trên ứng dụng ngân hàng và hoàn tất chuyển khoản; hệ thống nhận webhook chuyển trạng thái sang `PAID`.
+  5. Khách hàng quét mã trên ứng dụng ngân hàng và hoàn tất chuyển khoản; Cổng thanh toán VietQR gửi Webhook có chữ ký `HMAC-SHA256` (`X-CyberRig-Signature`) tới `POST /api/orders/:id/confirm` để hệ thống xác thực và chuyển trạng thái sang `PAID`.
 
 #### Đặc tả UC-10: Khách Hàng Duyệt Báo Giá Sửa Chữa 2 Chiều Trực Tuyến
 - **Tiền điều kiện**: Phiếu bảo hành đang ở trạng thái `QUOTED` kèm báo giá vật tư và tiền công thợ.
@@ -153,9 +154,9 @@ Phần này cung cấp căn cứ chuẩn xác để các thành viên tiến hà
 
 ---
 
-# PHẦN 4: KẾ HOẠCH PHÁT TRIỂN 3 SPRINT TRONG 2.5 THÁNG
+# PHẦN 4: KẾ HOẠCH PHÁT TRIỂN 4 SPRINT (182 STORY POINTS)
 
-Toàn bộ khối lượng phát triển gồm 156 Story Points được chia thành 3 Sprint, mỗi Sprint kéo dài ~3.5 tuần (25 ngày làm việc):
+Toàn bộ khối lượng phát triển & gia cố bảo mật gồm **182 Story Points** (10 Epics, 37 Stories, 44 Sub-tasks trên Jira `SCRUM`) được chia thành 4 Sprint kế tiếp nhau:
 
 ### 4.1. SPRINT 1 (Tuần 1 - Tuần 3.5 | 58 SP): Core Value Functional MVP
 - **Mục tiêu**: Người dùng truy cập là có thể sử dụng ngay lập tức toàn bộ luồng nghiệp vụ tạo ra giá trị cốt lõi.
@@ -192,18 +193,26 @@ Toàn bộ khối lượng phát triển gồm 156 Story Points được chia th
 
 ![Sơ Đồ Tuần Tự Sprint 3](file:///d:/Project/cyberig/docs/diagrams/diagram_seq_sprint3.png)
 
+### 4.4. SPRINT 4 (Tuần 11 — Hardening | 26 SP): Security Hardening OWASP Top 10 & DevSecOps Release
+- **Mục tiêu**: Hoàn tất 3 giai đoạn gia cố bảo mật theo chuẩn OWASP Top 10, tự động hóa cổng CI/CD DevSecOps 4-Job và đồng bộ toàn bộ hồ sơ UML/Scrum/Jira 5 thành viên.
+- **Phạm vi công việc**:
+  - Gia cố phiên & Token: `HttpOnly` Cookie Rotation + Reuse Detection, Redis `jti` Blacklist, Brute-Force Lockout.
+  - Chống IDOR (`?phone=`), Che mờ PII (`pii-mask.util.ts`), Khóa RBAC `ADMIN` cho `/api/monitoring/*` & Single-use SSE Ticket (`/stream-ticket`).
+  - Xác thực Webhook VietQR bằng chữ ký `HMAC-SHA256` (`X-CyberRig-Signature`, `X-CyberRig-Timestamp`) + chống Replay Attack.
+  - Bảo mật 2 lớp MFA/2FA TOTP (RFC 6238) & Nhật ký Kiểm toán bất biến (`audit_logs`).
+  - Pipeline DevSecOps 4-Job trên GitHub Actions (`.github/workflows/security-scan.yml`: TypeScript+173 Tests, Gitleaks, Semgrep OSS, Trivy CVE) & Đồng bộ Use Case v2.1 + Tài liệu dự án.
+
 ---
 
-# PHẦN 5: MA TRẬN PHÂN CÔNG CÔNG VIỆC TRONG NHÓM (RACI MATRIX)
+# PHẦN 5: MA TRẬN PHÂN CÔNG CÔNG VIỆC TRONG NHÓM (5 THÀNH VIÊN — RACI MATRIX)
 
-| Thành Viên & Vai Trò | Nhiệm Vụ Vẽ Sơ Đồ Use-Case | Nhiệm Vụ Kỹ Thuật Chính | Phụ Trách Theo Sprint |
-| :--- | :--- | :--- | :---: |
-| **Thành viên 1**<br>*(Product Owner / Team Lead)* | Vẽ **Sơ đồ Use-Case Tổng Thể (Master)** và Package 4: Portals & Hubs (`UC-14`, `UC-15`). | Quản lý Product Backlog, nghiệm thu Acceptance Criteria, điều phối nhịp độ 3 Sprint theo ADLC. | Xuyên suốt Sprint 1, 2, 3 |
-| **Thành viên 2**<br>*(Frontend Engineer 1 - Core & UI)* | Vẽ Sơ đồ Use-Case Package 1: Hardware & Builder (`UC-01` đến `UC-05`). | Xây dựng giao diện `/hardware`, `/builder`, thanh tiến trình tương thích và hệ thống Dual-Theme. | Sprint 1 (Builder) & Sprint 2 (Dual-Theme, Equipments) |
-| **Thành viên 3**<br>*(Frontend Engineer 2 - E-Commerce)* | Vẽ Sơ đồ Use-Case Package 2: Checkout & VietQR (`UC-06`, `UC-07`, `UC-08`). | Xây dựng `/checkout` Split-View, cổng VietQR Napas 247 động, tra cứu đơn hàng `/orders/:code`. | Sprint 1 (Checkout) & Sprint 2 (Micro-interactions) |
-| **Thành viên 4**<br>*(Backend Engineer 1 - Core Domain)* | Vẽ Sơ đồ Use-Case Package 3: Repair & Warranty (`UC-09` đến `UC-13`). | Xây dựng Rule Engine Socket/TDP, State Machine 6 chặng, API duyệt báo giá 2 chiều. | Sprint 1 (Compatibility, State Machine) & Sprint 3 (Redis Lock) |
-| **Thành viên 5**<br>*(Backend Engineer 2 - Admin & Security)* | Vẽ Sơ đồ Use-Case Package 5 (Phần Quản Trị): `UC-16`, `UC-17`. | Xây dựng API Quản trị kho hàng Admin Control Center, cơ chế phân quyền RBAC JWT 3 vai trò. | Sprint 1 (Database Schema) & Sprint 3 (Admin Hub, RBAC) |
-| **Thành viên 6**<br>*(DevOps & QA Engineer)* | Vẽ Sơ đồ Use-Case Package 5 (Phần Giám Sát SOC): `UC-18`, `UC-19`, `UC-20`. | Xây dựng SI Monitoring Dashboard (`/admin-monitoring/`), Telemetry SSE, DLQ Replay, 6 kịch bản Lab, Docker Compose. | Sprint 1 (Docker Dev) & Sprint 3 (SI Monitoring, CI/CD) |
+| Thành Viên & Vai Trò | Nhiệm Vụ Vẽ Sơ Đồ Use-Case | Nhiệm Vụ Kỹ Thuật Chính | Phụ Trách Theo Sprint | Tỷ Lệ Đóng Góp |
+| :--- | :--- | :--- | :---: | :---: |
+| **Thành viên 1**<br>*(PO / Team Lead & FE E-Commerce)* | Vẽ **Sơ đồ Use-Case Tổng Thể (Master)**, Package 2 (`UC-06`, `UC-07`, `UC-08`) và Package 4 (`UC-14`). | Quản lý Product Backlog & Jira `SCRUM` (`My Software Team`, Board `1`), điều phối ADLC (`intent`, `spec`, `plan`), nghiệm thu Sprint Review; xây dựng `/checkout` Split-View, hiển thị VietQR Napas 247, Customer Hub (`#dashboard`) và bộ ảnh Studio 8 nhóm linh kiện. | Xuyên suốt Sprint 1, 2, 3, 4 | **20%** |
+| **Thành viên 2**<br>*(Frontend Lead & Design System UI)* | Vẽ Sơ đồ Use-Case Package 1: Hardware & Builder (`UC-01` đến `UC-05`) và Package 4 (`UC-15`: Tech UI). | Xây dựng `/hardware`, `/builder`, thanh tiến trình tương thích, trang `/equipments` (20 thiết bị Setup), chuẩn hóa Design System v2.1 (0px, Dual-Theme Day/Night 60 FPS), Micro-interactions, Tech UI và đồng bộ Sơ đồ Use-Case v2.1 + Security Architecture. | Sprint 1, 2 & Sprint 4 (UML) | **20%** |
+| **Thành viên 3**<br>*(Backend Core Domain & Repair Lab)* | Vẽ Sơ đồ Use-Case Package 3: Repair & Warranty (`UC-09` đến `UC-13`). | Xây dựng 4 Compatibility Rules (Socket, RAM, Clearance, Power +25%), State Machine 8 trạng thái bảo hành, Diagnostics Quotation duyệt báo giá 2 chiều, Redis Atomic Stock Reservation (Lua Script chống bán âm) và bảng `audit_logs` PostgreSQL. | Sprint 1, 3 & Sprint 4 (Audit DB) | **20%** |
+| **Thành viên 4**<br>*(Backend Security, DB & Admin Hub)* | Vẽ Sơ đồ Use-Case Package 5 (Quản trị & Bảo mật): `UC-16`, `UC-17`. | Thiết kế PostgreSQL 16 Schema (`seed.ts`, `audit_logs`), In-Memory Fallback; xây dựng Admin Control Center (`#admin`); triển khai gia cố bảo mật OWASP 3 giai đoạn (RBAC JWT `HttpOnly` Rotation, 2FA TOTP, Webhook HMAC-SHA256, Anti-IDOR, PII Masking). | Sprint 1, 3 & Sprint 4 (Hardening) | **20%** |
+| **Thành viên 5**<br>*(DevOps, SI Monitoring & QA Automation)* | Vẽ Sơ đồ Use-Case Package 5 (Giám sát SOC): `UC-18`, `UC-19`, `UC-20`. | Xây dựng Dark SOC (`/admin-monitoring/`), Telemetry SSE (Single-use Ticket), Audit Logs Viewer, DLQ Replay, 6 kịch bản Testing Lab; đóng gói Docker Compose 4 containers, Nginx Hardening, bộ 24 Spec Tests (173 tests) và Pipeline GitHub Actions DevSecOps 4 jobs. | Sprint 1, 2 (QA), 3 & Sprint 4 (DevSecOps) | **20%** |
 
 ---
 

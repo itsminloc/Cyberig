@@ -1,0 +1,1207 @@
+{
+  "projectKey": "SCRUM",
+  "projectName": "My Software Team (CyberRig)",
+  "team": [
+    {
+      "code": "TV 1",
+      "role": "PO / Team Lead & FE E-Commerce",
+      "share": "20%"
+    },
+    {
+      "code": "TV 2",
+      "role": "Frontend Lead & Design System UI",
+      "share": "20%"
+    },
+    {
+      "code": "TV 3",
+      "role": "Backend Core Domain & Repair Lab",
+      "share": "20%"
+    },
+    {
+      "code": "TV 4",
+      "role": "Backend Security, DB & Admin Hub",
+      "share": "20%"
+    },
+    {
+      "code": "TV 5",
+      "role": "DevOps, SI Monitoring & QA Automation",
+      "share": "20%"
+    }
+  ],
+  "components": [
+    {
+      "name": "cmp-hardware-builder",
+      "description": "Danh mục linh kiện, thuật toán kiểm tra Socket & TDP, thanh tiến trình tương thích."
+    },
+    {
+      "name": "cmp-checkout-orders",
+      "description": "Giỏ hàng Split-View, cổng thanh toán VietQR Napas 247, Price Snapshot & Webhook HMAC-SHA256."
+    },
+    {
+      "name": "cmp-repair-tracking",
+      "description": "State Machine 8 trạng thái, tra cứu bảo hành (Rate Limit & PII Masking), duyệt báo giá 2 chiều."
+    },
+    {
+      "name": "cmp-portals-ui",
+      "description": "Giao diện Dual-Theme (Day/Night), Kỹ thuật viên Workbench, Customer Hub, Setup Equipments."
+    },
+    {
+      "name": "cmp-admin-security",
+      "description": "RBAC 3 vai trò, HttpOnly Refresh Rotation, Redis jti Blacklist, 2FA TOTP, Anti-IDOR, Redis Atomic Lock, Admin Hub."
+    },
+    {
+      "name": "cmp-si-monitoring",
+      "description": "Bảng Dark SOC Mission Control (ADMIN RBAC), Telemetry SSE (Ticket), Audit Logs, DLQ Replay, 6 Scenarios Lab."
+    },
+    {
+      "name": "cmp-devsecops-ci",
+      "description": "Pipeline GitHub Actions 4-Job (security-scan.yml), .gitleaks.toml, Test Runner đa nền tảng & Tài liệu UML/Scrum."
+    }
+  ],
+  "sprints": [
+    {
+      "id": 1,
+      "name": "CRIG Sprint 1: Core Value MVP",
+      "goal": "Bàn giao luồng nghiệp vụ cốt lõi: Catalog phần cứng, PC Builder kiểm định Socket/TDP thời gian thực, Checkout VietQR Napas 247 động và Tra cứu bảo hành 6 chặng kèm duyệt báo giá 2 chiều.",
+      "startDate": "2026-09-01T02:00:00.000Z",
+      "endDate": "2026-09-25T10:00:00.000Z",
+      "plannedSp": 58
+    },
+    {
+      "id": 2,
+      "name": "CRIG Sprint 2: UI/UX Excellence",
+      "goal": "Chuẩn hóa Design System Cyberpunk 0px, hệ thống Dual-Theme Day/Night 60 FPS đạt WCAG 2.1 AA, bộ ảnh Studio 8 nhóm linh kiện, trang PC Setup /equipments, Tech Workbench và Customer Hub.",
+      "startDate": "2026-09-26T02:00:00.000Z",
+      "endDate": "2026-10-20T10:00:00.000Z",
+      "plannedSp": 38
+    },
+    {
+      "id": 3,
+      "name": "CRIG Sprint 3: Enterprise Core & Monitoring",
+      "goal": "Hoàn thiện hạ tầng quản trị & giám sát: RBAC 3 vai trò, Redis Lua Atomic Stock Lock (Zero Oversell), Admin Hub CRUD/Restock, Dark SOC SSE Telemetry, DLQ Replay, 6 Scenarios Lab và Docker Compose.",
+      "startDate": "2026-10-21T02:00:00.000Z",
+      "endDate": "2026-11-14T10:00:00.000Z",
+      "plannedSp": 60
+    },
+    {
+      "id": 4,
+      "name": "CRIG Sprint 4: Security Hardening & DevSecOps",
+      "goal": "Triển khai trọn bộ 3 giai đoạn gia cố bảo mật OWASP Top 10 (HttpOnly Rotation, Redis Blacklist, Anti-IDOR, PII Masking, RBAC SOC + SSE Ticket, Webhook VietQR HMAC-SHA256, 2FA TOTP, audit_logs), GitHub Actions 4-Job CI/CD và đồng bộ Use Case v2.1.",
+      "startDate": "2026-11-15T02:00:00.000Z",
+      "endDate": "2026-11-22T10:00:00.000Z",
+      "plannedSp": 26
+    }
+  ],
+  "epics": [
+    {
+      "code": "EPIC-01",
+      "name": "EPIC-01: Retail Hardware & PC Builder Tương Thích",
+      "sprint": 1,
+      "component": "cmp-hardware-builder",
+      "owner": "TV 2",
+      "description": "Danh mục linh kiện đa tiêu chí, thuật toán thẩm định tương thích Socket/TDP và bộ lắp ráp PC Builder 8 khoang.",
+      "jiraKey": "SCRUM-5"
+    },
+    {
+      "code": "EPIC-02",
+      "name": "EPIC-02: Luồng Đặt Hàng & Cổng Thanh Toán VietQR",
+      "sprint": 1,
+      "component": "cmp-checkout-orders",
+      "owner": "TV 1",
+      "description": "Luồng chuyển cấu hình sang Checkout Split-View, lưu Price Snapshot, sinh mã VietQR Napas 247 và tra cứu đơn hàng.",
+      "jiraKey": "SCRUM-6"
+    },
+    {
+      "code": "EPIC-03",
+      "name": "EPIC-03: Vòng Đời Phiếu Sửa Chữa & Duyệt Báo Giá 2 Chiều",
+      "sprint": 1,
+      "component": "cmp-repair-tracking",
+      "owner": "TV 3",
+      "description": "Finite State Machine kiểm soát phiếu bảo hành, cổng tra cứu /repair-tracking và phê duyệt báo giá 2 chiều.",
+      "jiraKey": "SCRUM-7"
+    },
+    {
+      "code": "EPIC-04",
+      "name": "EPIC-04: Industrial Design System & Dual-Theme (Day/Night)",
+      "sprint": 2,
+      "component": "cmp-portals-ui",
+      "owner": "TV 2",
+      "description": "Chuẩn hóa Design System v2.1 bo góc 0px, viền HUD và chuyển đổi Dual-Theme Day/Night 60 FPS đạt WCAG 2.1 AA.",
+      "jiraKey": "SCRUM-8"
+    },
+    {
+      "code": "EPIC-05",
+      "name": "EPIC-05: Studio Media Assets, PC Setup & Workbenches",
+      "sprint": 2,
+      "component": "cmp-portals-ui",
+      "owner": "TV 1",
+      "description": "Bộ ảnh Studio 8 loại linh kiện, trang /equipments 20 thiết bị Setup, Tech Workbench và Customer Unified Hub.",
+      "jiraKey": "SCRUM-9"
+    },
+    {
+      "code": "EPIC-06",
+      "name": "EPIC-06: Phân Quyền RBAC & Khóa Kho Nguyên Tử Redis",
+      "sprint": 3,
+      "component": "cmp-admin-security",
+      "owner": "TV 4",
+      "description": "Phân quyền RBAC 3 vai trò (CUSTOMER, TECHNICIAN, ADMIN) và khóa tồn kho nguyên tử Redis Lua Script chống bán âm.",
+      "jiraKey": "SCRUM-10"
+    },
+    {
+      "code": "EPIC-07",
+      "name": "EPIC-07: Cổng Quản Trị Kho Admin Control Center & KPI",
+      "sprint": 3,
+      "component": "cmp-admin-security",
+      "owner": "TV 4",
+      "description": "Admin Control Center (#admin) quản trị kho CRUD, Restock, Soft Delete và cảnh báo tồn kho thấp.",
+      "jiraKey": "SCRUM-11"
+    },
+    {
+      "code": "EPIC-08",
+      "name": "EPIC-08: SI Monitoring Mission Control, DLQ & 6 Scenarios Lab",
+      "sprint": 3,
+      "component": "cmp-si-monitoring",
+      "owner": "TV 5",
+      "description": "Dark SOC (/admin-monitoring/), In-Memory Ring Buffer SSE Telemetry, Dead Letter Queue Replay và 6 kịch bản Lab.",
+      "jiraKey": "SCRUM-12"
+    },
+    {
+      "code": "EPIC-09",
+      "name": "EPIC-09: Container Hóa Docker Compose & Chuỗi Tạo Tác ADLC",
+      "sprint": 3,
+      "component": "cmp-si-monitoring",
+      "owner": "TV 5",
+      "description": "Đóng gói Docker Compose 4 containers + Nginx Reverse Proxy và chuẩn hóa cấu trúc Clean Code Monorepo / ADLC.",
+      "jiraKey": "SCRUM-13"
+    },
+    {
+      "code": "EPIC-10",
+      "name": "EPIC-10: Gia Cố Bảo Mật OWASP Top 10, DevSecOps CI/CD & Docs Sync",
+      "sprint": 4,
+      "component": "cmp-devsecops-ci",
+      "owner": "TV 4",
+      "description": "3 giai đoạn bảo mật OWASP (HttpOnly Rotation, Redis Blacklist, Anti-IDOR, PII Masking, RBAC SOC, HMAC Webhook, 2FA TOTP, Audit Logs), GitHub Actions 4-Job CI/CD và đồng bộ Use Case v2.1.",
+      "jiraKey": "SCRUM-14"
+    }
+  ],
+  "stories": [
+    {
+      "code": "CRIG-US-01",
+      "epic": "EPIC-01",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-hardware-builder"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-01: Tra cứu & Lọc linh kiện phần cứng đa tiêu chí (/hardware)",
+      "description": "Là khách hàng, tôi muốn lọc linh kiện theo danh mục (8 nhóm), khoảng giá và thương hiệu để tìm phụ tùng PC phù hợp.\n\nAcceptance Criteria:\n- Given người dùng mở /hardware When lọc theo danh mục CPU và khoảng giá Then danh sách cập nhật tức thì đúng thông số kỹ thuật JSONB.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-01",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-01: Xây dựng giao diện /hardware và bộ lọc đa tiêu chí",
+          "jiraKey": "SCRUM-4"
+        }
+      ],
+      "jiraKey": "SCRUM-42"
+    },
+    {
+      "code": "CRIG-US-02",
+      "epic": "EPIC-01",
+      "sprint": 1,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 3",
+      "components": [
+        "cmp-hardware-builder"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend",
+        "rule-engine"
+      ],
+      "summary": "CRIG-US-02: Thuật toán thẩm định tương thích 4 Rules (Socket, RAM, Clearance, Power)",
+      "description": "Là người tự lắp PC, tôi muốn hệ thống kiểm tra tức thì Socket CPU-Mainboard, chuẩn RAM DDR4/DDR5, kích thước VGA/Case để không mua nhầm linh kiện xung đột.\n\nAcceptance Criteria:\n- Given đã chọn CPU Socket AM5 When chọn Mainboard Socket LGA1700 Then trả lỗi xung đột đỏ và khóa nút đặt mua.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-02",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] BE-01: Cài đặt CompatibilityService 4 Rules (POST /api/compatibility/validate)",
+          "jiraKey": "SCRUM-52"
+        }
+      ],
+      "jiraKey": "SCRUM-15"
+    },
+    {
+      "code": "CRIG-US-03",
+      "epic": "EPIC-01",
+      "sprint": 1,
+      "sp": 3,
+      "priority": "High",
+      "owner": "TV 3",
+      "components": [
+        "cmp-hardware-builder"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend"
+      ],
+      "summary": "CRIG-US-03: Tính toán tổng công suất TDP & khuyến nghị PSU biên an toàn >= 25%",
+      "description": "Là người dùng, tôi muốn hệ thống tính tổng điện năng TDP và khuyến nghị công suất nguồn PSU đủ biên an toàn.\n\nAcceptance Criteria:\n- Given tổng TDP vượt ngưỡng PSU đã chọn When kiểm định tương thích Then hiển thị cảnh báo nguồn yếu kèm công suất tối thiểu.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-03",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] BE-02: Cài đặt PowerRule tính tổng TDP và biên an toàn PSU >= 25%",
+          "jiraKey": "SCRUM-53"
+        }
+      ],
+      "jiraKey": "SCRUM-16"
+    },
+    {
+      "code": "CRIG-US-04",
+      "epic": "EPIC-01",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-hardware-builder"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-04: Giao diện PC Builder 8 khoang & Thanh tiến trình tương thích (0-100%)",
+      "description": "Là người dùng, tôi muốn phối 8 khoang linh kiện tại /builder và xem thanh tiến trình tương thích cập nhật trực quan.\n\nAcceptance Criteria:\n- Given cấu hình đủ linh kiện không xung đột When kiểm tra hoàn tất Then thanh tương thích đạt 100% và mở nút Tiến hành mua.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-04",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-02: Xây dựng /builder 8 khoang và LiveCompatibilityBar",
+          "jiraKey": "SCRUM-54"
+        }
+      ],
+      "jiraKey": "SCRUM-17"
+    },
+    {
+      "code": "CRIG-US-05",
+      "epic": "EPIC-01",
+      "sprint": 1,
+      "sp": 3,
+      "priority": "Medium",
+      "owner": "TV 2",
+      "components": [
+        "cmp-hardware-builder"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-05: Chọn nhanh cấu hình gợi ý định sẵn theo ngân sách (Preset Tiers)",
+      "description": "Là người mới, tôi muốn bấm 1 click để nạp nhanh cấu hình Gaming Ultra, Workstation hoặc Office vào PC Builder.\n\nAcceptance Criteria:\n- Given người dùng chọn Preset Tier When bấm Áp dụng Then 8 khoang linh kiện được nạp đồng bộ và kiểm định 100% tương thích.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-05",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-03: Tích hợp bộ Preset Tiers 1-click nạp nhanh vào PC Builder",
+          "jiraKey": "SCRUM-55"
+        }
+      ],
+      "jiraKey": "SCRUM-18"
+    },
+    {
+      "code": "CRIG-US-06",
+      "epic": "EPIC-02",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 1",
+      "components": [
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-06: Chuyển cấu hình từ PC Builder sang trang Checkout Split-View",
+      "description": "Là khách hàng, sau khi phối PC xong tôi muốn chuyển thẳng danh sách linh kiện sang /checkout để đặt hàng.\n\nAcceptance Criteria:\n- Given cấu hình hợp lệ tại /builder When bấm Tiến hành mua cấu hình Then /checkout hiển thị đầy đủ từng món và tổng tiền.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-06",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] FE-04: Xây dựng luồng đồng bộ giỏ PC Builder sang /checkout Split-View",
+          "jiraKey": "SCRUM-56"
+        }
+      ],
+      "jiraKey": "SCRUM-19"
+    },
+    {
+      "code": "CRIG-US-07",
+      "epic": "EPIC-02",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend"
+      ],
+      "summary": "CRIG-US-07: Tạo đơn hàng & Lưu cố định Price Snapshot tại thời điểm đặt",
+      "description": "Là hệ thống, tôi muốn truy vấn đơn giá từ DB để lưu Price Snapshot bất biến (price_at_purchase), không tin giá client gửi.\n\nAcceptance Criteria:\n- Given client gửi POST /api/orders When đơn hàng được lưu Then order_items ghi nhận đúng đơn giá hiện hành từ PostgreSQL.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-07",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-03: Xây dựng OrderService (POST /api/orders) với Price Snapshot từ DB",
+          "jiraKey": "SCRUM-57"
+        }
+      ],
+      "jiraKey": "SCRUM-20"
+    },
+    {
+      "code": "CRIG-US-08",
+      "epic": "EPIC-02",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 1",
+      "components": [
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-1",
+        "vietqr"
+      ],
+      "summary": "CRIG-US-08: Cổng thanh toán tự động VietQR Napas 247 động kèm đếm ngược 15 phút",
+      "description": "Là người mua, tôi muốn quét mã VietQR động chứa chính xác số tiền và cú pháp CYBERRIG <orderCode> cùng đồng hồ đếm ngược 15:00.\n\nAcceptance Criteria:\n- Given đơn hàng tạo thành công When hiển thị khung thanh toán Then mã VietQR khớp số tiền và tự hủy hoàn kho sau 15 phút nếu chưa thanh toán.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-08",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] FE-05: Tích hợp khung sinh mã VietQR Napas 247 động & Countdown 15 phút",
+          "jiraKey": "SCRUM-58"
+        }
+      ],
+      "jiraKey": "SCRUM-21"
+    },
+    {
+      "code": "CRIG-US-09",
+      "epic": "EPIC-02",
+      "sprint": 1,
+      "sp": 3,
+      "priority": "Medium",
+      "owner": "TV 1",
+      "components": [
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-09: Tra cứu trạng thái đơn hàng theo mã đơn (/orders/:code)",
+      "description": "Là khách hàng, tôi muốn tra cứu trạng thái thanh toán và xử lý của đơn hàng bằng mã đơn.\n\nAcceptance Criteria:\n- Given nhập đúng mã đơn hàng When gọi GET /api/orders/:id Then hiển thị trạng thái PENDING/PAID/CANCELLED rõ ràng.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-09",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] FE-06: Xây dựng giao diện tra cứu đơn hàng theo mã đơn",
+          "jiraKey": "SCRUM-59"
+        }
+      ],
+      "jiraKey": "SCRUM-22"
+    },
+    {
+      "code": "CRIG-US-10",
+      "epic": "EPIC-03",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 3",
+      "components": [
+        "cmp-repair-tracking"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend",
+        "fsm"
+      ],
+      "summary": "CRIG-US-10: Finite State Machine kiểm soát vòng đời phiếu sửa chữa 8 trạng thái",
+      "description": "Là hệ thống, tôi muốn kiểm soát chặt chuyển trạng thái phiếu bảo hành (RECEIVED -> DIAGNOSING -> QUOTED -> WAITING_CUSTOMER -> REPAIRING -> TESTING_QC -> COMPLETED/CANCELLED).\n\nAcceptance Criteria:\n- Given phiếu đang ở RECEIVED When cố chuyển thẳng sang COMPLETED Then FSM từ chối chuyển bước bất hợp lệ.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-10",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] BE-04: Xây dựng RepairTicket FSM 8 trạng thái & kiểm thử chuyển trạng thái",
+          "jiraKey": "SCRUM-60"
+        }
+      ],
+      "jiraKey": "SCRUM-23"
+    },
+    {
+      "code": "CRIG-US-11",
+      "epic": "EPIC-03",
+      "sprint": 1,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-repair-tracking"
+      ],
+      "labels": [
+        "sprint-1",
+        "frontend"
+      ],
+      "summary": "CRIG-US-11: Cổng tra cứu tiến độ phiếu bảo hành công khai (/repair-tracking)",
+      "description": "Là khách hàng gửi máy, tôi muốn nhập mã phiếu để xem Stepper tiến độ 6 chặng và biên bản chẩn đoán lỗi.\n\nAcceptance Criteria:\n- Given nhập mã phiếu hợp lệ When truy vấn GET /api/tickets/:id/timeline Then hiển thị đúng chặng hiện tại và lịch sử cập nhật.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-11",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-07: Xây dựng trang /repair-tracking với Stepper timeline 6 chặng",
+          "jiraKey": "SCRUM-61"
+        }
+      ],
+      "jiraKey": "SCRUM-24"
+    },
+    {
+      "code": "CRIG-US-12",
+      "epic": "EPIC-03",
+      "sprint": 1,
+      "sp": 3,
+      "priority": "High",
+      "owner": "TV 3",
+      "components": [
+        "cmp-repair-tracking"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend"
+      ],
+      "summary": "CRIG-US-12: Khách hàng phê duyệt hoặc từ chối báo giá sửa chữa 2 chiều",
+      "description": "Là khách hàng, tôi muốn xem bảng báo giá và xác nhận Đồng ý sửa chữa hoặc Từ chối trực tuyến.\n\nAcceptance Criteria:\n- Given phiếu ở trạng thái QUOTED/WAITING_CUSTOMER When khách duyệt báo giá Then phiếu chuyển REPAIRING và ghi nhận thời gian duyệt.",
+      "subtasks": [
+        {
+          "code": "TASK-SP1-12",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] BE-05: Xây dựng luồng duyệt/từ chối báo giá 2 chiều & đồng bộ FSM",
+          "jiraKey": "SCRUM-62"
+        }
+      ],
+      "jiraKey": "SCRUM-25"
+    },
+    {
+      "code": "CRIG-US-13",
+      "epic": "EPIC-03",
+      "sprint": 1,
+      "sp": 3,
+      "priority": "High",
+      "owner": "TV 3",
+      "components": [
+        "cmp-repair-tracking"
+      ],
+      "labels": [
+        "sprint-1",
+        "backend"
+      ],
+      "summary": "CRIG-US-13: Kỹ thuật viên lập biên bản chẩn đoán & báo giá vật tư + công thợ",
+      "description": "Là kỹ thuật viên, tôi muốn tạo báo giá gồm linh kiện thay thế từ kho và tiền công để gửi khách hàng duyệt.\n\nAcceptance Criteria:\n- Given KTV gửi POST /api/tickets/:id/quotation When dữ liệu hợp lệ Then tổng chi phí được tính chính xác và chuyển phiếu sang QUOTED.",
+      "subtasks": [],
+      "jiraKey": "SCRUM-26"
+    },
+    {
+      "code": "CRIG-US-14",
+      "epic": "EPIC-04",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "design-system"
+      ],
+      "summary": "CRIG-US-14: Chuẩn hóa Design System v2.1 Cyberpunk (bo góc 0px, font kỹ thuật, viền HUD)",
+      "description": "Là người dùng, tôi muốn toàn bộ giao diện tuân thủ ngôn ngữ Tech Industrial 0px sắc nét và hệ thống typography đồng bộ.\n\nAcceptance Criteria:\n- Given duyệt các trang chính When kiểm tra CSS tokens Then 100% thành phần tuân thủ STYLE_GUIDE.md v2.1.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-01",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-08: Xây dựng Design Tokens v2.1 (0px corners, Barlow Condensed, HUD border)",
+          "jiraKey": "SCRUM-63"
+        }
+      ],
+      "jiraKey": "SCRUM-27"
+    },
+    {
+      "code": "CRIG-US-15",
+      "epic": "EPIC-04",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "dual-theme"
+      ],
+      "summary": "CRIG-US-15: Hệ thống Dual-Theme (Day / Night Mode) 60 FPS đạt chuẩn WCAG 2.1 AA",
+      "description": "Là người dùng, tôi muốn chuyển đổi tức thì giữa Night Theme và Day Theme không giật layout và đủ độ tương phản.\n\nAcceptance Criteria:\n- Given bấm nút đổi Theme When hoán đổi CSS variables Then phản hồi <16ms, lưu LocalStorage và tương phản >= 4.5:1.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-02",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-09: Triển khai Dual-Theme Day/Night đạt chuẩn WCAG 2.1 AA",
+          "jiraKey": "SCRUM-64"
+        }
+      ],
+      "jiraKey": "SCRUM-28"
+    },
+    {
+      "code": "CRIG-US-16",
+      "epic": "EPIC-04",
+      "sprint": 2,
+      "sp": 3,
+      "priority": "Medium",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "ui-polish"
+      ],
+      "summary": "CRIG-US-16: Khắc phục lem mờ bóng đổ Day Theme & Tối ưu hiệu năng render 60 FPS",
+      "description": "Là người dùng, tôi muốn giao diện Sáng sắc nét không lem bóng mờ và cuộn mượt 60 FPS.\n\nAcceptance Criteria:\n- Given đang ở Day Mode When cuộn danh mục lớn Then không xảy ra giật khung hình hay lem viền card.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-03",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-10: Tinh chỉnh shadow Day Theme và tối ưu hiệu năng 60 FPS",
+          "jiraKey": "SCRUM-65"
+        }
+      ],
+      "jiraKey": "SCRUM-29"
+    },
+    {
+      "code": "CRIG-US-17",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 1",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "media"
+      ],
+      "summary": "CRIG-US-17: Bộ hình ảnh Studio thực tế cho 8 nhóm linh kiện (0% placeholder)",
+      "description": "Là khách hàng, tôi muốn xem ảnh chụp thực tế chất lượng cao cho 8 nhóm linh kiện phần cứng.\n\nAcceptance Criteria:\n- Given duyệt /hardware và /builder When tải ảnh sản phẩm Then 100% dùng ảnh Studio thật, không còn ảnh giữ chỗ.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-04",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] FE-11: Nạp và tối ưu bộ ảnh Studio thực tế cho 8 nhóm linh kiện",
+          "jiraKey": "SCRUM-66"
+        }
+      ],
+      "jiraKey": "SCRUM-30"
+    },
+    {
+      "code": "CRIG-US-18",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "Medium",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "frontend"
+      ],
+      "summary": "CRIG-US-18: Trang danh mục PC Setup & Thiết bị không gian làm việc (/equipments)",
+      "description": "Là khách hàng, tôi muốn duyệt và đặt mua 20 thiết bị ngoại vi công thái học (Màn hình OLED, Ghế, Bàn nâng hạ, Audio).\n\nAcceptance Criteria:\n- Given truy cập /equipments When lọc theo nhóm thiết bị Then hiển thị đủ 20 sản phẩm với thông số chuẩn.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-05",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-12: Xây dựng trang /equipments với 20 thiết bị PC Setup",
+          "jiraKey": "SCRUM-67"
+        }
+      ],
+      "jiraKey": "SCRUM-31"
+    },
+    {
+      "code": "CRIG-US-19",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui",
+        "cmp-repair-tracking"
+      ],
+      "labels": [
+        "sprint-2",
+        "workbench"
+      ],
+      "summary": "CRIG-US-19: Bàn làm việc Kỹ thuật viên (Technician Workbench) Split-View chia hàng đợi",
+      "description": "Là kỹ thuật viên, tôi muốn giao diện Split-View quản lý hàng đợi phiếu sửa chữa theo trạng thái và lập báo giá nhanh tại quầy.\n\nAcceptance Criteria:\n- Given đăng nhập TECHNICIAN vào #technician When chọn phiếu Then thao tác chẩn đoán và chuyển FSM mượt mà.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-06",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-13: Hoàn thiện giao diện Technician Workbench Split-View (#technician)",
+          "jiraKey": "SCRUM-68"
+        }
+      ],
+      "jiraKey": "SCRUM-32"
+    },
+    {
+      "code": "CRIG-US-20",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 5,
+      "priority": "Medium",
+      "owner": "TV 1",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "customer-hub"
+      ],
+      "summary": "CRIG-US-20: Cổng thông tin khách hàng tập trung (Customer Unified Hub #dashboard)",
+      "description": "Là khách hàng thành viên, tôi muốn xem lại dàn máy đã mua, lịch sử đơn hàng và phiếu bảo hành tập trung tại #dashboard.\n\nAcceptance Criteria:\n- Given đăng nhập CUSTOMER When truy cập #dashboard Then hiển thị chính xác đơn hàng và phiếu sửa chữa của riêng tài khoản đó.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-07",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] FE-14: Xây dựng Customer Unified Hub (#dashboard) kết nối API khách hàng",
+          "jiraKey": "SCRUM-69"
+        }
+      ],
+      "jiraKey": "SCRUM-33"
+    },
+    {
+      "code": "CRIG-US-21",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 3,
+      "priority": "Low",
+      "owner": "TV 2",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "ux"
+      ],
+      "summary": "CRIG-US-21: Phản hồi vi tương tác (Micro-interactions) & Nút '+ Chọn' đồng bộ nhanh",
+      "description": "Là người dùng, tôi muốn có phản hồi xúc giác/âm thanh nhẹ và nút '+ Chọn' đẩy thẳng linh kiện vào PC Builder.\n\nAcceptance Criteria:\n- Given bấm '+ Chọn' tại Catalog When chuyển sang Builder Then linh kiện đã được gán đúng khoang.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-08",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-15: Tinh chỉnh Micro-interactions scale(0.96) và nút '+ Chọn' thông minh",
+          "jiraKey": "SCRUM-70"
+        }
+      ],
+      "jiraKey": "SCRUM-34"
+    },
+    {
+      "code": "CRIG-US-22",
+      "epic": "EPIC-05",
+      "sprint": 2,
+      "sp": 2,
+      "priority": "Medium",
+      "owner": "TV 5",
+      "components": [
+        "cmp-portals-ui"
+      ],
+      "labels": [
+        "sprint-2",
+        "qa"
+      ],
+      "summary": "CRIG-US-22: Bộ kiểm thử giao diện UI specs & tương thích đa độ phân giải",
+      "description": "Là QA, tôi muốn có bộ kiểm thử tự động cho các component frontend chính (auth, builder, checkout, tickets, portals).\n\nAcceptance Criteria:\n- Given chạy bộ UI specs When hoàn tất Then 100% bài test UI vượt qua không lỗi hồi quy.",
+      "subtasks": [
+        {
+          "code": "TASK-SP2-09",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] QA-01: Viết 8 file UI/Admin spec tests xác thực giao diện và luồng người dùng",
+          "jiraKey": "SCRUM-71"
+        }
+      ],
+      "jiraKey": "SCRUM-35"
+    },
+    {
+      "code": "CRIG-US-23",
+      "epic": "EPIC-06",
+      "sprint": 3,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security"
+      ],
+      "labels": [
+        "sprint-3",
+        "rbac"
+      ],
+      "summary": "CRIG-US-23: Phân quyền truy cập RBAC 3 vai trò (CUSTOMER, TECHNICIAN, ADMIN) & Route Guards",
+      "description": "Là hệ thống, tôi muốn bảo vệ toàn bộ API nội bộ bằng JWT authentication và middleware phân quyền RBAC.\n\nAcceptance Criteria:\n- Given tài khoản CUSTOMER gọi API của TECHNICIAN/ADMIN Then hệ thống từ chối với HTTP 403 Forbidden.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-01",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] CORE-01: Xây dựng auth.middleware.ts (authenticateToken, requireRoles) & JWT util",
+          "jiraKey": "SCRUM-72"
+        }
+      ],
+      "jiraKey": "SCRUM-43"
+    },
+    {
+      "code": "CRIG-US-24",
+      "epic": "EPIC-06",
+      "sprint": 3,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 3",
+      "components": [
+        "cmp-admin-security",
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-3",
+        "redis"
+      ],
+      "summary": "CRIG-US-24: Khóa tồn kho nguyên tử Redis Atomic Stock Reservation (Lua Script, TTL 15m)",
+      "description": "Là hệ thống, tôi muốn khóa giữ hàng nguyên tử trong 15 phút bằng Redis Lua Script để triệt tiêu bán khống (Zero Oversell).\n\nAcceptance Criteria:\n- Given 5 yêu cầu mua đồng thời SKU còn 1 chiếc When thực thi Lua script Then chỉ đúng 1 đơn thành công, 4 đơn trả 409 Conflict.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-02",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] CORE-02: Cài đặt LUA_RESERVE_STOCK chống Race Condition & rollback khi thiếu hàng",
+          "jiraKey": "SCRUM-73"
+        }
+      ],
+      "jiraKey": "SCRUM-44"
+    },
+    {
+      "code": "CRIG-US-25",
+      "epic": "EPIC-07",
+      "sprint": 3,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security"
+      ],
+      "labels": [
+        "sprint-3",
+        "admin"
+      ],
+      "summary": "CRIG-US-25: Cổng Quản trị kho hàng Admin Control Center (#admin: CRUD, Restock, Soft Delete)",
+      "description": "Là quản trị viên, tôi muốn thêm/sửa linh kiện, nhập bổ sung kho (Restock) và ngừng bán an toàn (Soft Delete is_active=FALSE).\n\nAcceptance Criteria:\n- Given đăng nhập ADMIN vào #admin When thực hiện Restock hoặc Soft Delete Then tồn kho và trạng thái cập nhật chuẩn xác.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-03",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-06: Xây dựng Admin CRUD/Restock/Soft-Delete API & PostgreSQL seed.ts",
+          "jiraKey": "SCRUM-74"
+        },
+        {
+          "code": "TASK-SP3-04",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] FE-16: Hoàn thiện bảng điều khiển Admin Control Center (#admin)",
+          "jiraKey": "SCRUM-75"
+        }
+      ],
+      "jiraKey": "SCRUM-45"
+    },
+    {
+      "code": "CRIG-US-26",
+      "epic": "EPIC-07",
+      "sprint": 3,
+      "sp": 5,
+      "priority": "Medium",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security"
+      ],
+      "labels": [
+        "sprint-3",
+        "kpi"
+      ],
+      "summary": "CRIG-US-26: Telemetry tồn kho & Cảnh báo linh kiện sắp hết hàng (Low Stock Alert)",
+      "description": "Là quản trị viên, tôi muốn theo dõi KPI tồn kho an toàn và nhận cảnh báo khi số lượng linh kiện xuống dưới ngưỡng.\n\nAcceptance Criteria:\n- Given linh kiện có stock_quantity <= 3 When mở Admin Dashboard Then hiển thị cảnh báo tồn kho thấp nổi bật.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-05",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-07: Xây dựng API thống kê KPI tồn kho và cảnh báo Low Stock Alert",
+          "jiraKey": "SCRUM-76"
+        }
+      ],
+      "jiraKey": "SCRUM-46"
+    },
+    {
+      "code": "CRIG-US-27",
+      "epic": "EPIC-08",
+      "sprint": 3,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": [
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-3",
+        "soc"
+      ],
+      "summary": "CRIG-US-27: Bảng điều khiển giám sát Dark SOC Mission Control Dual-Mode (/admin-monitoring/)",
+      "description": "Là Admin/DevOps, tôi muốn bảng điều khiển Dark SOC chuyển đổi linh hoạt giữa Real-Time Monitoring và Scenario Testing Lab.\n\nAcceptance Criteria:\n- Given truy cập /admin-monitoring/ When chuyển đổi giữa 2 tab Then dữ liệu hiển thị trực quan không rò rỉ bộ nhớ.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-06",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] FE-17: Thiết kế & lập trình Dark SOC Dashboard Dual-Mode (/admin-monitoring/)",
+          "jiraKey": "SCRUM-77"
+        }
+      ],
+      "jiraKey": "SCRUM-47"
+    },
+    {
+      "code": "CRIG-US-28",
+      "epic": "EPIC-08",
+      "sprint": 3,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": [
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-3",
+        "sse"
+      ],
+      "summary": "CRIG-US-28: Động cơ Telemetry In-Memory Ring Buffer & Stream Server-Sent Events (SSE)",
+      "description": "Là kỹ sư hệ thống, tôi muốn giám sát trạng thái 4 container Docker và thông lượng queue qua Ring Buffer 200 bản ghi trên RAM (Zero-DB overhead).\n\nAcceptance Criteria:\n- Given mở kết nối SSE /api/monitoring/stream When hệ thống vận hành Then đẩy metrics chu kỳ 1000ms không gây tải DB.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-07",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] BE-08: Xây dựng In-Memory Ring Buffer Telemetry & SSE Event Hub",
+          "jiraKey": "SCRUM-78"
+        }
+      ],
+      "jiraKey": "SCRUM-48"
+    },
+    {
+      "code": "CRIG-US-29",
+      "epic": "EPIC-08",
+      "sprint": 3,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 5",
+      "components": [
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-3",
+        "dlq"
+      ],
+      "summary": "CRIG-US-29: Dead Letter Queue (DLQ) Inspector & Cơ chế Phát lại (Replay) Poison Message",
+      "description": "Là DevOps/QA, tôi muốn tự động cách ly thông điệp lỗi (NACK) vào DLQ và cung cấp nút Replay phát lại sau khi xử lý sự cố.\n\nAcceptance Criteria:\n- Given xuất hiện Poison Message trong DLQ When bấm Replay Then thông điệp tái nạp hàng đợi chính và biến mất khỏi DLQ.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-08",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] BE-09: Xây dựng DLQ Quarantine Storage & API Replay / Clear DLQ",
+          "jiraKey": "SCRUM-79"
+        }
+      ],
+      "jiraKey": "SCRUM-49"
+    },
+    {
+      "code": "CRIG-US-30",
+      "epic": "EPIC-08",
+      "sprint": 3,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": [
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-3",
+        "testing-lab"
+      ],
+      "summary": "CRIG-US-30: Phòng Lab 6 kịch bản kiểm thử tích hợp tự động & monitoring.spec.ts",
+      "description": "Là QA/DevOps, tôi muốn chạy trực tiếp 6 kịch bản (Order Pipeline, Stock Check, Trigger DLQ, AI Mapping, Rate Limit, Health) và có bộ test tự động.\n\nAcceptance Criteria:\n- Given kích hoạt từng kịch bản trên Lab When hoàn tất Then trả đầy đủ dấu vết từng bước và monitoring.spec.ts đạt 100% PASS.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-09",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] BE-10: Xây dựng scenario-runner.service.ts cho 6 kịch bản kiểm thử Lab",
+          "jiraKey": "SCRUM-80"
+        },
+        {
+          "code": "TASK-SP3-10",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] QA-02: Viết bộ kiểm thử tích hợp monitoring.spec.ts & health.spec.ts",
+          "jiraKey": "SCRUM-81"
+        }
+      ],
+      "jiraKey": "SCRUM-50"
+    },
+    {
+      "code": "CRIG-US-31",
+      "epic": "EPIC-09",
+      "sprint": 3,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": [
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-3",
+        "docker",
+        "adlc"
+      ],
+      "summary": "CRIG-US-31: Đóng gói cụm Docker Compose 4 containers, Nginx Gateway & Chuẩn hóa Clean Code ADLC",
+      "description": "Là đội ngũ vận hành, tôi muốn khởi động đồng bộ 4 containers (Postgres, Redis, App, Nginx) có cô lập mạng nội bộ và mã nguồn đạt chuẩn Clean Code/SRP.\n\nAcceptance Criteria:\n- Given chạy docker compose up When gọi /healthz Then toàn bộ dịch vụ báo HEALTHY và mọi file tuân thủ SRP <= 300 dòng.",
+      "subtasks": [
+        {
+          "code": "TASK-SP3-11",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] DEVOPS-01: Cấu hình Docker Compose 4 containers, Nginx Gateway & Clean Code Monorepo",
+          "jiraKey": "SCRUM-82"
+        }
+      ],
+      "jiraKey": "SCRUM-51"
+    },
+    {
+      "code": "CRIG-US-33",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security"
+      ],
+      "labels": [
+        "sprint-4",
+        "security-hardening",
+        "owasp-top-10"
+      ],
+      "summary": "CRIG-US-33: Gia cố phiên & Token (HttpOnly Cookie Rotation, Reuse Detection, Redis Blacklist & Lockout)",
+      "description": "Là hệ thống, tôi muốn lưu Refresh Token trong HttpOnly Cookie với xoay vòng + phát hiện tái sử dụng (Reuse Detection), thu hồi ngay qua Redis jti Blacklist và khóa brute-force.\n\nAcceptance Criteria:\n- Given gọi POST /api/auth/refresh bằng token cũ đã xoay vòng Then thu hồi toàn bộ token family và trả HTTP 401.\n- Given đã logout qua POST /api/auth/logout When dùng lại Access Token cũ Then Redis jti Blacklist chặn với HTTP 401.",
+      "subtasks": [
+        {
+          "code": "CORE-SEC-01",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] CORE-SEC-01: Triển khai cookie.util.ts, Refresh Token Rotation & Reuse Detection",
+          "jiraKey": "SCRUM-83"
+        },
+        {
+          "code": "CORE-SEC-02",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] CORE-SEC-02: Triển khai Redis jti Blacklist & Brute-Force Account Lockout",
+          "jiraKey": "SCRUM-84"
+        }
+      ],
+      "jiraKey": "SCRUM-36"
+    },
+    {
+      "code": "CRIG-US-34",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security",
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-4",
+        "security-hardening",
+        "owasp-top-10"
+      ],
+      "summary": "CRIG-US-34: Chống IDOR, Che mờ PII & Khóa RBAC ADMIN cho SOC Monitoring + Single-use SSE Ticket",
+      "description": "Là hệ thống, tôi muốn chống IDOR (?phone=) trên Orders, che mờ PII (pii-mask.util.ts) cho khách vãng lai, khóa toàn bộ /api/monitoring/* bằng requireRoles('ADMIN') và dùng vé SSE một lần.\n\nAcceptance Criteria:\n- Given gọi /api/monitoring/telemetry chưa có JWT ADMIN Then trả HTTP 401/403.\n- Given kết nối /api/monitoring/stream Then phải xin vé 1 lần qua POST /api/monitoring/stream-ticket.",
+      "subtasks": [
+        {
+          "code": "BE-SEC-03",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-SEC-03: Triển khai Anti-IDOR (?phone=) cho Orders & PII Masking (pii-mask.util.ts)",
+          "jiraKey": "SCRUM-85"
+        },
+        {
+          "code": "BE-SEC-04",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] BE-SEC-04: Khóa requireRoles('ADMIN') cho monitoringRouter & Single-use SSE Ticket",
+          "jiraKey": "SCRUM-86"
+        }
+      ],
+      "jiraKey": "SCRUM-37"
+    },
+    {
+      "code": "CRIG-US-35",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": [
+        "cmp-checkout-orders"
+      ],
+      "labels": [
+        "sprint-4",
+        "security-hardening",
+        "owasp-top-10"
+      ],
+      "summary": "CRIG-US-35: Xác thực Webhook Thanh toán VietQR bằng chữ ký HMAC-SHA256 & Chống Replay Attack",
+      "description": "Là hệ thống thanh toán, tôi muốn xác thực POST /api/orders/:id/confirm qua X-CyberRig-Signature và X-CyberRig-Timestamp bằng crypto.timingSafeEqual để chống giả mạo thanh toán.\n\nAcceptance Criteria:\n- Given request không có quyền ADMIN gửi /confirm sai chữ ký HMAC hoặc quá hạn timestamp Then từ chối 401/403 và ghi Audit Log.",
+      "subtasks": [
+        {
+          "code": "BE-SEC-05",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-SEC-05: Cài đặt hmac-webhook.util.ts xác thực chữ ký HMAC-SHA256 & cửa sổ chống Replay",
+          "jiraKey": "SCRUM-87"
+        },
+        {
+          "code": "BE-SEC-06",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] BE-SEC-06: Bảo vệ POST /api/orders/:id/confirm & tách /simulate-payment cho dev",
+          "jiraKey": "SCRUM-88"
+        }
+      ],
+      "jiraKey": "SCRUM-38"
+    },
+    {
+      "code": "CRIG-US-36",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 4",
+      "components": [
+        "cmp-admin-security",
+        "cmp-si-monitoring"
+      ],
+      "labels": [
+        "sprint-4",
+        "mfa-2fa",
+        "audit-log"
+      ],
+      "summary": "CRIG-US-36: Bảo mật 2 lớp MFA/2FA TOTP (RFC 6238) & Nhật ký Kiểm toán bất biến (audit_logs)",
+      "description": "Là quản trị viên và khách hàng, tôi muốn bật/tắt 2FA TOTP chuẩn Google Authenticator (/api/auth/2fa/*) và tra cứu nhật ký kiểm toán append-only tại SOC.\n\nAcceptance Criteria:\n- Given đã bật 2FA qua /2fa/setup & /verify Then đăng nhập tiếp theo bắt buộc mã OTP 6 chữ số hợp lệ.\n- Given ADMIN gọi GET /api/monitoring/audit-logs Then trả về đầy đủ sự kiện bảo mật.",
+      "subtasks": [
+        {
+          "code": "BE-SEC-07",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] BE-SEC-07: Xây dựng totp.util.ts (RFC 6238) & mfa.service.ts (/api/auth/2fa/*)",
+          "jiraKey": "SCRUM-89"
+        },
+        {
+          "code": "BE-SEC-08",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] BE-SEC-08: Tạo bảng audit_logs (seed.ts), audit-log.service.ts & GET /api/monitoring/audit-logs",
+          "jiraKey": "SCRUM-90"
+        }
+      ],
+      "jiraKey": "SCRUM-39"
+    },
+    {
+      "code": "CRIG-US-37",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 4,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": [
+        "cmp-devsecops-ci"
+      ],
+      "labels": [
+        "sprint-4",
+        "devsecops",
+        "ci-cd"
+      ],
+      "summary": "CRIG-US-37: Pipeline DevSecOps 4-Job trên GitHub Actions & Test Runner đa nền tảng",
+      "description": "Là kỹ sư DevOps/QA, tôi muốn mọi push/PR kích hoạt tự động 4 job (TS+173 Tests, Gitleaks, Semgrep OSS, Trivy CVE) chạy ổn định trên Windows & Ubuntu Node 22.\n\nAcceptance Criteria:\n- Given push hoặc mở PR vào main When workflow security-scan.yml chạy Then 4/4 job đạt PASS và 173/173 tests vượt qua.",
+      "subtasks": [
+        {
+          "code": "DEVOPS-02",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] DEVOPS-02: Cấu hình .github/workflows/security-scan.yml (4 jobs), .gitleaks.toml & .gitignore",
+          "jiraKey": "SCRUM-91"
+        },
+        {
+          "code": "DEVOPS-03",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] DEVOPS-03: Xây dựng scripts/run-tests.mjs đa nền tảng & security-hardening.spec.ts (SEC-01..10)",
+          "jiraKey": "SCRUM-92"
+        }
+      ],
+      "jiraKey": "SCRUM-40"
+    },
+    {
+      "code": "CRIG-US-38",
+      "epic": "EPIC-10",
+      "sprint": 4,
+      "sp": 2,
+      "priority": "Medium",
+      "owner": "TV 1",
+      "components": [
+        "cmp-devsecops-ci"
+      ],
+      "labels": [
+        "sprint-4",
+        "docs"
+      ],
+      "summary": "CRIG-US-38: Đồng bộ Biểu đồ Use Case v2.1 (Tác nhân hệ thống VietQR) & Tài liệu Dự án",
+      "description": "Là Product Owner, tôi muốn đồng bộ sơ đồ Use Case v2.1, kiến trúc bảo mật, hồ sơ Scrum 5 thành viên và Báo cáo Word.\n\nAcceptance Criteria:\n- Given rà soát toàn bộ tài liệu When đối chiếu với mã nguồn Then 20 UC, 6 tác nhân, 5 thành viên và 4 Sprint khớp 100%.",
+      "subtasks": [
+        {
+          "code": "DOC-01",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] DOC-01: Vẽ lại diagram_usecase_master.png (3000x4359) & diagram_security_architecture.png",
+          "jiraKey": "SCRUM-93"
+        },
+        {
+          "code": "DOC-02",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] DOC-02: Đồng bộ SECURITY-DESIGN.md, USE-CASES.md, docs/scrum/* & TAI-LIEU-BAO-CAO.docx",
+          "jiraKey": "SCRUM-94"
+        }
+      ],
+      "jiraKey": "SCRUM-41"
+    }
+  ],
+  "jiraBaseUrl": "https://minhlocle112.atlassian.net",
+  "boardId": 1,
+  "boardUrl": "https://minhlocle112.atlassian.net/jira/software/projects/SCRUM/boards/1"
+}
