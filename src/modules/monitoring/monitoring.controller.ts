@@ -11,6 +11,7 @@ import { auditLogService, tokenBlacklistService } from '../../core/security';
 import { resolveClientIp } from '../../core/middlewares/rate-limiter.middleware';
 import { telemetryService } from './telemetry.service';
 import { scenarioRunnerService, SCENARIO_DEFINITIONS } from './scenario-runner.service';
+import { ceoMetricsService } from './ceo-metrics.service';
 import { ScenarioId } from './monitoring.model';
 import { verifyAccessToken } from '../auth/jwt.util';
 
@@ -181,19 +182,23 @@ export class MonitoringController {
     });
   }
 
-  /**
-   * GET /api/monitoring/audit-logs (ADMIN only)
-   */
+  /** GET /api/monitoring/audit-logs (ADMIN only) */
   public async getAuditLogs(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const limit = req.query.limit ? parseInt(String(req.query.limit), 10) : 50;
       const eventType = req.query.eventType ? String(req.query.eventType) : undefined;
       const logs = await auditLogService.listRecent(isNaN(limit) ? 50 : limit, eventType);
+      res.status(200).json({ success: true, data: logs });
+    } catch (err) {
+      next(err);
+    }
+  }
 
-      res.status(200).json({
-        success: true,
-        data: logs,
-      });
+  /** GET /api/monitoring/ceo-summary (ADMIN only) */
+  public async getCeoSummary(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const summary = await ceoMetricsService.getExecutiveSummary();
+      res.status(200).json({ success: true, data: summary });
     } catch (err) {
       next(err);
     }

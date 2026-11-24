@@ -162,6 +162,30 @@ describe('SI Monitoring & Testing Dashboard Engine', () => {
       const scenariosJson = (await scenariosRes.json()) as { success: boolean; data: unknown[] };
       assert.strictEqual(scenariosJson.success, true);
       assert.strictEqual(scenariosJson.data.length, 6);
+
+      // 3. GET /api/monitoring/ceo-summary (ADMIN vs Customer)
+      const ceoForbiddenRes = await fetch(`http://localhost:${port}/api/monitoring/ceo-summary`, {
+        headers: { Authorization: `Bearer ${customerToken}` },
+      });
+      assert.strictEqual(ceoForbiddenRes.status, 403);
+
+      const ceoRes = await fetch(`http://localhost:${port}/api/monitoring/ceo-summary`, {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+      assert.strictEqual(ceoRes.status, 200);
+      const ceoJson = (await ceoRes.json()) as {
+        success: boolean;
+        data: {
+          kpis: { totalGmvVnd: number; activeHardwareSkus: number };
+          revenueChannels: unknown[];
+          trendSeries: unknown[];
+        };
+      };
+      assert.strictEqual(ceoJson.success, true);
+      assert.ok(ceoJson.data.kpis.totalGmvVnd > 0);
+      assert.ok(ceoJson.data.kpis.activeHardwareSkus > 0);
+      assert.strictEqual(ceoJson.data.revenueChannels.length, 3);
+      assert.strictEqual(ceoJson.data.trendSeries.length, 12);
     } finally {
       await new Promise<void>((resolve) => server.close(() => resolve()));
     }

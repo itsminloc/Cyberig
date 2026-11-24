@@ -1,190 +1,273 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyberRig — SI Monitoring & Interactive Testing Lab</title>
-  <meta name="description" content="Hệ thống giám sát tích hợp thời gian thực (SI Monitoring) và phòng Lab kiểm thử kịch bản (Scenario Testing Lab) cho CyberRig Enterprise." />
+  <title>CyberRig Studio — SI Monitoring &amp; CEO Executive Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin-monitoring/tokens.css" />
   <link rel="stylesheet" href="/admin-monitoring/monitoring.css" />
 </head>
 <body>
-
-  <!-- Top Mission Control Header -->
-  <header class="soc-header">
-    <div class="soc-brand">
-      <span class="soc-badge-env" id="sseIndicator">
-        <span class="pulse-dot"></span> STREAM CONNECTED [SSE]
-      </span>
-      <div class="soc-title-wrap">
-        <h1>CYBERRIG // SI MONITORING & TESTING LAB</h1>
-        <p id="socUserDisplay">OPERATOR: QUẢN TRỊ VIÊN HỆ THỐNG [ADMIN]</p>
-      </div>
-    </div>
-
-    <!-- Dual-Mode Switcher Tabs -->
-    <div class="soc-mode-switch">
-      <button type="button" class="mode-tab-btn is-active" id="tabRealtime">
-        <span>[01] REAL-TIME MONITORING</span>
-      </button>
-      <button type="button" class="mode-tab-btn" id="tabScenario">
-        <span>[02] SCENARIO TESTING LAB</span>
-      </button>
-    </div>
-
-    <!-- Quick Navigation Links -->
-    <div class="soc-nav-actions">
-      <a href="/#admin" class="soc-nav-btn is-accent" id="navToAdminOps">
-        <span>&larr; Quản Lý Kho Bán Lẻ</span>
-      </a>
-      <a href="/" class="soc-nav-btn" id="navToStorefront">
-        <span>Cổng Khách Hàng</span>
-      </a>
-    </div>
-  </header>
-
-  <!-- Main View Area -->
-  <main class="soc-main">
-
-    <!-- ========================================================================= -->
-    <!-- VIEW 1: REAL-TIME MONITORING MODE -->
-    <!-- ========================================================================= -->
-    <section class="soc-view-section is-visible" id="sectionRealtime">
-      
-      <!-- Top Telemetry Row -->
-      <div class="telemetry-row">
-        <div class="metric-box is-cyan">
-          <div class="metric-label">HÀNG ĐỢI RABBITMQ (TỔNG SỐ)</div>
-          <div class="metric-value" id="brokerTotal">1,420</div>
-          <div class="metric-sub">
-            <span>Exchange: cyberrig.orders</span>
-            <span style="color: var(--color-cyan);">ACTIVE</span>
-          </div>
-        </div>
-
-        <div class="metric-box is-green">
-          <div class="metric-label">READY TRONG HÀNG ĐỢI</div>
-          <div class="metric-value" id="brokerReady">8</div>
-          <div class="metric-sub">
-            <span>Consumers: 4 workers</span>
-            <span style="color: var(--color-green);">ACK: 99.8%</span>
-          </div>
-        </div>
-
-        <div class="metric-box is-amber">
-          <div class="metric-label">DEAD LETTER QUEUE (DLQ)</div>
-          <div class="metric-value" id="dlqCountBadge">1 msgs [1 pending]</div>
-          <div class="metric-sub">
-            <span>Queue: cyberrig.orders.dlq</span>
-            <span style="color: var(--color-amber);">ISOLATED</span>
-          </div>
-        </div>
-
-        <div class="metric-box is-green">
-          <div class="metric-label">THROUGHPUT THỜI GIAN THỰC</div>
-          <div class="metric-value" id="brokerThroughput">24 rps</div>
-          <div class="metric-sub">
-            <span>P95 Latency: 16.4ms</span>
-            <span style="color: var(--color-green);">P0 ZERO-OVERHEAD</span>
-          </div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-emblem">CR</div>
+        <div>
+          <div class="brand-name">CyberRig Studio</div>
+          <div class="brand-sub" id="socUserDisplay">OPERATOR: ADMIN [SOC]</div>
         </div>
       </div>
 
-      <!-- Container Infrastructure Matrix -->
-      <div class="section-headline">HẠ TẦNG DỊCH VỤ DOCKER CONTAINERS (ZERO-OVERHEAD HEALTH PROBE)</div>
-      <div class="container-grid" id="containerGrid">
-        <!-- Injected dynamically by monitoring.js -->
+      <nav class="nav-pill-bar" aria-label="Primary Navigation">
+        <button type="button" class="nav-tab is-active" id="tabRealtime">Studio · SI Mesh</button>
+        <button type="button" class="nav-tab" id="tabScenario">Scenarios <span class="nav-tab-badge">6</span></button>
+        <button type="button" class="nav-tab" id="tabCeo">Reports · CEO <span class="nav-tab-badge" id="dlqNavBadge">0</span></button>
+      </nav>
+
+      <div class="topbar-right">
+        <div class="search-pill">
+          <span>Search</span>
+          <input type="text" id="quickSearchInput" placeholder="SKU / scenario / log" />
+          <span class="kbd-chip">⌘K</span>
+        </div>
+        <button type="button" class="icon-circle-btn" id="btnThemeToggle" title="Switch Performance Night / Showroom Day">◐</button>
+        <button type="button" class="icon-circle-btn" id="btnRefreshAll" title="Refresh Telemetry">↻<span class="bell-count" id="bellDlqCount">0</span></button>
+        <a href="/#admin" class="btn-pill-ghost" id="navToAdminOps">Inventory</a>
+        <a href="/" class="btn-pill-ghost" id="navToStorefront">Storefront</a>
+        <button type="button" class="btn-pill-primary" id="btnQuickScenarioRun">▶ Run E2E</button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: STUDIO · SI MESH -->
+    <section class="view-section is-visible" id="sectionRealtime">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Studio · SI Mesh</h1>
+          <p class="page-subtitle">Zero-overhead RabbitMQ Exchange, Docker Containers &amp; Redis Stock Lock Telemetry</p>
+        </div>
+        <div class="head-actions">
+          <span class="status-chip" id="sseIndicator"><span class="live-dot"></span>STREAM CONNECTED [SSE]</span>
+          <button type="button" class="btn-pill-ghost" id="btnQuickDlq">Simulate DLQ</button>
+        </div>
       </div>
 
-      <!-- Dead Letter Queue (DLQ) Inspector -->
-      <div class="dlq-panel">
-        <div class="dlq-panel-header">
-          <div class="dlq-title">
-            <span>DEAD LETTER QUEUE (DLQ) INSPECTOR & POISON PILL QUARANTINE</span>
+      <div class="kpi-grid-4">
+        <div class="bento-card is-obsidian">
+          <div class="card-label"><span>Events Published (Exchange)</span><span>⇄</span></div>
+          <div class="kpi-value-row">
+            <div><span class="kpi-val" id="brokerTotal">0</span><span class="kpi-suffix">msgs</span></div>
+            <svg width="78" height="26" id="sparklineHero"></svg>
           </div>
-          <div>
-            <button type="button" class="btn-terminal-clear" id="btnClearDlq">XÓA RỖNG DLQ</button>
+          <div class="kpi-foot"><span class="trend-pill" id="brokerTypeBadge">RabbitMQ</span><span>cyberrig.orders.exchange</span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Queue Ready / Processed</span><span>✓</span></div>
+          <div class="kpi-value-row">
+            <div><span class="kpi-val" id="brokerReady">0</span><span class="kpi-suffix">ready</span></div>
+            <span class="operator-chip" id="brokerUnacked">0 unacked</span>
+          </div>
+          <div class="kpi-foot"><span id="brokerProcessedSub">1,412 ACK processed · 4 consumers</span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Dead Letter Queue (DLQ)</span><span>⚑</span></div>
+          <div class="kpi-val" id="dlqCountBadge">0 msgs</div>
+          <div class="kpi-foot"><span>Queue: cyberrig.orders.dlq (Max 3 retries)</span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Realtime Throughput</span><span>⚡</span></div>
+          <div class="kpi-val" id="brokerThroughput">0 rps</div>
+          <div class="kpi-foot"><span id="trafficLatencySub">P95 Latency: 16.4ms · Zero-Overhead</span></div>
+        </div>
+      </div>
+
+      <div class="split-68-32">
+        <div class="bento-card">
+          <div class="timeline-head">
+            <div>
+              <strong style="font-size:14px;">Container Infrastructure Mesh</strong>
+              <div class="page-subtitle">PostgreSQL · Redis Atomic Lock · Node Integration Hub · Nginx Edge</div>
+            </div>
+            <div class="seg-pills">
+              <button type="button" class="seg-btn is-active" data-filter-mesh="ALL">All services</button>
+              <button type="button" class="seg-btn" data-filter-mesh="HEALTHY">Healthy only</button>
+            </div>
+          </div>
+          <div class="mesh-axis"><span>Service Container</span><div class="mesh-axis-right"><span>Port → Ping Latency → Heap Allocation</span><span>Status</span></div></div>
+          <div class="mesh-rows" id="containerGrid"></div>
+        </div>
+
+        <div class="bento-card is-obsidian">
+          <div class="card-label"><span>DLQ &amp; Incident Spotlight</span><span>★</span></div>
+          <div class="focus-box">
+            <div class="focus-eyebrow" id="spotlightStatus">Broker nominal · Checking DLQ</div>
+            <div class="focus-title">Poison Pill Quarantine</div>
+            <div class="focus-sub">Failed integration payloads isolate in cyberrig.orders.dlq with 1-click Replay recovery.</div>
+            <div class="focus-actions">
+              <button type="button" class="btn-pill-ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,0.22);padding:5px 12px;font-size:11px;" id="btnClearDlq">Clear DLQ</button>
+              <button type="button" class="btn-pill-primary" style="padding:5px 12px;font-size:11px;" id="btnGoScenario3">Inspect Scenarios</button>
+            </div>
+          </div>
+          <div class="agenda-list" id="dlqCompactList"></div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="bento-card" style="grid-column: span 2;">
+          <div class="timeline-head">
+            <div><strong style="font-size:13.5px;">Live Telemetry &amp; Event Stream Console (SSE)</strong></div>
+            <div class="head-actions">
+              <select id="logFilterSelect" class="seg-btn" style="border:1px solid var(--border-hairline);padding:4px 10px;">
+                <option value="ALL">ALL CHANNELS</option>
+                <option value="BROKER">BROKER (RABBITMQ)</option>
+                <option value="DLQ">DEAD LETTER (DLQ)</option>
+                <option value="SCENARIO">SCENARIO TEST</option>
+                <option value="HEALTH">CONTAINER HEALTH</option>
+                <option value="SECURITY">SECURITY / RATE LIMIT</option>
+              </select>
+              <button type="button" class="btn-pill-ghost" style="padding:4px 10px;font-size:11px;" id="btnClearLogs">Clear Console</button>
+            </div>
+          </div>
+          <div class="terminal-logs" id="terminalLogs"></div>
+        </div>
+
+        <div class="bento-card">
+          <div class="card-label"><span>Dead Letter Queue Inspector</span><span>Queue</span></div>
+          <div style="overflow-x:auto;">
+            <table class="clean-table">
+              <thead><tr><th>ID / Exchange</th><th>Reason</th><th style="text-align:right;">Action</th></tr></thead>
+              <tbody id="dlqTableBody"></tbody>
+            </table>
           </div>
         </div>
-        <div class="dlq-table-wrap">
-          <table class="dlq-table">
-            <thead>
-              <tr>
-                <th>MÃ THÔNG ĐIỆP</th>
-                <th>EXCHANGE NGUỒN</th>
-                <th>NGUYÊN NHÂN TỪ CHỐI (FAILURE REASON)</th>
-                <th>SỐ LẦN THỬ LẠI</th>
-                <th>TRẠNG THÁI</th>
-                <th style="text-align: right;">THAO TÁC</th>
-              </tr>
-            </thead>
-            <tbody id="dlqTableBody">
-              <!-- Injected dynamically -->
-            </tbody>
+      </div>
+    </section>
+
+    <!-- VIEW 2: SCENARIO TESTING LAB -->
+    <section class="view-section" id="sectionScenario">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Scenario Testing Lab</h1>
+          <p class="page-subtitle">Interactive 6-scenario integration deck · executes non-destructive pipeline, Redis lock, AI &amp; rate-limit tests</p>
+        </div>
+      </div>
+      <div class="grid-3" id="scenarioGrid"></div>
+    </section>
+
+    <!-- VIEW 3: REPORTS · CEO EXECUTIVE DASHBOARD -->
+    <section class="view-section" id="sectionCeo">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Reports · CEO Executive</h1>
+          <p class="page-subtitle">PC Builder GMV, Hardware Catalog Stock Alerts, Repair Ticket SLAs &amp; Zero-Loss SI Protection</p>
+        </div>
+        <div class="head-actions">
+          <span class="operator-chip" id="ceoDataSourceBadge">DATA: TELEMETRY</span>
+          <button type="button" class="btn-pill-primary" id="btnExportCsv">↓ Export CSV</button>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <div class="seg-pills" id="ceoMetricSwitch">
+          <button type="button" class="seg-btn is-active" data-metric="gmv">GMV Revenue</button>
+          <button type="button" class="seg-btn" data-metric="orders">Order Volume</button>
+          <button type="button" class="seg-btn" data-metric="sla">Fulfillment SLA</button>
+          <button type="button" class="seg-btn" data-metric="dlq">DLQ Protection</button>
+        </div>
+        <div class="seg-pills" id="ceoRangeSwitch">
+          <button type="button" class="seg-btn" data-range="6">6 periods</button>
+          <button type="button" class="seg-btn is-active" data-range="12">12 periods</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid-4">
+        <div class="bento-card is-obsidian">
+          <div class="card-label"><span>Total · CyberRig GMV</span><span>₫</span></div>
+          <div class="kpi-val" id="ceoTotalRevenue">0 ₫</div>
+          <div class="kpi-foot"><span class="trend-pill">Confirmed + Pipeline</span><span id="ceoConfirmedSub">0 ₫ settled</span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>PC Builder &amp; Retail Orders</span><span>#</span></div>
+          <div class="kpi-val" id="ceoTotalOrders">0</div>
+          <div class="kpi-foot"><span>Pending payment: <strong id="ceoPendingOrders">0</strong></span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Fulfillment SLA &amp; Stock</span><span>%</span></div>
+          <div class="kpi-val" id="ceoCompletionRate">99.8%</div>
+          <div class="kpi-foot"><span id="ceoInventoryValue">Catalog active</span></div>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Repair Tickets &amp; DLQ Guard</span><span>🛡</span></div>
+          <div class="kpi-val" id="ceoRepairTotal">0 tickets</div>
+          <div class="kpi-foot"><span id="ceoDlqSaved">0 DLQ protected</span></div>
+        </div>
+      </div>
+
+      <div class="split-60-40">
+        <div class="bento-card">
+          <div class="card-label"><strong style="font-size:13.5px;color:var(--ink-primary);" id="areaChartTitle">CyberRig GMV Trend (Million VND)</strong><span>Executive Curve</span></div>
+          <svg class="chart-svg" id="ceoAreaChartSvg" viewBox="0 0 640 210"></svg>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><strong style="font-size:13.5px;color:var(--ink-primary);">Period Velocity Breakdown</strong><span id="barHoverHint">Hover column for metric</span></div>
+          <div class="bar-chart-wrap" id="ceoBarChartWrap"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="bento-card">
+          <div class="card-label"><span>Revenue Mix (PC Builder · Upgrades · Repair Lab)</span><span>Channels</span></div>
+          <table class="clean-table">
+            <thead><tr><th>Business Line</th><th>Volume</th><th>Revenue (VND)</th><th>Share</th></tr></thead>
+            <tbody id="ceoChannelBody"></tbody>
+          </table>
+        </div>
+        <div class="bento-card">
+          <div class="card-label"><span>Low-Stock Alerts &amp; Repair Pipeline</span><span id="ceoLowStockTag">Stock Watch</span></div>
+          <div id="ceoRepairPipeline" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;"></div>
+          <table class="clean-table">
+            <thead><tr><th>Hardware SKU · Brand</th><th>Stock</th><th>Alert</th></tr></thead>
+            <tbody id="ceoLowStockBody"></tbody>
           </table>
         </div>
       </div>
-
     </section>
+  </div>
 
-    <!-- ========================================================================= -->
-    <!-- VIEW 2: INTERACTIVE SCENARIO TESTING MODE -->
-    <!-- ========================================================================= -->
-    <section class="soc-view-section" id="sectionScenario">
-      <div class="section-headline">PHÒNG LAB KIỂM THỬ KỊCH BẢN TÍCH HỢP (INTERACTIVE SCENARIO TESTING DECK)</div>
-      <p style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-muted); margin-bottom: 16px;">
-        Nhấn nút để kích hoạt các kịch bản kiểm thử độc lập. Hệ thống sẽ tự động phát sinh tải, thử nghiệm lỗi, khóa kho nguyên tử hoặc gọi mô hình AI mà không can thiệp vào cơ sở dữ liệu bán lẻ chính.
-      </p>
-
-      <div class="scenario-grid" id="scenarioGrid">
-        <!-- Injected dynamically by monitoring.js -->
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- COMMON: LIVE TERMINAL EVENT & TELEMETRY STREAM LOG -->
-    <!-- ========================================================================= -->
-    <div class="terminal-card">
-      <div class="terminal-header">
-        <div class="terminal-title">
-          <span>&gt;_ LIVE TELEMETRY & EVENT STREAM CONSOLE (SSE)</span>
-        </div>
-        <div class="terminal-controls">
-          <label for="logFilterSelect" style="color: var(--text-dim); font-size: 0.7rem;">KÊNH:</label>
-          <select id="logFilterSelect" class="terminal-filter-select">
-            <option value="ALL">TẤT CẢ (ALL CHANNELS)</option>
-            <option value="BROKER">BROKER (RABBITMQ)</option>
-            <option value="DLQ">DEAD LETTER (DLQ)</option>
-            <option value="SCENARIO">SCENARIO TEST</option>
-            <option value="HEALTH">CONTAINER HEALTH</option>
-            <option value="SECURITY">SECURITY / RATE LIMIT</option>
-          </select>
-          <button type="button" class="btn-terminal-clear" id="btnClearLogs">XÓA MÀN HÌNH</button>
-        </div>
-      </div>
-      <div class="terminal-logs" id="terminalLogs">
-        <!-- Real-time log entries stream here -->
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Access Denied Modal (If user is not logged in as ADMIN) -->
+  <!-- Admin RBAC Gate Modal (Enforces JWT ADMIN authentication cleanly) -->
   <div class="auth-gate-modal" id="authGateModal">
     <div class="auth-gate-box">
-      <h2>TRUY CẬP BỊ TỪ CHỐI (403 FORBIDDEN)</h2>
-      <p>
-        Khu vực SI Monitoring & Testing Lab chỉ dành riêng cho tài khoản có vai trò <strong>ADMIN</strong>. Vui lòng đăng nhập bằng tài khoản quản trị viên để tiếp tục.
+      <div class="card-label" style="color:var(--accent-primary);margin-bottom:6px;"><span>SECURITY CLEARANCE REQUIRED</span><span>RBAC</span></div>
+      <h2 style="font-family:var(--font-display);font-size:26px;text-transform:uppercase;margin-bottom:6px;">Admin Operator Sign-In</h2>
+      <p style="font-size:12px;color:var(--ink-secondary);margin-bottom:14px;">
+        SI Monitoring &amp; CEO Executive Reports require an authenticated <strong>ADMIN</strong> account.
       </p>
-      <div style="display: flex; gap: 12px; justify-content: center;">
-        <a href="/#login" class="soc-nav-btn is-accent" style="padding: 10px 20px;">ĐĂNG NHẬP VỚI QUYỀN ADMIN</a>
-        <a href="/" class="soc-nav-btn" style="padding: 10px 20px;">QUAY LẠI TRANG CHỦ</a>
-      </div>
+      <form id="socLoginForm" style="display:flex;flex-direction:column;gap:10px;">
+        <label style="font-size:11.5px;color:var(--ink-secondary);">Operator Email
+          <input type="email" id="socLoginEmail" class="auth-gate-input" placeholder="admin@cyberig.vn" required />
+        </label>
+        <label style="font-size:11.5px;color:var(--ink-secondary);">Password
+          <input type="password" id="socLoginPassword" class="auth-gate-input" placeholder="••••••••" required />
+        </label>
+        <div id="socLoginError" style="font-size:11.5px;color:var(--accent-red);display:none;"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px;flex-wrap:wrap;">
+          <a href="/" class="btn-pill-ghost">Storefront</a>
+          <button type="submit" class="btn-pill-primary" id="socLoginSubmit">Authenticate ADMIN</button>
+        </div>
+      </form>
     </div>
   </div>
 
+  <div class="floating-toast" id="floatingToast">
+    <span id="toastText">✓ Updated</span>
+    <button type="button" class="toast-action" id="toastBtn">OK</button>
+  </div>
+
+  <script src="/admin-monitoring/charts-and-theme.js"></script>
+  <script src="/admin-monitoring/ceo-dashboard.js"></script>
+  <script src="/admin-monitoring/monitoring-lab.js"></script>
   <script src="/admin-monitoring/monitoring.js"></script>
 </body>
 </html>

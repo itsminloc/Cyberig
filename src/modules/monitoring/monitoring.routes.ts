@@ -39,4 +39,7 @@ monitoringRouter.post('/dlq/clear', (req, res) => monitoringController.clearDlq(
 // 7. Immutable Security Audit Trail Inspector
 monitoringRouter.get('/audit-logs', (req, res, next) => monitoringController.getAuditLogs(req, res, next));
 
+// 8. CEO Executive Revenue, Stock & Repair SLA Summary
+monitoringRouter.get('/ceo-summary', (req, res, next) => monitoringController.getCeoSummary(req, res, next));
+
 export default monitoringRouter;
