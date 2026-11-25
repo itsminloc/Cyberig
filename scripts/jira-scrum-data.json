@@ -90,6 +90,14 @@
       "startDate": "2026-11-15T02:00:00.000Z",
       "endDate": "2026-11-22T10:00:00.000Z",
       "plannedSp": 26
+    },
+    {
+      "id": 5,
+      "name": "CRIG Sprint 5: SE445 Integration & Executive BI",
+      "goal": "Tích hợp SE445 Case Study 1 & 2 (Canonical Order Adapter, X-Correlation-ID Tracing, Dual-Mode Event Bus + Outbox + DLQ, AI POS Mapper kèm Decree 13 PII Masking, Tab 4 Simulator & CEO Executive Bento Dashboard) đạt 182/182 Automated Tests.",
+      "startDate": "2026-11-23T02:00:00.000Z",
+      "endDate": "2026-11-30T10:00:00.000Z",
+      "plannedSp": 26
     }
   ],
   "epics": [
@@ -182,6 +190,15 @@
       "owner": "TV 4",
       "description": "3 giai đoạn bảo mật OWASP (HttpOnly Rotation, Redis Blacklist, Anti-IDOR, PII Masking, RBAC SOC, HMAC Webhook, 2FA TOTP, Audit Logs), GitHub Actions 4-Job CI/CD và đồng bộ Use Case v2.1.",
       "jiraKey": "SCRUM-14"
+    },
+    {
+      "code": "EPIC-11",
+      "name": "EPIC-11: Tích Hợp SE445 Omnichannel EDA, AI POS Engine & CEO Executive BI",
+      "sprint": 5,
+      "component": "cmp-si-monitoring",
+      "owner": "TV 5",
+      "description": "Tích hợp SE445 Case Study 1 & 2: Canonical Order Adapter, X-Correlation-ID Tracing, Dual-Mode Event Bus + Outbox (HTTP 503) + 3x Retry DLQ + 3 Subscribers, AI POS Data Mapper (Decree 13 PII Masking + Template Cache), Tab 4 Simulator, CEO Executive Bento Dashboard & 182/182 Tests.",
+      "jiraKey": "SCRUM-95"
     }
   ],
   "stories": [
@@ -1199,6 +1216,141 @@
         }
       ],
       "jiraKey": "SCRUM-41"
+    },
+    {
+      "code": "CRIG-US-39",
+      "epic": "EPIC-11",
+      "sprint": 5,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 3",
+      "components": ["cmp-checkout-orders"],
+      "labels": ["sprint-5", "tv-3", "se445-integration", "distributed-tracing"],
+      "summary": "CRIG-US-39: Canonical Order Adapter & Truy vết phân tán X-Correlation-ID End-to-End",
+      "description": "Là hệ thống tích hợp đa kênh, tôi muốn chuẩn hóa mọi định dạng đơn hàng dị thể (B2B Partner API, Mobile, AI POS, Web Storefront) về CreateOrderDto chuẩn và truy vết xuyên suốt bằng X-Correlation-ID từ Nginx tới Event Bus & Audit Logs.",
+      "subtasks": [
+        {
+          "code": "INT-01",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] INT-01: Xây dựng correlation.middleware.ts, ServiceLogger & cấu hình Nginx X-Correlation-ID",
+          "jiraKey": "SCRUM-101"
+        },
+        {
+          "code": "INT-02",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] INT-02: Xây dựng order.adapter.ts chuẩn hóa payload dị thể B2B/Mobile/POS về CreateOrderDto",
+          "jiraKey": "SCRUM-102"
+        }
+      ],
+      "jiraKey": "SCRUM-96"
+    },
+    {
+      "code": "CRIG-US-40",
+      "epic": "EPIC-11",
+      "sprint": 5,
+      "sp": 8,
+      "priority": "Highest",
+      "owner": "TV 5",
+      "components": ["cmp-si-monitoring"],
+      "labels": ["sprint-5", "tv-5", "se445-integration", "event-driven"],
+      "summary": "CRIG-US-40: Dual-Mode Event Bus, Outbox Resilience (HTTP 503) & 3 Downstream Subscribers",
+      "description": "Là kỹ sư tích hợp hệ thống, tôi muốn xây dựng Dual-Mode Event Bus (cyberrig.orders, DLX/DLQ, Retry 3x, Idempotency Guard, Pause/Resume Queue, Outbox PENDING_RETRY trả HTTP 503 khi Broker offline) cùng 3 Downstream Subscribers (Inventory Sync, CRM Loyalty, TMS Fulfillment).",
+      "subtasks": [
+        {
+          "code": "INT-03",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] INT-03: Triển khai IntegrationEventBus (Retry 3x -> DLQ, Idempotency Guard, Pause/Resume & Outbox)",
+          "jiraKey": "SCRUM-103"
+        },
+        {
+          "code": "INT-04",
+          "owner": "TV 3",
+          "summary": "[SCRUM TASK] INT-04: Xây dựng order-events.subscriber.ts (Inventory, CRM, TMS) & kết nối TelemetryService",
+          "jiraKey": "SCRUM-104"
+        }
+      ],
+      "jiraKey": "SCRUM-97"
+    },
+    {
+      "code": "CRIG-US-41",
+      "epic": "EPIC-11",
+      "sprint": 5,
+      "sp": 5,
+      "priority": "Highest",
+      "owner": "TV 4",
+      "components": ["cmp-admin-security", "cmp-si-monitoring"],
+      "labels": ["sprint-5", "tv-4", "se445-integration", "ai-pos"],
+      "summary": "CRIG-US-41: AI POS Data Mapper, Che mờ PII trước AI (Nghị định 13) & Template Cache",
+      "description": "Là quản trị viên vận hành POS, tôi muốn hệ thống tự động che mờ SĐT và Email cá nhân (Nghị định 13/2023/NĐ-CP) trước khi phân tích hóa đơn POS thô qua Template Cache, Gemini Structured JSON hoặc bộ chuẩn hóa Offline.",
+      "subtasks": [
+        {
+          "code": "INT-05",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] INT-05: Bổ sung maskRawTextPii (pii-mask.util.ts) lọc SĐT/Email trước khi gửi prompt AI",
+          "jiraKey": "SCRUM-105"
+        },
+        {
+          "code": "INT-06",
+          "owner": "TV 4",
+          "summary": "[SCRUM TASK] INT-06: Xây dựng ai-data-mapper.service.ts (Template Cache, Gemini JSON & Offline Normalizer)",
+          "jiraKey": "SCRUM-106"
+        }
+      ],
+      "jiraKey": "SCRUM-98"
+    },
+    {
+      "code": "CRIG-US-42",
+      "epic": "EPIC-11",
+      "sprint": 5,
+      "sp": 5,
+      "priority": "High",
+      "owner": "TV 2",
+      "components": ["cmp-portals-ui", "cmp-si-monitoring"],
+      "labels": ["sprint-5", "tv-2", "se445-integration"],
+      "summary": "CRIG-US-42: SI Studio Bento Dual-Theme, Tab 4 Order & AI POS Simulator & CEO Executive Dashboard",
+      "description": "Là CEO và Quản trị viên SOC, tôi muốn giao diện SI Studio Bento Dual-Theme, bảng điều hành CEO Executive và Tab 4 Order & AI POS Simulator được bảo vệ nghiêm ngặt bởi ADMIN RBAC.",
+      "subtasks": [
+        {
+          "code": "FE-18",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-18: Thiết kế giao diện Bento Dual-Theme, CEO Executive Charts & Tab 4 Simulator (/admin-monitoring/)",
+          "jiraKey": "SCRUM-107"
+        },
+        {
+          "code": "BE-11",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] BE-11: Xây dựng monitoring-integration.controller.ts (ADMIN RBAC) & ceo-metrics.service.ts",
+          "jiraKey": "SCRUM-108"
+        }
+      ],
+      "jiraKey": "SCRUM-99"
+    },
+    {
+      "code": "CRIG-US-43",
+      "epic": "EPIC-11",
+      "sprint": 5,
+      "sp": 3,
+      "priority": "High",
+      "owner": "TV 1",
+      "components": ["cmp-devsecops-ci"],
+      "labels": ["sprint-5", "tv-1", "se445-integration", "docs"],
+      "summary": "CRIG-US-43: Hạ tầng Kong/RabbitMQ Reference, Postman Collection, 182 Tests & Tài liệu SE445",
+      "description": "Là kỹ sư DevSecOps & Product Owner, tôi muốn đóng gói cấu hình tham chiếu Kong DB-less, RabbitMQ Topology, Postman Collection SE445, mở rộng bộ test tự động lên 182/182 PASS và đồng bộ tài liệu kiến trúc + Scrum Jira.",
+      "subtasks": [
+        {
+          "code": "QA-03",
+          "owner": "TV 5",
+          "summary": "[SCRUM TASK] QA-03: Cấu hình Kong/RabbitMQ (CyberRig-Infra), Postman SE445 & bộ test 182/182 PASS",
+          "jiraKey": "SCRUM-109"
+        },
+        {
+          "code": "DOC-03",
+          "owner": "TV 1",
+          "summary": "[SCRUM TASK] DOC-03: Biên soạn SE445-CASE-STUDY-INTEGRATION.md & đồng bộ hồ sơ Scrum Jira Sprint 5",
+          "jiraKey": "SCRUM-110"
+        }
+      ],
+      "jiraKey": "SCRUM-100"
     }
   ],
   "jiraBaseUrl": "https://minhlocle112.atlassian.net",

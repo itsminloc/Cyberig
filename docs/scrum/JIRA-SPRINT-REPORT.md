@@ -3,10 +3,10 @@
 > **Hệ thống**: CyberRig Ecosystem (PC Hardware Retail, Compatibility Builder, Repair Tracking, Security Hardening & SI Monitoring Lab)  
 > **Mô hình quản lý**: Agile / Scrum trên Jira Cloud Team-managed (**Project Key: `SCRUM`** — `https://minhlocle112.atlassian.net/jira/software/projects/SCRUM/boards/1`) kết hợp GitHub Flow, DevSecOps CI/CD & Vòng đời Tác tử ADLC  
 > **Đội ngũ thực hiện**: 5 thành viên (`TV 1`–`TV 5`, phân bổ đều 20% / thành viên — gắn nhãn `tv-1`..`tv-5` trên Jira để Leader chọn Assignee tương ứng)  
-> **Công cụ thực thi**: Jira Software Cloud (`SCRUM-4`..`SCRUM-94`) + GitHub (`https://github.com/itsminloc/Cyberig`) + GitHub Actions  
-> **Tổng chu kỳ thực hiện**: 4 Sprint (3 Sprint nghiệp vụ chính 2.5 tháng + 1 Hardening Sprint — 11.5 tuần)  
-> **Tổng nỗ lực hoàn thành**: **182 Story Points (10 Epics, 37 User Stories, 44 Technical Sub-tasks)**  
-> **Tỷ lệ hoàn thành (Success Rate)**: **100% Definition of Done (DoD), 173/173 Automated Tests Passed (24 Spec Files / 26 Suites), 4/4 GitHub Actions DevSecOps Jobs Passed**
+> **Công cụ thực thi**: Jira Software Cloud (`SCRUM-4`..`SCRUM-110` — 107 issues) + GitHub (`https://github.com/itsminloc/Cyberig`) + GitHub Actions  
+> **Tổng chu kỳ thực hiện**: 5 Sprint (3 Sprint nghiệp vụ chính + Sprint 4 Security Hardening + Sprint 5 SE445 Omnichannel, AI POS & Executive BI)  
+> **Tổng nỗ lực hoàn thành**: **208 Story Points (11 Epics, 42 User Stories, 54 Technical Sub-tasks)**  
+> **Tỷ lệ hoàn thành (Success Rate)**: **100% Definition of Done (DoD), 182/182 Automated Tests Passed (26 Spec Files / 28 Suites), 4/4 GitHub Actions DevSecOps Jobs Passed**
 
 ---
 
@@ -373,6 +373,25 @@ flowchart TD
 
 ---
 
+## 3.5. BÁO CÁO SPRINT 5: SE445 Omnichannel Integration, AI POS & CEO Executive BI (26 SP)
+
+### A. Thông Tin Tổng Quan Sprint 5 trên Jira
+- **Sprint Name**: `CRIG Sprint 5: SE445 Integration & Executive BI` (`id: 8`, đang mở `Active` với 100% thẻ đạt `Done` trên Board để thuận tiện gán thành viên & nghiệm thu)
+- **Epic**: `EPIC-11` (`SCRUM-95`) — *Tích Hợp SE445 Omnichannel EDA, AI POS Engine & CEO Executive BI*
+- **Cam kết & Hoàn thành**: **26 SP / 26 SP (100% Done)** — phân bổ đều 5 thành viên (`TV 1`–`TV 5`).
+
+### B. Bảng Issues Hoàn Thành Trong Sprint 5 (`SCRUM-96`–`SCRUM-110`)
+
+| Jira Key | Mã Story | Tóm Tắt Nhiệm Vụ & Subtasks | Phụ Trách | SP | Trạng Thái |
+| :--- | :---: | :--- | :---: | :---: | :---: |
+| `SCRUM-96` | `CRIG-US-39` | Canonical Order Adapter & Truy vết `X-Correlation-ID` (`SCRUM-101`, `SCRUM-102`) | TV 3 / TV 1 (`tv-3`) | 5 | Done |
+| `SCRUM-97` | `CRIG-US-40` | Dual-Mode Event Bus, Outbox HTTP 503 & 3 Subscribers (`SCRUM-103`, `SCRUM-104`) | TV 5 / TV 3 (`tv-5`) | 8 | Done |
+| `SCRUM-98` | `CRIG-US-41` | AI POS Data Mapper, Che PII Nghị định 13 & Template Cache (`SCRUM-105`, `SCRUM-106`) | TV 4 (`tv-4`) | 5 | Done |
+| `SCRUM-99` | `CRIG-US-42` | SI Studio Bento Dual-Theme, Tab 4 Simulator & CEO Dashboard (`SCRUM-107`, `SCRUM-108`) | TV 2 / TV 1 (`tv-2`) | 5 | Done |
+| `SCRUM-100` | `CRIG-US-43` | Kong/RabbitMQ Reference, Postman SE445, 182 Tests & Docs (`SCRUM-109`, `SCRUM-110`) | TV 1 / TV 5 (`tv-1`) | 3 | Done |
+
+---
+
 # PHẦN 4: PHÂN TÍCH CÁC CHỈ SỐ AGILE ĐỊNH LƯỢNG TRÊN JIRA
 
 ### 4.1. Biểu đồ Vận tốc (Velocity Chart — 4 Sprint)
@@ -384,7 +403,8 @@ Biểu đồ Velocity thể hiện khả năng bàn giao giá trị ổn định
 | **Sprint 2** (3.5 tuần) | 38 SP | 38 SP | 100% |
 | **Sprint 3** (3.5 tuần) | 60 SP | 60 SP | 100% |
 | **Sprint 4** (Hardening — 1 tuần) | 26 SP | 26 SP | 100% |
-| **TỔNG / TRUNG BÌNH** | **182 SP (45.5 SP/Sprint)** | **182 SP (45.5 SP/Sprint)** | **100%** |
+| **Sprint 5** (SE445 & Executive BI — 1 tuần) | 26 SP | 26 SP | 100% |
+| **TỔNG / TRUNG BÌNH** | **208 SP (41.6 SP/Sprint)** | **208 SP (41.6 SP/Sprint)** | **100%** |
 
 ```
 Story Points

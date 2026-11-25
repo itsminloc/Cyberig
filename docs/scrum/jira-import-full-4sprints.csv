@@ -19,6 +19,8 @@ Epic,EPIC-09,,EPIC-09: Container Hóa Docker Compose & Chuỗi Tạo Tác ADLC,E
 Phụ trách chính: TV 5"
 Epic,EPIC-10,,"EPIC-10: Gia Cố Bảo Mật OWASP Top 10, DevSecOps CI/CD & Docs Sync","EPIC-10: Gia Cố Bảo Mật OWASP Top 10, DevSecOps CI/CD & Docs Sync",,26,High,cmp-devsecops-ci,sprint-4,Done,"3 giai đoạn bảo mật OWASP (HttpOnly Rotation, Redis Blacklist, Anti-IDOR, PII Masking, RBAC SOC, HMAC Webhook, 2FA TOTP, Audit Logs), GitHub Actions 4-Job CI/CD và đồng bộ Use Case v2.1.
 Phụ trách chính: TV 4"
+Epic,EPIC-11,,"EPIC-11: Tích Hợp SE445 Omnichannel EDA, AI POS Engine & CEO Executive BI","EPIC-11: Tích Hợp SE445 Omnichannel EDA, AI POS Engine & CEO Executive BI",,26,High,cmp-si-monitoring,sprint-5,Done,"Tích hợp SE445 Case Study 1 & 2: Canonical Order Adapter, X-Correlation-ID Tracing, Dual-Mode Event Bus + Outbox (HTTP 503) + 3x Retry DLQ + 3 Subscribers, AI POS Data Mapper (Decree 13 PII Masking + Template Cache), Tab 4 Simulator, CEO Executive Bento Dashboard & 182/182 Tests.
+Phụ trách chính: TV 5"
 Story,CRIG-US-01,EPIC-01,CRIG-US-01: Tra cứu & Lọc linh kiện phần cứng đa tiêu chí (/hardware),,CRIG Sprint 1: Core Value MVP,5,High,cmp-hardware-builder,sprint-1;frontend,Done,"Là khách hàng, tôi muốn lọc linh kiện theo danh mục (8 nhóm), khoảng giá và thương hiệu để tìm phụ tùng PC phù hợp.
 
 Acceptance Criteria:
@@ -288,3 +290,28 @@ Acceptance Criteria:
 Thành viên phụ trách: TV 1"
 Sub-task,DOC-01,CRIG-US-38,[SCRUM TASK] DOC-01: Vẽ lại diagram_usecase_master.png (3000x4359) & diagram_security_architecture.png,,CRIG Sprint 4: Security Hardening & DevSecOps,,Medium,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-38 — Phụ trách: TV 2
 Sub-task,DOC-02,CRIG-US-38,"[SCRUM TASK] DOC-02: Đồng bộ SECURITY-DESIGN.md, USE-CASES.md, docs/scrum/* & TAI-LIEU-BAO-CAO.docx",,CRIG Sprint 4: Security Hardening & DevSecOps,,Medium,cmp-devsecops-ci,sprint-4,Done,Sub-task thuộc CRIG-US-38 — Phụ trách: TV 1
+Story,CRIG-US-39,EPIC-11,CRIG-US-39: Canonical Order Adapter & Truy vết phân tán X-Correlation-ID End-to-End,,CRIG Sprint 5: SE445 Integration & Executive BI,5,Highest,cmp-checkout-orders,sprint-5;tv-3;se445-integration;distributed-tracing,Done,"Là hệ thống tích hợp đa kênh, tôi muốn chuẩn hóa mọi định dạng đơn hàng dị thể (B2B Partner API, Mobile, AI POS, Web Storefront) về CreateOrderDto chuẩn và truy vết xuyên suốt bằng X-Correlation-ID từ Nginx tới Event Bus & Audit Logs.
+
+Thành viên phụ trách: TV 3"
+Sub-task,INT-01,CRIG-US-39,"[SCRUM TASK] INT-01: Xây dựng correlation.middleware.ts, ServiceLogger & cấu hình Nginx X-Correlation-ID",,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-checkout-orders,sprint-5,Done,Sub-task thuộc CRIG-US-39 — Phụ trách: TV 3
+Sub-task,INT-02,CRIG-US-39,[SCRUM TASK] INT-02: Xây dựng order.adapter.ts chuẩn hóa payload dị thể B2B/Mobile/POS về CreateOrderDto,,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-checkout-orders,sprint-5,Done,Sub-task thuộc CRIG-US-39 — Phụ trách: TV 1
+Story,CRIG-US-40,EPIC-11,"CRIG-US-40: Dual-Mode Event Bus, Outbox Resilience (HTTP 503) & 3 Downstream Subscribers",,CRIG Sprint 5: SE445 Integration & Executive BI,8,Highest,cmp-si-monitoring,sprint-5;tv-5;se445-integration;event-driven,Done,"Là kỹ sư tích hợp hệ thống, tôi muốn xây dựng Dual-Mode Event Bus (cyberrig.orders, DLX/DLQ, Retry 3x, Idempotency Guard, Pause/Resume Queue, Outbox PENDING_RETRY trả HTTP 503 khi Broker offline) cùng 3 Downstream Subscribers (Inventory Sync, CRM Loyalty, TMS Fulfillment).
+
+Thành viên phụ trách: TV 5"
+Sub-task,INT-03,CRIG-US-40,"[SCRUM TASK] INT-03: Triển khai IntegrationEventBus (Retry 3x -> DLQ, Idempotency Guard, Pause/Resume & Outbox)",,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-si-monitoring,sprint-5,Done,Sub-task thuộc CRIG-US-40 — Phụ trách: TV 5
+Sub-task,INT-04,CRIG-US-40,"[SCRUM TASK] INT-04: Xây dựng order-events.subscriber.ts (Inventory, CRM, TMS) & kết nối TelemetryService",,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-si-monitoring,sprint-5,Done,Sub-task thuộc CRIG-US-40 — Phụ trách: TV 3
+Story,CRIG-US-41,EPIC-11,"CRIG-US-41: AI POS Data Mapper, Che mờ PII trước AI (Nghị định 13) & Template Cache",,CRIG Sprint 5: SE445 Integration & Executive BI,5,Highest,cmp-admin-security;cmp-si-monitoring,sprint-5;tv-4;se445-integration;ai-pos,Done,"Là quản trị viên vận hành POS, tôi muốn hệ thống tự động che mờ SĐT và Email cá nhân (Nghị định 13/2023/NĐ-CP) trước khi phân tích hóa đơn POS thô qua Template Cache, Gemini Structured JSON hoặc bộ chuẩn hóa Offline.
+
+Thành viên phụ trách: TV 4"
+Sub-task,INT-05,CRIG-US-41,[SCRUM TASK] INT-05: Bổ sung maskRawTextPii (pii-mask.util.ts) lọc SĐT/Email trước khi gửi prompt AI,,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-admin-security,sprint-5,Done,Sub-task thuộc CRIG-US-41 — Phụ trách: TV 4
+Sub-task,INT-06,CRIG-US-41,"[SCRUM TASK] INT-06: Xây dựng ai-data-mapper.service.ts (Template Cache, Gemini JSON & Offline Normalizer)",,CRIG Sprint 5: SE445 Integration & Executive BI,,Highest,cmp-admin-security,sprint-5,Done,Sub-task thuộc CRIG-US-41 — Phụ trách: TV 4
+Story,CRIG-US-42,EPIC-11,"CRIG-US-42: SI Studio Bento Dual-Theme, Tab 4 Order & AI POS Simulator & CEO Executive Dashboard",,CRIG Sprint 5: SE445 Integration & Executive BI,5,High,cmp-portals-ui;cmp-si-monitoring,sprint-5;tv-2;se445-integration,Done,"Là CEO và Quản trị viên SOC, tôi muốn giao diện SI Studio Bento Dual-Theme, bảng điều hành CEO Executive và Tab 4 Order & AI POS Simulator được bảo vệ nghiêm ngặt bởi ADMIN RBAC.
+
+Thành viên phụ trách: TV 2"
+Sub-task,FE-18,CRIG-US-42,"[SCRUM TASK] FE-18: Thiết kế giao diện Bento Dual-Theme, CEO Executive Charts & Tab 4 Simulator (/admin-monitoring/)",,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-portals-ui,sprint-5,Done,Sub-task thuộc CRIG-US-42 — Phụ trách: TV 2
+Sub-task,BE-11,CRIG-US-42,[SCRUM TASK] BE-11: Xây dựng monitoring-integration.controller.ts (ADMIN RBAC) & ceo-metrics.service.ts,,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-portals-ui,sprint-5,Done,Sub-task thuộc CRIG-US-42 — Phụ trách: TV 1
+Story,CRIG-US-43,EPIC-11,"CRIG-US-43: Hạ tầng Kong/RabbitMQ Reference, Postman Collection, 182 Tests & Tài liệu SE445",,CRIG Sprint 5: SE445 Integration & Executive BI,3,High,cmp-devsecops-ci,sprint-5;tv-1;se445-integration;docs,Done,"Là kỹ sư DevSecOps & Product Owner, tôi muốn đóng gói cấu hình tham chiếu Kong DB-less, RabbitMQ Topology, Postman Collection SE445, mở rộng bộ test tự động lên 182/182 PASS và đồng bộ tài liệu kiến trúc + Scrum Jira.
+
+Thành viên phụ trách: TV 1"
+Sub-task,QA-03,CRIG-US-43,"[SCRUM TASK] QA-03: Cấu hình Kong/RabbitMQ (CyberRig-Infra), Postman SE445 & bộ test 182/182 PASS",,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-devsecops-ci,sprint-5,Done,Sub-task thuộc CRIG-US-43 — Phụ trách: TV 5
+Sub-task,DOC-03,CRIG-US-43,[SCRUM TASK] DOC-03: Biên soạn SE445-CASE-STUDY-INTEGRATION.md & đồng bộ hồ sơ Scrum Jira Sprint 5,,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-devsecops-ci,sprint-5,Done,Sub-task thuộc CRIG-US-43 — Phụ trách: TV 1

@@ -19,7 +19,8 @@
 | **Sprint 2** | **UI/UX Excellence**: Thiết kế công nghiệp, Dual-Theme & Studio Media | Tuần 3.5 - Tuần 7 (25 ngày) | 38 | 38 | 100% | [COMPLETED] |
 | **Sprint 3** | **Enterprise Core**: Quản trị, Bảo mật lõi, SI Monitoring SOC & Testing Lab | Tuần 7 - Tuần 10.5 (25 ngày) | 60 | 60 | 100% | [COMPLETED] |
 | **Sprint 4** | **Security Hardening & DevSecOps**: OWASP 3 giai đoạn, CI/CD 4 jobs & Docs Sync | Tuần 11 (Hardening — 7 ngày) | 26 | 26 | 100% | [COMPLETED] |
-| **TỔNG CỘNG** | **Toàn bộ chu kỳ phát triển & gia cố bảo mật** | **11.5 Tuần (4 Sprint)** | **182** | **182** | **100%** | **[DELIVERED]** |
+| **Sprint 5** | **SE445 Omnichannel, AI POS & Executive BI**: Adapter, EventBus, PII Masking & Tab 4 | Tuần 12 (`id: 8`) | 26 | 26 | 100% | [ACTIVE · 100% DONE] |
+| **TỔNG CỘNG** | **Toàn bộ chu kỳ phát triển, bảo mật & tích hợp SE445** | **12.5 Tuần (5 Sprint)** | **208** | **208** | **100%** | **[DELIVERED]** |
 
 ---
 
@@ -396,3 +397,8 @@ sequenceDiagram
 1. **Kiểm chứng Khóa RBAC & SSE Ticket**: Gọi `GET /api/monitoring/telemetry` khi chưa đăng nhập $\rightarrow$ nhận HTTP `401`; đăng nhập tài khoản `ADMIN` $\rightarrow$ cấp vé 1 lần qua `POST /api/monitoring/stream-ticket` và xem `GET /api/monitoring/audit-logs`.
 2. **Kiểm chứng Webhook HMAC-SHA256 & 2FA TOTP**: Gọi `POST /api/orders/:id/confirm` thiếu chữ ký $\rightarrow$ bị từ chối và ghi vào `audit_logs`; chạy luồng `/api/auth/2fa/setup` $\rightarrow$ `/verify` xác nhận OTP 6 chữ số chuẩn RFC 6238.
 3. **Kiểm chứng Bộ Kiểm Thử & DevSecOps Gate**: Chạy `npx tsc --noEmit` (mã thoát `0`), `npm test` (**26/26 suites — 173/173 tests passed**, gồm `SEC-01`→`SEC-10`) và kiểm tra trạng thái **4/4 jobs PASS** trên tab Actions của GitHub (`https://github.com/itsminloc/Cyberig`).
+
+### 4.5. Nghiệm Thu Sprint 5: SE445 Omnichannel Integration, AI POS & CEO Executive BI (`SCRUM-95`–`SCRUM-110`)
+1. **Kiểm chứng Canonical Order Adapter & `X-Correlation-ID`**: Mở `/admin-monitoring/` $\rightarrow$ chuyển sang tab **Order & AI POS** $\rightarrow$ bấm **Place Heterogeneous Order** và đối chiếu `X-Correlation-ID`, `normalizedFromFormat: HETEROGENEOUS_PARTNER`, `EventEnvelope` cùng trạng thái 3 Downstream Subscribers (`Inventory`, `CRM`, `TMS`).
+2. **Kiểm chứng Outbox Resilience (HTTP `503`) & AI POS PII Redaction**: Bấm **Set Broker Offline (503 Test)** rồi gửi đơn để kiểm tra phản hồi `503 BROKER_UNAVAILABLE` + bản ghi Outbox `PENDING_RETRY`; tại khung **AI POS Ingestion**, nhập hóa đơn chứa SĐT/Email để xác minh `maskRawTextPii` che mờ PII trước khi khớp SKU và lưu `TEMPLATE_CACHE`.
+3. **Kiểm chứng Bộ Kiểm Thử Mở Rộng**: Chạy `npm test` xác nhận **182/182 tests PASSED** trên **28 suites** (`event-bus.spec.ts`, `se445-integration.spec.ts`).

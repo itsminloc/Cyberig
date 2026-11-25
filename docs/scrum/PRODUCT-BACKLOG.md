@@ -2,12 +2,13 @@
 
 > **Mô hình**: Agile / Scrum trên Jira Software (**Project Key: `SCRUM`** — Board thực tế: `https://minhlocle112.atlassian.net/jira/software/projects/SCRUM/boards/1`) kết hợp GitHub Flow, DevSecOps CI/CD & Vòng đời Tác tử ADLC  
 > **Đội ngũ thực hiện**: 5 thành viên (`TV 1`–`TV 5`, phân bổ đều 20% / thành viên)  
-> **Tổng lộ trình**: **4 Sprint** (3 Sprint nghiệp vụ chính 2.5 tháng + 1 Sprint Gia cố Bảo mật & DevSecOps — **10 Epics • 37 User Stories • 182 Story Points**)  
-> **Cấu trúc 4 Sprint**:
+> **Tổng lộ trình**: **5 Sprint** (3 Sprint nghiệp vụ chính + Sprint 4 Gia cố Bảo mật & DevSecOps + Sprint 5 Tích hợp SE445 Omnichannel, AI POS & Executive BI — **11 Epics • 42 User Stories • 208 Story Points**)  
+> **Cấu trúc 5 Sprint**:
 > - **Sprint 1 (Tuần 1 - Tuần 3.5 | 58 SP)**: **Core Value MVP** - Những gì người dùng có thể trực tiếp vào và sử dụng được ngay (Catalog, PC Builder tương thích, Checkout VietQR, Tra cứu bảo hành & Duyệt báo giá).
 > - **Sprint 2 (Tuần 3.5 - Tuần 7 | 38 SP)**: **UI/UX & Trải Nghiệm Tương Tác** - Ngôn ngữ thiết kế công nghiệp, Dual-Theme Day/Night, Ảnh chụp thực tế Studio, Danh mục PC Setup ngoại vi, Cải tiến tương tác.
 > - **Sprint 3 (Tuần 7 - Tuần 10.5 | 60 SP)**: **Hệ Thống Nâng Cao, Quản Trị, Bảo Mật Lõi & SI Monitoring Lab** - Phân quyền RBAC, Redis Atomic Stock Lock, Admin Hub, Giám sát SOC Real-time SSE, Dead Letter Queue & 6 kịch bản kiểm thử Lab.
 > - **Sprint 4 (Tuần 11 | 26 SP)**: **Security Hardening (OWASP Top 10) & DevSecOps Release** - `HttpOnly` Cookie Rotation + Redis Blacklist, Anti-IDOR & PII Masking, RBAC `ADMIN` cho SOC + Single-use SSE Ticket, Webhook VietQR HMAC-SHA256, 2FA TOTP & `audit_logs`, GitHub Actions DevSecOps 4 jobs và đồng bộ Use Case v2.1.
+> - **Sprint 5 (Tuần 12 | 26 SP)**: **SE445 Omnichannel Integration, AI POS & CEO Executive BI** - Canonical Order Adapter, `X-Correlation-ID` Tracing, Dual-Mode Event Bus + Outbox (HTTP `503`) + 3x Retry DLQ + 3 Subscribers, AI POS Data Mapper (Nghị định 13 PII Masking + Template Cache), Tab 4 Simulator, CEO Bento Dashboard, Kong/RabbitMQ Reference & 182/182 Tests.
 
 ---
 
@@ -112,6 +113,19 @@ flowchart TD
 | **US-36** | `SCRUM-39` | EPIC-10 | **Bảo mật 2 lớp MFA/2FA TOTP (RFC 6238) & Nhật ký Kiểm toán bất biến (`audit_logs`)**: Là quản trị viên & khách hàng, tôi muốn bật/tắt 2FA TOTP tương thích Google Authenticator (`/api/auth/2fa/*`) và tra cứu nhật ký kiểm toán bảo mật append-only (`GET /api/monitoring/audit-logs`). | High | 5 | [DONE] |
 | **US-37** | `SCRUM-40` | EPIC-10 | **Pipeline DevSecOps CI/CD 4-Job trên GitHub Actions & Test Runner đa nền tảng**: Là kỹ sư DevOps/QA, tôi muốn mọi push/PR kích hoạt tự động 4 job (TypeScript + 173 Tests qua `scripts/run-tests.mjs`, Gitleaks OSS, Semgrep OSS, Trivy CVE) làm cổng kiểm soát chất lượng trước khi Merge. | Must | 4 | [DONE] |
 | **US-38** | `SCRUM-41` | EPIC-10 | **Đồng bộ Sơ đồ Use Case v2.1 (Tác nhân hệ thống VietQR Webhook) & Tài liệu Bảo mật**: Là Product Owner, tôi muốn cập nhật đồng bộ `diagram_usecase_master.png`, `SECURITY-DESIGN.md`, `USE-CASES.md`, hồ sơ Scrum/Jira 5 thành viên và Báo cáo Word. | Should | 2 | [DONE] |
+
+---
+
+### GIAI ĐOẠN 5: SPRINT 5 - TÍCH HỢP SE445 OMNICHANNEL, AI POS & CEO EXECUTIVE BI (26 SP)
+*Thời gian: 1 tuần (`CRIG Sprint 5`, `id: 8`) | Trọng tâm: Tích hợp toàn diện SE445 Case Study 1 & 2 vào CyberRig và nâng bộ kiểm thử tự động lên 182/182 PASS.*
+
+| ID Story | Jira Key | Thuộc Epic | User Story & Mô tả tính năng | Ưu tiên | SP | Trạng thái |
+| :--- | :---: | :--- | :--- | :---: | :---: | :---: |
+| **US-39** | `SCRUM-96` | EPIC-11 (`SCRUM-95`) | **Canonical Order Adapter & Truy vết phân tán `X-Correlation-ID` End-to-End**: Chuẩn hóa payload dị thể B2B/Mobile/POS sang `CreateOrderDto` và gắn `X-Correlation-ID` từ Nginx qua Express tới Event Bus. | Must | 5 | [DONE] |
+| **US-40** | `SCRUM-97` | EPIC-11 (`SCRUM-95`) | **Dual-Mode Event Bus, Outbox Resilience (HTTP 503) & 3 Downstream Subscribers**: Topic Exchange `cyberrig.orders`, Retry 3x -> DLQ, Replay, Idempotency Guard, Pause/Resume Queue, Outbox `PENDING_RETRY` & 3 consumer (`Inventory`, `CRM`, `TMS`). | Must | 8 | [DONE] |
+| **US-41** | `SCRUM-98` | EPIC-11 (`SCRUM-95`) | **AI POS Data Mapper, Che mờ PII trước AI (Nghị định 13) & Template Cache**: Lọc SĐT/Email qua `maskRawTextPii` trước AI, Template Cache (`0.99`), Gemini JSON & Offline Normalizer khớp SKU thật. | Must | 5 | [DONE] |
+| **US-42** | `SCRUM-99` | EPIC-11 (`SCRUM-95`) | **SI Studio Bento Dual-Theme, Tab 4 Order & AI POS Simulator & CEO Executive Dashboard**: Bảng điều hành CEO + Tab 4 Simulator cô lập trong `/admin-monitoring/` với `ADMIN` RBAC. | Must | 5 | [DONE] |
+| **US-43** | `SCRUM-100` | EPIC-11 (`SCRUM-95`) | **Hạ tầng Kong/RabbitMQ Reference, Postman Collection, 182 Tests & Tài liệu SE445**: Đóng gói `CyberRig-Infra/{kong,rabbitmq}`, Postman SE445, `182/182` tests (28 suites) & `SE445-CASE-STUDY-INTEGRATION.md`. | Should | 3 | [DONE] |
 
 ---
 
