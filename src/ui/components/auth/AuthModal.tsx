@@ -203,7 +203,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   id="auth-fullname"
                   type="text"
                   className="cyber-form-input"
-                  placeholder="Nguyễn Văn A"
+                  placeholder="Nhập họ và tên"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   disabled={isSubmitting}
@@ -222,7 +222,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 id="auth-email"
                 type="email"
                 className="cyber-form-input"
-                placeholder="name@example.com"
+                placeholder="Nhập địa chỉ email"
+                autoComplete="off"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
@@ -259,7 +260,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 id="auth-password"
                 type={showPassword ? 'text' : 'password'}
                 className="cyber-form-input"
-                placeholder="••••••••"
+                placeholder="Nhập mật khẩu"
+                autoComplete="new-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isSubmitting}

@@ -56,12 +56,20 @@ import { USER_KEY } from '../config.js';
 
 // Attach Modal Event Listeners
 export function initModals() {
+  [inputEmail, inputPassword].forEach((el) => {
+    ['focus', 'mousedown', 'touchstart'].forEach((evt) => {
+      el?.addEventListener(evt, () => el.removeAttribute('readonly'));
+    });
+  });
+
   if (authOpenBtn) {
     authOpenBtn.addEventListener('click', () => {
+      if (authForm) authForm.reset();
+      if (inputEmail) inputEmail.value = '';
+      if (inputPassword) inputPassword.value = '';
       authModal.classList.add('is-active');
       modalAlert.className = 'alert-banner';
       modalAlert.textContent = '';
-      setTimeout(() => inputEmail?.focus(), 50);
     });
   }
 

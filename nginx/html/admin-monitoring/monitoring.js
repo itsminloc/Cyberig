@@ -29,6 +29,10 @@
     const modal = document.getElementById('authGateModal');
     const display = document.getElementById('socUserDisplay');
     if (!token || !user || user.role !== 'ADMIN') {
+      const emailInp = document.getElementById('socLoginEmail');
+      const passInp = document.getElementById('socLoginPassword');
+      if (emailInp) emailInp.value = '';
+      if (passInp) passInp.value = '';
       modal?.classList.add('is-active');
       return false;
     }
@@ -228,6 +232,13 @@
       btn.classList.add('is-active');
       meshFilter = btn.getAttribute('data-filter-mesh') || 'ALL';
       refreshTelemetrySnapshot();
+    });
+  });
+
+  ['socLoginEmail', 'socLoginPassword'].forEach((id) => {
+    const el = document.getElementById(id);
+    ['focus', 'mousedown', 'touchstart'].forEach((evt) => {
+      el?.addEventListener(evt, () => el.removeAttribute('readonly'));
     });
   });
 

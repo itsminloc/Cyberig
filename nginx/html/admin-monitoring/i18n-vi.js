@@ -84,6 +84,8 @@
     'Alert': 'Cảnh Báo',
     'SECURITY CLEARANCE REQUIRED': 'YÊU CẦU QUYỀN TRUY CẬP QUẢN TRỊ',
     'Admin Operator Sign-In': 'Đăng Nhập Quản Trị Viên SOC',
+    'Operator Email': 'Email quản trị viên',
+    'Password': 'Mật khẩu',
     'Authenticate ADMIN': 'Xác Thực ADMIN',
   };
 
