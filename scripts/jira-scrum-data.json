@@ -1321,6 +1321,12 @@
           "owner": "TV 1",
           "summary": "[SCRUM TASK] BE-11: Xây dựng monitoring-integration.controller.ts (ADMIN RBAC) & ceo-metrics.service.ts",
           "jiraKey": "SCRUM-108"
+        },
+        {
+          "code": "FE-20",
+          "owner": "TV 2",
+          "summary": "[SCRUM TASK] FE-20: Tích hợp nút chuyển đổi ngôn ngữ VIE / ENG (i18n-vi.js) cho SI Monitor (/admin-monitoring/)",
+          "jiraKey": "SCRUM-114"
         }
       ],
       "jiraKey": "SCRUM-99"

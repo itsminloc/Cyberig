@@ -310,6 +310,7 @@ Story,CRIG-US-42,EPIC-11,"CRIG-US-42: SI Studio Bento Dual-Theme, Tab 4 Order & 
 Thành viên phụ trách: TV 2"
 Sub-task,FE-18,CRIG-US-42,"[SCRUM TASK] FE-18: Thiết kế giao diện Bento Dual-Theme, CEO Executive Charts & Tab 4 Simulator (/admin-monitoring/)",,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-portals-ui,sprint-5,Done,Sub-task thuộc CRIG-US-42 — Phụ trách: TV 2
 Sub-task,BE-11,CRIG-US-42,[SCRUM TASK] BE-11: Xây dựng monitoring-integration.controller.ts (ADMIN RBAC) & ceo-metrics.service.ts,,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-portals-ui,sprint-5,Done,Sub-task thuộc CRIG-US-42 — Phụ trách: TV 1
+Sub-task,FE-20,CRIG-US-42,[SCRUM TASK] FE-20: Tích hợp nút chuyển đổi ngôn ngữ VIE / ENG (i18n-vi.js) cho SI Monitor (/admin-monitoring/),,CRIG Sprint 5: SE445 Integration & Executive BI,,High,cmp-portals-ui,sprint-5,Done,Sub-task thuộc CRIG-US-42 — Phụ trách: TV 2
 Story,CRIG-US-43,EPIC-11,"CRIG-US-43: Hạ tầng Kong/RabbitMQ Reference, Postman Collection, 182 Tests & Tài liệu SE445",,CRIG Sprint 5: SE445 Integration & Executive BI,3,High,cmp-devsecops-ci,sprint-5;tv-1;se445-integration;docs,Done,"Là kỹ sư DevSecOps & Product Owner, tôi muốn đóng gói cấu hình tham chiếu Kong DB-less, RabbitMQ Topology, Postman Collection SE445, mở rộng bộ test tự động lên 182/182 PASS và đồng bộ tài liệu kiến trúc + Scrum Jira.
 
 Thành viên phụ trách: TV 1"

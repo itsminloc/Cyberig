@@ -149,6 +149,18 @@ describe('SE445 Case Study 1 & 2 Integration Endpoints & Adapters', () => {
         headers: { Authorization: `Bearer ${adminToken}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'ONLINE' }),
       });
+
+      // Verify SI Monitor VIE language switcher button & i18n bundle are served cleanly
+      const htmlRes = await fetch(`http://localhost:${port}/admin-monitoring/`);
+      assert.strictEqual(htmlRes.status, 200);
+      const htmlBody = await htmlRes.text();
+      assert.ok(htmlBody.includes('id="btnLangToggle"'));
+      assert.ok(htmlBody.includes('/admin-monitoring/i18n-vi.js'));
+
+      const i18nRes = await fetch(`http://localhost:${port}/admin-monitoring/i18n-vi.js`);
+      assert.strictEqual(i18nRes.status, 200);
+      const i18nJs = await i18nRes.text();
+      assert.ok(i18nJs.includes('cyberrig_si_lang'));
     } finally {
       await new Promise<void>((resolve) => server.close(() => resolve()));
     }

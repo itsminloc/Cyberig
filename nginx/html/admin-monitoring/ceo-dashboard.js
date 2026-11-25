@@ -28,11 +28,12 @@
       return { label: pt.label, val: pt.gmvMillionsVnd, display: `${pt.gmvMillionsVnd}M VND` };
     });
 
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const titles = {
-      gmv: 'CyberRig GMV Revenue Trend (Million VND)',
-      orders: 'PC Builder & Retail Orders Velocity',
-      sla: 'Fulfillment & Compatibility Check SLA (%)',
-      dlq: 'DLQ Zero-Loss Poison Pill Protection',
+      gmv: t('chart_gmv'),
+      orders: t('chart_orders'),
+      sla: t('chart_sla'),
+      dlq: t('chart_dlq'),
     };
     const titleEl = document.getElementById('areaChartTitle');
     if (titleEl) titleEl.textContent = titles[activeMetric] || titles.gmv;
@@ -83,7 +84,7 @@
     const lowAlerts = d.lowStockAlerts || [];
     document.getElementById('ceoLowStockTag').textContent = `${d.kpis.lowStockCount} Low / OOS`;
     document.getElementById('ceoLowStockBody').innerHTML = lowAlerts.length === 0
-      ? '<tr><td colspan="3" style="color:var(--accent-green);">All hardware SKUs healthy</td></tr>'
+      ? `<tr><td colspan="3" style="color:var(--accent-green);">${esc(window.cyberigI18n ? window.cyberigI18n.t('all_sku_ok') : 'All hardware SKUs healthy')}</td></tr>`
       : lowAlerts.map((a) => `<tr>
           <td><strong>${esc(a.categoryId)}</strong> · ${esc(a.name.slice(0, 38))}</td>
           <td>${a.stockQuantity}</td>

@@ -11,23 +11,24 @@
   }
 
   function ensureLayout() {
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const root = document.getElementById('simulatorRoot');
     if (!root || root.dataset.mounted === '1') return;
     root.dataset.mounted = '1';
     root.innerHTML = `
       <div class="grid-2" style="margin-bottom:16px;">
         <div class="bento-card">
-          <div class="card-label"><span>1 · Heterogeneous Order Adapter &amp; EDA Dispatch</span><span>⇄</span></div>
+          <div class="card-label"><span>${esc(t('sim_card1'))}</span><span>⇄</span></div>
           <form id="simOrderForm" class="sim-form">
             <div class="sim-row-2">
-              <label>Source Channel
+              <label>${esc(t('sim_channel'))}
                 <select id="simChannel" class="auth-gate-input">
                   <option value="PARTNER_B2B_API">PARTNER_B2B_API (Heterogeneous JSON)</option>
                   <option value="WEB_STOREFRONT">WEB_STOREFRONT (Canonical DTO)</option>
                   <option value="MOBILE_APP">MOBILE_APP</option>
                 </select>
               </label>
-              <label>Hardware SKU
+              <label>${esc(t('sim_sku'))}
                 <select id="simSku" class="auth-gate-input">
                   <option value="RTX-4080">RTX-4080 -> gpu-rtx4080-strix</option>
                   <option value="RTX-4090">RTX-4090 -> gpu-rtx4090-strix</option>
@@ -37,39 +38,39 @@
               </label>
             </div>
             <div class="sim-row-2">
-              <label>Customer Name <input type="text" id="simName" class="auth-gate-input" value="Le Minh Loc (Partner B2B)" /></label>
-              <label>Phone + Qty
+              <label>${esc(t('sim_cust'))} <input type="text" id="simName" class="auth-gate-input" value="Le Minh Loc (Partner B2B)" /></label>
+              <label>${esc(t('sim_phone_qty'))}
                 <div style="display:flex;gap:6px;">
                   <input type="text" id="simPhone" class="auth-gate-input" value="0909123456" style="flex:2;" />
                   <input type="number" id="simQty" class="auth-gate-input" value="1" min="1" max="5" style="flex:1;" />
                 </div>
               </label>
             </div>
-            <label>Delivery Address <input type="text" id="simAddr" class="auth-gate-input" value="Q1, TP. Ho Chi Minh" /></label>
+            <label>${esc(t('sim_addr'))} <input type="text" id="simAddr" class="auth-gate-input" value="Q1, TP. Ho Chi Minh" /></label>
             <label style="display:flex;align-items:center;gap:8px;font-size:12px;margin-top:4px;cursor:pointer;">
-              <input type="checkbox" id="simTmsFault" /> Inject TMS Carrier Timeout Fault (Verify 3x Retry -> DLQ)
+              <input type="checkbox" id="simTmsFault" /> ${esc(t('sim_fault'))}
             </label>
             <div class="sim-actions">
-              <button type="submit" class="btn-pill-primary" id="btnSimOrder">▶ Place Heterogeneous Order</button>
-              <button type="button" class="btn-pill-ghost" id="btnToggleBroker">Toggle Broker Offline</button>
-              <button type="button" class="btn-pill-ghost" id="btnToggleQueue">Pause / Resume TMS</button>
+              <button type="submit" class="btn-pill-primary" id="btnSimOrder">${esc(t('sim_btn_order'))}</button>
+              <button type="button" class="btn-pill-ghost" id="btnToggleBroker">${esc(t('sim_broker_off'))}</button>
+              <button type="button" class="btn-pill-ghost" id="btnToggleQueue">${esc(t('sim_pause_tms'))}</button>
             </div>
           </form>
         </div>
 
         <div class="bento-card">
-          <div class="card-label"><span>2 · AI POS Ingestion &amp; Decree 13 PII Redaction</span><span>AI</span></div>
+          <div class="card-label"><span>${esc(t('sim_card2'))}</span><span>AI</span></div>
           <form id="simAiForm" class="sim-form">
-            <label>Unstructured POS / Chat Receipt (Raw PII is scrubbed before LLM/Matcher)
+            <label>${esc(t('sim_pos_lbl'))}
               <textarea id="simAiText" class="auth-gate-input" rows="4">Khach: Nguyen Van A - SDT 0901234567 - Email: guest.pos@gmail.com
 Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
             </label>
             <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;">
-              <input type="checkbox" id="simAiAutoOrder" /> Auto-create real Order &amp; Redis Lock after AI Mapping
+              <input type="checkbox" id="simAiAutoOrder" /> ${esc(t('sim_auto_ord'))}
             </label>
             <div class="sim-actions">
-              <button type="submit" class="btn-pill-primary" id="btnSimAi">✦ Mask PII &amp; Map to Canonical Order</button>
-              <button type="button" class="btn-pill-ghost" id="btnSimRefreshState">↻ Refresh Bus State</button>
+              <button type="submit" class="btn-pill-primary" id="btnSimAi">${esc(t('sim_btn_ai'))}</button>
+              <button type="button" class="btn-pill-ghost" id="btnSimRefreshState">${esc(t('sim_btn_refresh'))}</button>
             </div>
           </form>
         </div>
@@ -77,17 +78,17 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
 
       <div class="grid-2">
         <div class="bento-card is-obsidian">
-          <div class="card-label"><span>Event Bus, Outbox &amp; Downstream Workers</span><span>AMQP</span></div>
-          <div id="simStateCards" class="sim-state-grid">Loading integration state...</div>
+          <div class="card-label"><span>${esc(t('sim_card_bus'))}</span><span>AMQP</span></div>
+          <div id="simStateCards" class="sim-state-grid">Loading...</div>
         </div>
         <div class="bento-card">
-          <div class="card-label"><span>Live Adapter / AI / Crawler Output &amp; Trace</span><span>JSON</span></div>
-          <pre id="simOutputPre" class="sim-json-pre">Submit an Omnichannel Order, AI POS Receipt, or Hardware Crawl to inspect X-Correlation-ID and payload...</pre>
+          <div class="card-label"><span>${esc(t('sim_card_json'))}</span><span>JSON</span></div>
+          <pre id="simOutputPre" class="sim-json-pre">JSON Trace...</pre>
         </div>
       </div>
 
       <div class="bento-card" style="margin-top:16px;">
-        <div class="card-label"><span>3 · Hardware Price &amp; New SKU Crawler (Multi-Source + Real-time SSE Bell)</span><span>CRAWLER</span></div>
+        <div class="card-label"><span>${esc(t('sim_card3'))}</span><span>CRAWLER</span></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
           <select id="simCrawlSource" class="auth-gate-input" style="max-width:220px;margin-top:0;">
             <option value="ASUS_VN_B2B">ASUS VN B2B Feed</option>
@@ -95,11 +96,11 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
             <option value="GEARVN_RETAIL_PULSE">GearVN Price Pulse</option>
           </select>
           <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
-            <input type="checkbox" id="simCrawlAuto" /> Auto-Apply to Catalog
+            <input type="checkbox" id="simCrawlAuto" /> ${esc(t('sim_crawl_auto'))}
           </label>
-          <button type="button" class="btn-pill-primary" id="btnSimCrawlRun">▶ Crawl Feed Now</button>
-          <button type="button" class="btn-pill-ghost" id="btnSimCrawlApproveAll">✓ Approve All Pending</button>
-          <a href="/#admin" class="btn-pill-ghost">Open Inventory Queue →</a>
+          <button type="button" class="btn-pill-primary" id="btnSimCrawlRun">${esc(t('sim_crawl_run'))}</button>
+          <button type="button" class="btn-pill-ghost" id="btnSimCrawlApproveAll">${esc(t('sim_crawl_app'))}</button>
+          <a href="/#admin" class="btn-pill-ghost">${esc(t('sim_crawl_open'))}</a>
           <span id="simCrawlSummary" class="operator-chip" style="margin-left:auto;">Pending: 0 · Alerts: 0</span>
         </div>
       </div>`;
@@ -126,10 +127,11 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
     const tmsQueue = (bus.queues || []).find((q) => q.queueName === 'order.fulfillment-tms');
     queuePaused = Boolean(tmsQueue?.paused);
 
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const bBtn = document.getElementById('btnToggleBroker');
     const qBtn = document.getElementById('btnToggleQueue');
-    if (bBtn) bBtn.textContent = brokerOnline ? 'Set Broker Offline (503 Test)' : 'Restore Broker Online';
-    if (qBtn) qBtn.textContent = queuePaused ? 'Resume TMS Consumer' : 'Pause TMS Consumer';
+    if (bBtn) bBtn.textContent = brokerOnline ? t('sim_broker_off') : t('sim_broker_on');
+    if (qBtn) qBtn.textContent = queuePaused ? t('sim_resume_tms') : t('sim_pause_tms');
 
     box.innerHTML = `
       <div class="agenda-item"><span>Broker Mode / Health</span><strong>${esc(bus.mode)} · ${brokerOnline ? 'ONLINE' : 'OFFLINE (503)'}</strong></div>

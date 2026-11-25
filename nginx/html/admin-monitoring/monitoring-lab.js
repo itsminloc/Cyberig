@@ -11,8 +11,9 @@
   }
 
   async function executeScenario(scenarioId) {
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const traceEl = document.getElementById(`trace-${scenarioId}`);
-    if (traceEl) traceEl.textContent = 'Running end-to-end steps...';
+    if (traceEl) traceEl.textContent = t('running_steps');
     const res = await fetch(`/api/monitoring/scenarios/${scenarioId}/run`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
@@ -34,6 +35,7 @@
   }
 
   function renderScenarios(list) {
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const grid = document.getElementById('scenarioGrid');
     if (!grid) return;
     grid.innerHTML = (list || [])
@@ -41,8 +43,8 @@
         <div class="card-label"><span>${esc(sc.category)}</span><span class="operator-chip">${esc(sc.id.slice(0, 10))}</span></div>
         <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">${esc(sc.name)}</h3>
         <p style="font-size:11.5px;color:var(--ink-secondary);margin-bottom:10px;">${esc(sc.description)}</p>
-        <div style="font-size:11px;color:var(--accent-primary);margin-bottom:12px;">Target: ${esc(sc.expectedOutcome)}</div>
-        <button type="button" class="btn-pill-primary" data-run-scenario="${esc(sc.id)}">▶ Execute Scenario</button>
+        <div style="font-size:11px;color:var(--accent-primary);margin-bottom:12px;">${esc(t('target_lbl'))}: ${esc(sc.expectedOutcome)}</div>
+        <button type="button" class="btn-pill-primary" data-run-scenario="${esc(sc.id)}">${esc(t('exec_scenario'))}</button>
         <div id="trace-${esc(sc.id)}"></div>
       </div>`)
       .join('');
@@ -60,13 +62,17 @@
   }
 
   function renderDlqSection(dlq) {
+    const isVi = window.cyberigI18n?.getLang() === 'vi';
+    const t = (k) => (window.cyberigI18n ? window.cyberigI18n.t(k) : k);
     const pendingCount = dlq.pendingInspection || 0;
-    document.getElementById('dlqCountBadge').textContent = `${dlq.totalDeadLetters} msgs (${pendingCount} pending)`;
+    document.getElementById('dlqCountBadge').textContent = isVi
+      ? `${dlq.totalDeadLetters} tin (${pendingCount} chờ xử lý)`
+      : `${dlq.totalDeadLetters} msgs (${pendingCount} pending)`;
     document.getElementById('bellDlqCount').textContent = String(pendingCount);
     document.getElementById('dlqNavBadge').textContent = String(pendingCount);
     document.getElementById('spotlightStatus').textContent = pendingCount > 0
-      ? `Alert · ${pendingCount} poison pill quarantined`
-      : 'Broker nominal · Zero stuck messages';
+      ? (isVi ? `Cảnh báo · ${pendingCount} gói tin lỗi đã cách ly` : `Alert · ${pendingCount} poison pill quarantined`)
+      : t('dlq_nominal');
 
     const msgs = dlq.recentMessages || [];
     document.getElementById('dlqCompactList').innerHTML = msgs.slice(0, 3)
@@ -76,18 +82,18 @@
           <div style="font-size:10.5px;color:#8e9299;">${esc(m.failureReason)} · retry ${m.retryCount}/${m.maxRetries}</div>
         </div>
         <span class="trend-pill">${esc(m.status)}</span>
-      </div>`).join('') || '<div class="agenda-item"><span>No DLQ entries</span><span>SAFE</span></div>';
+      </div>`).join('') || `<div class="agenda-item"><span>${esc(t('no_dlq'))}</span><span>SAFE</span></div>`;
 
     const tbody = document.getElementById('dlqTableBody');
     if (!tbody) return;
     tbody.innerHTML = msgs.length === 0
-      ? '<tr><td colspan="3" style="color:var(--ink-secondary);text-align:center;">Dead Letter Queue empty</td></tr>'
+      ? `<tr><td colspan="3" style="color:var(--ink-secondary);text-align:center;">${esc(t('dlq_empty'))}</td></tr>`
       : msgs.map((m) => {
           const pending = m.status === 'PENDING_INSPECTION';
           return `<tr>
             <td><strong style="font-family:var(--font-mono);">${esc(m.id)}</strong><div style="font-size:10.5px;color:var(--ink-secondary);">${esc(m.originalExchange)}</div></td>
             <td><span style="color:var(--accent-amber);font-size:11px;font-weight:600;">${esc(m.failureReason)}</span></td>
-            <td style="text-align:right;">${pending ? `<button type="button" class="btn-pill-primary" data-dlq-id="${esc(m.id)}" style="padding:3px 10px;font-size:10.5px;">Replay</button>` : '<span class="operator-chip">DONE</span>'}</td>
+            <td style="text-align:right;">${pending ? `<button type="button" class="btn-pill-primary" data-dlq-id="${esc(m.id)}" style="padding:3px 10px;font-size:10.5px;">${esc(t('replay_btn'))}</button>` : `<span class="operator-chip">${esc(t('done_chip'))}</span>`}</td>
           </tr>`;
         }).join('');
 

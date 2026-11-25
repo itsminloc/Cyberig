@@ -72,7 +72,7 @@
             <div class="mesh-avatar">${esc(c.name.replace('cyberrig_', '').slice(0, 2).toUpperCase())}</div>
             <div style="min-width:0;">
               <div class="mesh-name">${esc(c.name)}</div>
-              <div class="mesh-meta">${esc(c.role)}</div>
+              <div class="mesh-meta">${esc(window.cyberigI18n ? window.cyberigI18n.translateRole(c.role) : c.role)}</div>
             </div>
           </div>
           <div class="mesh-track">
@@ -118,7 +118,7 @@
         <span class="log-channel">[${esc(l.channel)}]</span>
         <span>${esc(l.source)}: ${esc(l.message)}</span>
       </div>`)
-      .join('') || '<div class="log-entry"><span class="log-time">[--:--:--]</span><span>Waiting for SSE events...</span></div>';
+      .join('') || `<div class="log-entry"><span class="log-time">[--:--:--]</span><span>${window.cyberigI18n ? window.cyberigI18n.t('wait_sse') : 'Waiting for SSE events...'}</span></div>`;
   }
 
   async function refreshTelemetrySnapshot() {
@@ -150,7 +150,7 @@
     sseSource = new EventSource(`/api/monitoring/stream?ticket=${encodeURIComponent(ticketJson.data.ticket)}`);
     const indicator = document.getElementById('sseIndicator');
     sseSource.onopen = () => {
-      if (indicator) indicator.innerHTML = '<span class="live-dot"></span>STREAM CONNECTED [SSE]';
+      if (indicator) indicator.innerHTML = `<span class="live-dot"></span>${window.cyberigI18n ? window.cyberigI18n.t('sse_live') : 'STREAM CONNECTED [SSE]'}`;
     };
     const handleTick = (e) => {
       const snap = JSON.parse(e.data);
