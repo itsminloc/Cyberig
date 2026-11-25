@@ -97,11 +97,28 @@ export async function fetchAdminHardware(
   return [];
 }
 
+export async function runHardwareCrawler(payload: {
+  source?: string;
+  customUrl?: string;
+  autoApply?: boolean;
+}): Promise<unknown> {
+  return request('/api/admin/crawler/run', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function fetchCrawlerState(): Promise<unknown> {
+  return request('/api/admin/crawler/state', { method: 'GET' });
+}
+
 export const adminService = {
   createHardwareItem,
   updateStockAndPrice,
   softDeleteHardwareItem,
   fetchAdminHardware,
+  runHardwareCrawler,
+  fetchCrawlerState,
 };
 
 export default adminService;

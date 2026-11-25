@@ -81,8 +81,26 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
           <div id="simStateCards" class="sim-state-grid">Loading integration state...</div>
         </div>
         <div class="bento-card">
-          <div class="card-label"><span>Live Adapter / AI Normalized Output &amp; Correlation Trace</span><span>JSON</span></div>
-          <pre id="simOutputPre" class="sim-json-pre">Submit an Omnichannel Order or AI POS Receipt to inspect X-Correlation-ID, PII Redaction, and EventEnvelope...</pre>
+          <div class="card-label"><span>Live Adapter / AI / Crawler Output &amp; Trace</span><span>JSON</span></div>
+          <pre id="simOutputPre" class="sim-json-pre">Submit an Omnichannel Order, AI POS Receipt, or Hardware Crawl to inspect X-Correlation-ID and payload...</pre>
+        </div>
+      </div>
+
+      <div class="bento-card" style="margin-top:16px;">
+        <div class="card-label"><span>3 · Hardware Price &amp; New SKU Crawler (Multi-Source + Real-time SSE Bell)</span><span>CRAWLER</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <select id="simCrawlSource" class="auth-gate-input" style="max-width:220px;margin-top:0;">
+            <option value="ASUS_VN_B2B">ASUS VN B2B Feed</option>
+            <option value="MSI_SEA_DISTRIBUTOR">MSI SEA Distributor</option>
+            <option value="GEARVN_RETAIL_PULSE">GearVN Price Pulse</option>
+          </select>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;">
+            <input type="checkbox" id="simCrawlAuto" /> Auto-Apply to Catalog
+          </label>
+          <button type="button" class="btn-pill-primary" id="btnSimCrawlRun">▶ Crawl Feed Now</button>
+          <button type="button" class="btn-pill-ghost" id="btnSimCrawlApproveAll">✓ Approve All Pending</button>
+          <a href="/#admin" class="btn-pill-ghost">Open Inventory Queue →</a>
+          <span id="simCrawlSummary" class="operator-chip" style="margin-left:auto;">Pending: 0 · Alerts: 0</span>
         </div>
       </div>`;
 
@@ -91,6 +109,8 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
     document.getElementById('btnToggleBroker')?.addEventListener('click', toggleBroker);
     document.getElementById('btnToggleQueue')?.addEventListener('click', toggleQueue);
     document.getElementById('btnSimRefreshState')?.addEventListener('click', refreshSimulatorState);
+    document.getElementById('btnSimCrawlRun')?.addEventListener('click', runSimCrawl);
+    document.getElementById('btnSimCrawlApproveAll')?.addEventListener('click', approveAllSimCrawl);
   }
 
   let brokerOnline = true;
@@ -121,9 +141,17 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
 
   async function refreshSimulatorState() {
     ensureLayout();
-    const res = await fetch('/api/monitoring/integration-state', { headers: authHeaders() }).catch(() => null);
-    const json = await res?.json().catch(() => null);
-    if (json?.success) renderStateCards(json.data);
+    const [intRes, crwRes] = await Promise.all([
+      fetch('/api/monitoring/integration-state', { headers: authHeaders() }).catch(() => null),
+      fetch('/api/admin/crawler/state', { headers: authHeaders() }).catch(() => null),
+    ]);
+    const intJson = await intRes?.json().catch(() => null);
+    if (intJson?.success) renderStateCards(intJson.data);
+    const crwJson = await crwRes?.json().catch(() => null);
+    if (crwJson?.success && crwJson.data) {
+      const chip = document.getElementById('simCrawlSummary');
+      if (chip) chip.textContent = `Pending: ${crwJson.data.pendingCount} · Alerts: ${crwJson.data.unreadAlertCount}`;
+    }
   }
 
   async function submitOrderSim(e) {
@@ -167,6 +195,31 @@ Can build gap: 1x RTX 4080 va 2x DDR5 32GB, giao nhanh Q7.</textarea>
     window.cyberigUi?.showToast(res?.ok ? `✓ AI Mapped (PII Redacted: ${json?.data?.mapped?.piiFieldsRedacted ?? 0})` : '⚠ AI Map failed');
     refreshSimulatorState();
     window.cyberigRefreshTelemetry?.();
+  }
+
+  async function runSimCrawl() {
+    const source = document.getElementById('simCrawlSource')?.value || 'ASUS_VN_B2B';
+    const autoApply = Boolean(document.getElementById('simCrawlAuto')?.checked);
+    const res = await fetch('/api/admin/crawler/run', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ source, autoApply }),
+    }).catch(() => null);
+    const json = await res?.json().catch(() => null);
+    const pre = document.getElementById('simOutputPre');
+    if (pre) pre.textContent = JSON.stringify(json || { error: 'Crawl failed' }, null, 2);
+    refreshSimulatorState();
+    window.cyberigRefreshTelemetry?.();
+  }
+
+  async function approveAllSimCrawl() {
+    const res = await fetch('/api/admin/crawler/approve-all', { method: 'POST', headers: authHeaders() }).catch(() => null);
+    const json = await res?.json().catch(() => null);
+    const pre = document.getElementById('simOutputPre');
+    if (pre) pre.textContent = JSON.stringify(json || { error: 'Approve failed' }, null, 2);
+    window.cyberigUi?.showToast(`✓ Approved ${json?.data?.approvedCount ?? 0} crawled items`);
+    refreshSimulatorState();
+    window.cyberigRefreshCeoDashboard?.();
   }
 
   async function toggleBroker() {

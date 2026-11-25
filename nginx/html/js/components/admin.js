@@ -3,6 +3,7 @@
  */
 import { ACCESS_KEY, USER_KEY, formatVND } from '../config.js';
 import { authModal, modalAlert } from './modals.js';
+import { initAdminCrawler, refreshAdminCrawlerState } from './admin-crawler.js';
 
 const adminControlCenterView = document.getElementById('admin-control-center-view');
 const adminDeniedBox = document.getElementById('admin-denied-box');
@@ -175,6 +176,7 @@ export async function loadAdminDashboard() {
     if (adminKpiValue) adminKpiValue.textContent = formatVND(totalValuation);
 
     applyAdminFilters();
+    refreshAdminCrawlerState();
   } catch (err) {
     if (adminHardwareTbody) {
       adminHardwareTbody.innerHTML = `
@@ -189,6 +191,7 @@ export async function loadAdminDashboard() {
 }
 
 export function initAdmin() {
+  initAdminCrawler(loadAdminDashboard);
   if (adminSearchBox) adminSearchBox.addEventListener('input', applyAdminFilters);
   if (adminCatFilter) adminCatFilter.addEventListener('change', applyAdminFilters);
   if (adminStockFilter) adminStockFilter.addEventListener('change', applyAdminFilters);

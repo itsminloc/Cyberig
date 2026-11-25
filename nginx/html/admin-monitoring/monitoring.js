@@ -167,6 +167,18 @@
     sseSource.addEventListener('dlq:new', refreshTelemetrySnapshot);
     sseSource.addEventListener('dlq:updated', refreshTelemetrySnapshot);
     sseSource.addEventListener('dlq:cleared', refreshTelemetrySnapshot);
+    sseSource.addEventListener('crawler:alert', (e) => {
+      const payload = JSON.parse(e.data);
+      const bell = document.getElementById('bellDlqCount');
+      if (bell && payload?.unreadAlertCount !== undefined) {
+        bell.textContent = String(payload.unreadAlertCount);
+      }
+      if (payload?.alert?.title) {
+        window.cyberigUi?.showToast(`🔔 ${payload.alert.title}`);
+      }
+      window.cyberigRefreshSimulator?.();
+    });
+    sseSource.addEventListener('crawler:updated', () => window.cyberigRefreshSimulator?.());
   }
 
   document.getElementById('tabRealtime')?.addEventListener('click', () => switchTab('REALTIME'));

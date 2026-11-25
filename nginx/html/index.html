@@ -645,7 +645,14 @@
               <div class="dash-identity-role" style="color: #ef4444;">Hệ thống quản trị kho</div>
               <div class="dash-identity-name" id="admin-greeting-name">ADMIN CONTROL HUB</div>
             </div>
-            <div>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <button type="button" id="admin-crawler-bell-btn" class="pill-btn pill-btn-outline" style="padding: 6px 12px; font-size: 0.76rem; display: inline-flex; align-items: center; gap: 6px;">
+                Chuông Giá &amp; SP Mới
+                <span id="admin-crawler-bell-badge" style="padding: 1px 7px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; background: var(--border-subtle); color: var(--text-muted);">0</span>
+              </button>
+              <button type="button" id="admin-toggle-crawler-btn" class="pill-btn pill-btn-outline" style="padding: 6px 12px; font-size: 0.76rem;">
+                Trình Cào Linh Kiện <span id="admin-crawler-pending-tag" style="color: var(--accent-primary);"></span>
+              </button>
               <span class="role-badge-pill is-admin">ROLE: ADMIN</span>
             </div>
           </div>
@@ -665,6 +672,9 @@
             </div>
           </div>
         </div>
+
+        <!-- Hardware Price & New SKU Crawler Panel (Real-time SSE) -->
+        <div id="admin-crawler-panel" style="display: none; margin-bottom: 20px;"></div>
 
         <!-- Filter & Action Toolbar -->
         <div
