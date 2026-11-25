@@ -26,20 +26,29 @@ export function setAuthMode(mode) {
   modalAlert.className = 'alert-banner';
   modalAlert.textContent = '';
 
+  const titleEl = document.getElementById('auth-modal-title');
+  const subEl = document.getElementById('auth-modal-subtitle');
+
   if (mode === 'login') {
     tabLogin.className = 'pill-btn pill-btn-accent';
     tabRegister.className = 'pill-btn pill-btn-ghost';
     if (groupFullName) groupFullName.style.display = 'none';
     if (groupPhone) groupPhone.style.display = 'none';
     if (inputFullName) inputFullName.required = false;
-    if (submitBtn) submitBtn.textContent = 'Xác Nhận Đăng Nhập';
+    if (inputPassword) inputPassword.setAttribute('autocomplete', 'current-password');
+    if (titleEl) titleEl.textContent = 'Đăng Nhập Tài Khoản';
+    if (subEl) subEl.textContent = 'Quản lý cấu hình PC, theo dõi đơn hàng và bảo hành điện tử chính hãng';
+    if (submitBtn) submitBtn.textContent = 'Đăng Nhập';
   } else {
     tabLogin.className = 'pill-btn pill-btn-ghost';
     tabRegister.className = 'pill-btn pill-btn-accent';
     if (groupFullName) groupFullName.style.display = 'block';
     if (groupPhone) groupPhone.style.display = 'block';
     if (inputFullName) inputFullName.required = true;
-    if (submitBtn) submitBtn.textContent = 'Đăng Ký Tài Khoản';
+    if (inputPassword) inputPassword.setAttribute('autocomplete', 'new-password');
+    if (titleEl) titleEl.textContent = 'Tạo Tài Khoản CyberRig';
+    if (subEl) subEl.textContent = 'Đăng ký thành viên để lưu cấu hình PC và hưởng đặc quyền bảo hành điện tử';
+    if (submitBtn) submitBtn.textContent = 'Tạo Tài Khoản';
   }
 }
 

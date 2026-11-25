@@ -1,0 +1,289 @@
+/* ==========================================================================
+   CyberRig Studio Bento & Pill Unified Layer (Synced with SI Monitor UI/UX)
+   Applies Concentric Bento Radii (20px -> 13px -> 999px), Floating Pill Toast
+   & Smooth Animated Session Logout Transition Across All Storefront Views
+   ========================================================================== */
+
+/* 1. Outer Bento Cards (20px Radius + Clean Hairline + Soft Studio Shadow) */
+.tech-command-console,
+.standard-compact-card,
+.compatibility-scanner-hud,
+.preset-card,
+.builder-compat-card,
+.builder-slot-card,
+.builder-summary-panel,
+.catalog-card,
+.catalog-filter-sidebar,
+.checkout-card,
+.order-success-panel,
+.banking-telemetry-box,
+.tracking-search-card,
+.tracking-stepper-card,
+.tracking-card,
+.dash-header-minimal,
+.data-table-frame,
+.dash-empty-card,
+.ticket-modal-card,
+.tech-kpi-card,
+.tech-queue-card,
+.tech-detail-card,
+.tech-denied-box,
+#admin-crawler-panel > div {
+  border-radius: var(--radius-bento) !important;
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-bento);
+  overflow: hidden;
+}
+
+/* 2. Concentric Inner Tiles, Sub-Boxes & Inputs (12px - 14px Radius) */
+.search-input-wrapper,
+.scanner-metric-tile,
+.telemetry-minimal-card,
+.payment-method-panel,
+.checkout-item-card,
+.banking-qr-frame,
+.order-success-code-box,
+.paid-status-box,
+.quotation-box,
+.origin-option-card,
+.timeline-log-item,
+.builder-toast-banner,
+#crawler-live-toast {
+  border-radius: var(--radius-sub) !important;
+}
+
+.preset-thumb-frame {
+  border-radius: 14px 14px 0 0 !important;
+  overflow: hidden;
+}
+
+.checkout-item-thumb,
+.slot-item-thumb,
+.catalog-thumb-wrap {
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+.checkout-input,
+.tracking-search-input,
+.modal-input,
+.modal-textarea,
+.modal-select,
+.catalog-search-input,
+.catalog-sort-select,
+.tech-form-input,
+.tech-form-select,
+.tech-form-textarea {
+  border-radius: var(--radius-tech) !important;
+}
+
+/* 3. Capsule Pills, Badges, Stepper Circles & Progress Bars (999px) */
+.showcase-badge-pill,
+.tech-chip,
+.preset-index-stamp,
+.preset-task-badge,
+.scanner-action-btn,
+.scanner-track-container,
+.scanner-fill-bar,
+.scanner-beacon-dot,
+.compat-bar-track,
+.compat-bar-fill,
+.compat-pulse-dot,
+.dash-tab-pill,
+.status-pill-mono,
+.origin-tag,
+.tech-tab-btn,
+.tech-status-tag,
+.stepper-circle,
+.stepper-status-badge,
+.payment-marker,
+.banking-network-tag,
+.banking-expiry-tag,
+#admin-crawler-bell-badge {
+  border-radius: 999px !important;
+}
+
+/* Segmented Dashboard Tabs (Matched with SI Monitor .seg-pills) */
+.dash-tab-buttons-group,
+.tech-filter-strip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  box-shadow: var(--shadow-pill);
+}
+
+.tech-filter-strip {
+  display: inline-flex;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-tab-pill,
+.tech-tab-btn {
+  border-color: transparent !important;
+  background: transparent;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.dash-tab-pill.is-active {
+  background: var(--accent-primary) !important;
+  color: var(--accent-contrast) !important;
+}
+
+/* 4. Floating Pill Toast (Identical to CyberRig Studio SI Monitor) */
+.floating-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(20px) scale(0.97);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1350;
+  background: var(--bg-obsidian);
+  color: var(--ink-on-obsidian);
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  padding: 9px 12px 9px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+  transition: opacity 0.22s var(--ease-tactile), transform 0.22s var(--ease-tactile);
+}
+
+.floating-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.floating-toast-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.toast-action {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+.toast-action:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.toast-action:active {
+  transform: scale(0.95);
+}
+
+/* 5. Smooth Animated Session Logout Transition & Veil */
+#main-content {
+  transition: opacity 0.3s var(--ease-tactile), transform 0.3s var(--ease-tactile), filter 0.3s var(--ease-tactile);
+}
+
+body.is-signing-out #main-content {
+  opacity: 0.38;
+  transform: scale(0.986) translateY(4px);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.logout-transition-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 11, 10, 0.42);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s var(--ease-tactile), visibility 0.22s;
+}
+
+.logout-transition-veil.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.logout-transition-card {
+  width: min(380px, calc(100vw - 32px));
+  background: var(--bg-obsidian);
+  color: var(--ink-on-obsidian);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-bento);
+  padding: 20px 22px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.48);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: translateY(10px) scale(0.96);
+  transition: transform 0.24s var(--ease-tactile);
+}
+
+.logout-transition-veil.is-active .logout-transition-card {
+  transform: translateY(0) scale(1);
+}
+
+.logout-spinner-ring {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 2.5px solid rgba(255, 255, 255, 0.14);
+  border-top-color: var(--accent-primary);
+  animation: crSpin 0.65s linear infinite;
+}
+
+@keyframes crSpin {
+  to { transform: rotate(360deg); }
+}
+
+.logout-transition-title {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.logout-transition-sub {
+  font-size: 0.76rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.logout-progress-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.logout-progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-primary);
+  transition: width 0.46s cubic-bezier(0.22, 1, 0.36, 1);
+}

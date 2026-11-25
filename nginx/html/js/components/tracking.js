@@ -115,13 +115,11 @@ export async function renderTracking(forcedCode) {
         </form>
 
         <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-          <div class="tracking-quick-tags-row">
-            <span class="tracking-quick-label">MÃ THỬ NGHIỆM:</span>
-            <button type="button" class="tracking-quick-tag" data-code="TK-1001">[ TK-1001 ]</button>
-            <button type="button" class="tracking-quick-tag" data-code="TK-20260905-001">[ TK-20260905-001 ]</button>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            Nhập mã phiếu in trên biên nhận bàn giao thiết bị hoặc tin nhắn SMS/Email xác nhận từ CyberRig.
           </div>
-          <button type="button" class="tech-btn tech-btn-outline" id="tracking-open-ticket-btn" style="padding: 8px 18px; font-size: 0.78rem;">
-            [ + TẠO PHIẾU TIẾP NHẬN MỚI ]
+          <button type="button" class="pill-btn pill-btn-outline" id="tracking-open-ticket-btn" style="padding: 8px 18px; font-size: 0.8rem;">
+            + Tạo Phiếu Bảo Hành / Sửa Chữa
           </button>
         </div>
       </div>

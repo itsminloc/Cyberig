@@ -147,19 +147,19 @@ export function renderCheckout() {
             <div class="checkout-form-grid">
               <div class="checkout-form-group">
                 <label class="checkout-label">Họ và tên người nhận *</label>
-                <input type="text" id="co-name" class="checkout-input" placeholder="Họ và tên" value="${currentUser?.name || ''}" required />
+                <input type="text" id="co-name" class="checkout-input" placeholder="Nhập họ và tên người nhận" value="${currentUser?.fullName || currentUser?.name || ''}" required />
               </div>
               <div class="checkout-form-group">
                 <label class="checkout-label">Số điện thoại *</label>
-                <input type="tel" id="co-phone" class="checkout-input" placeholder="0901234567" value="${currentUser?.phone || '0901234567'}" required />
+                <input type="tel" id="co-phone" class="checkout-input" placeholder="09xxxxxxxx" value="${currentUser?.phone || ''}" required />
               </div>
               <div class="checkout-form-group full-width">
-                <label class="checkout-label">Email nhận hóa đơn và mã tra cứu *</label>
-                <input type="email" id="co-email" class="checkout-input" placeholder="email@cyberig.vn" value="${currentUser?.email || ''}" required />
+                <label class="checkout-label">Email nhận hóa đơn điện tử và bảo hành *</label>
+                <input type="email" id="co-email" class="checkout-input" placeholder="tenban@email.com" value="${currentUser?.email || ''}" required />
               </div>
               <div class="checkout-form-group full-width">
                 <label class="checkout-label">Địa chỉ nhận hàng chi tiết *</label>
-                <input type="text" id="co-address" class="checkout-input" placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện" value="Tòa nhà CyberRig Lab, Số 88 Đường Công Nghệ, TP.HCM" required />
+                <input type="text" id="co-address" class="checkout-input" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố" value="" required />
               </div>
               <div class="checkout-form-group full-width">
                 <label class="checkout-label">Ghi chú lắp ráp kỹ thuật (Tùy chọn)</label>
@@ -396,8 +396,11 @@ function renderSuccessScreen(order, paymentMethod) {
             </div>
 
             <div id="payment-action-box" style="margin-top: 16px;">
-              <button type="button" id="btn-simulate-payment" class="tech-btn tech-btn-accent" style="width: 100%; padding: 12px; font-size: 0.85rem;">
-                GIẢ LẬP XÁC NHẬN GIAO DỊCH NGÂN HÀNG (DEMO)
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px;">
+                Hệ thống tự động đối soát giao dịch qua cổng Napas 247 ngay sau khi chuyển khoản.
+              </div>
+              <button type="button" id="btn-simulate-payment" class="pill-btn pill-btn-accent" style="width: 100%; padding: 12px; font-size: 0.86rem; font-weight: 700;">
+                Tôi Đã Hoàn Tất Chuyển Khoản
               </button>
             </div>
           </div>
@@ -465,7 +468,7 @@ function renderSuccessScreen(order, paymentMethod) {
       if (actionBox) {
         actionBox.innerHTML = `
           <div class="paid-status-box">
-            [ ĐÃ XÁC NHẬN THANH TOÁN // STATUS: PAID ]
+            ✓ Đã ghi nhận thanh toán chuyển khoản — Đơn hàng đang được chuẩn bị giao
           </div>
         `;
       }

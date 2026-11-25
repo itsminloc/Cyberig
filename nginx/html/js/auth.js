@@ -1,5 +1,6 @@
 /**
- * Authentication State Engine & User Session Controller
+ * Authentication State Engine & Production Customer Session Controller
+ * Synchronized with CyberRig Studio Bento & Pill UI + Animated Logout Flow
  */
 import { ACCESS_KEY, REFRESH_KEY, USER_KEY } from './config.js';
 import {
@@ -12,12 +13,16 @@ import {
   inputFullName,
   inputPhone,
   submitBtn,
-  currentAuthMode
+  currentAuthMode,
+  setAuthMode
 } from './components/modals.js';
+import { navigateTo } from './router.js';
+import { showStorefrontToast, playLogoutEffect } from './ui-feedback.js';
 
 const userProfileWidget = document.getElementById('user-profile-widget');
 const userMenuBtn = document.getElementById('user-menu-btn');
 const userDropdown = document.getElementById('user-dropdown');
+const headerUserInitial = document.getElementById('header-user-initial');
 const headerUserName = document.getElementById('header-user-name');
 const headerUserRole = document.getElementById('header-user-role');
 const ddFullName = document.getElementById('dd-fullname');
@@ -30,6 +35,16 @@ const ddTechItem = document.getElementById('dd-tech-item');
 const techNavLink = document.getElementById('tech-nav-link');
 const logoutBtn = document.getElementById('logout-btn');
 const dashNavLink = document.getElementById('dash-nav-link');
+const togglePasswordBtn = document.getElementById('toggle-password-visibility');
+
+function computeInitials(user) {
+  const source = (user?.fullName || user?.email || 'CR').trim();
+  const parts = source.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return source.slice(0, 2).toUpperCase();
+}
 
 export function syncAuthState() {
   const token = localStorage.getItem(ACCESS_KEY);
@@ -37,38 +52,32 @@ export function syncAuthState() {
   let user = null;
   try {
     if (rawUser) user = JSON.parse(rawUser);
-  } catch (e) {}
+  } catch (_e) {}
 
   if (token && user) {
     if (authOpenBtn) authOpenBtn.style.display = 'none';
     if (userProfileWidget) userProfileWidget.style.display = 'block';
+    if (headerUserInitial) headerUserInitial.textContent = computeInitials(user);
     if (headerUserName) headerUserName.textContent = user.fullName || user.email;
     if (headerUserRole) {
-      headerUserRole.textContent = user.role;
+      const roleLabels = { CUSTOMER: 'Thành viên', TECHNICIAN: 'Kỹ thuật', ADMIN: 'Quản trị' };
+      headerUserRole.textContent = roleLabels[user.role] || user.role;
       headerUserRole.className = 'role-badge-pill is-' + user.role.toLowerCase();
     }
 
-    if (ddFullName) ddFullName.textContent = user.fullName;
+    if (ddFullName) ddFullName.textContent = user.fullName || user.email;
     if (ddEmail) ddEmail.textContent = user.email;
-
     if (dashNavLink) dashNavLink.style.display = 'inline-flex';
 
-    // Role-based visibility
     const isTechOrAdmin = user.role === 'TECHNICIAN' || user.role === 'ADMIN';
     if (techNavLink) techNavLink.style.display = isTechOrAdmin ? 'inline-flex' : 'none';
     if (ddTechItem) ddTechItem.style.display = isTechOrAdmin ? 'block' : 'none';
 
-    if (user.role === 'ADMIN') {
-      if (adminNavLink) adminNavLink.style.display = 'inline-flex';
-      if (ddAdminItem) ddAdminItem.style.display = 'block';
-      if (siMonitoringNavLink) siMonitoringNavLink.style.display = 'inline-flex';
-      if (ddMonitoringItem) ddMonitoringItem.style.display = 'block';
-    } else {
-      if (adminNavLink) adminNavLink.style.display = 'none';
-      if (ddAdminItem) ddAdminItem.style.display = 'none';
-      if (siMonitoringNavLink) siMonitoringNavLink.style.display = 'none';
-      if (ddMonitoringItem) ddMonitoringItem.style.display = 'none';
-    }
+    const isAdmin = user.role === 'ADMIN';
+    if (adminNavLink) adminNavLink.style.display = isAdmin ? 'inline-flex' : 'none';
+    if (ddAdminItem) ddAdminItem.style.display = isAdmin ? 'block' : 'none';
+    if (siMonitoringNavLink) siMonitoringNavLink.style.display = isAdmin ? 'inline-flex' : 'none';
+    if (ddMonitoringItem) ddMonitoringItem.style.display = isAdmin ? 'block' : 'none';
   } else {
     if (authOpenBtn) authOpenBtn.style.display = 'inline-flex';
     if (userProfileWidget) userProfileWidget.style.display = 'none';
@@ -81,43 +90,31 @@ export function syncAuthState() {
     if (ddMonitoringItem) ddMonitoringItem.style.display = 'none';
   }
 
-  // Dispatch custom event for routing sync
   window.dispatchEvent(new CustomEvent('auth:stateChanged', { detail: { user, token } }));
 }
 
 export function initAuth() {
-  // User menu dropdown toggle
   if (userMenuBtn && userDropdown) {
     userMenuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       userDropdown.classList.toggle('is-open');
     });
 
-    document.addEventListener('click', () => {
-      userDropdown.classList.remove('is-open');
+    document.addEventListener('click', (e) => {
+      if (!userDropdown.contains(e.target)) {
+        userDropdown.classList.remove('is-open');
+      }
     });
   }
 
-  // 1-Click Demo Accounts
-  document.getElementById('demo-customer')?.addEventListener('click', () => {
-    document.getElementById('tab-login')?.click();
-    if (inputEmail) inputEmail.value = 'customer@cyberig.vn';
-    if (inputPassword) inputPassword.value = 'Customer@Password123';
-  });
+  if (togglePasswordBtn && inputPassword) {
+    togglePasswordBtn.addEventListener('click', () => {
+      const nextShow = inputPassword.type === 'password';
+      inputPassword.type = nextShow ? 'text' : 'password';
+      togglePasswordBtn.textContent = nextShow ? 'Ẩn mật khẩu' : 'Hiện mật khẩu';
+    });
+  }
 
-  document.getElementById('demo-tech')?.addEventListener('click', () => {
-    document.getElementById('tab-login')?.click();
-    if (inputEmail) inputEmail.value = 'tech@cyberig.vn';
-    if (inputPassword) inputPassword.value = 'Tech@Password123';
-  });
-
-  document.getElementById('demo-admin')?.addEventListener('click', () => {
-    document.getElementById('tab-login')?.click();
-    if (inputEmail) inputEmail.value = 'admin@cyberig.vn';
-    if (inputPassword) inputPassword.value = 'Admin@Password123';
-  });
-
-  // Auth Form Submit (Login / Register)
   if (authForm) {
     authForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -129,7 +126,7 @@ export function initAuth() {
       const phone = inputPhone ? inputPhone.value.trim() : '';
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Đang xử lý...';
+      submitBtn.textContent = 'Đang xác thực...';
 
       try {
         const endpoint = currentAuthMode === 'login' ? '/api/auth/login' : '/api/auth/register';
@@ -151,56 +148,84 @@ export function initAuth() {
           localStorage.setItem(REFRESH_KEY, json.data.refreshToken);
           localStorage.setItem(USER_KEY, JSON.stringify(json.data.user));
 
+          const displayName = json.data.user.fullName || json.data.user.email;
           modalAlert.className = 'alert-banner is-success';
-          modalAlert.textContent = 'Xác thực thành công. Chào mừng ' + (json.data.user.fullName || json.data.user.email);
+          modalAlert.textContent = 'Xác thực thành công. Xin chào ' + displayName;
 
           setTimeout(() => {
             authModal.classList.remove('is-active');
+            authForm.reset();
+            if (inputPassword) inputPassword.type = 'password';
+            if (togglePasswordBtn) togglePasswordBtn.textContent = 'Hiện mật khẩu';
             syncAuthState();
+
             if (json.data.user.role === 'ADMIN') {
               window.location.href = '/admin-monitoring/';
             } else if (json.data.user.role === 'TECHNICIAN') {
               window.location.hash = '#technician';
+              showStorefrontToast(`✓ Chào mừng ${displayName} trở lại Bàn Kỹ Thuật`);
             } else {
               window.location.hash = '#dashboard';
+              showStorefrontToast(`✓ Đăng nhập thành công · Xin chào ${displayName}`);
             }
-          }, 500);
+          }, 420);
         } else {
           modalAlert.className = 'alert-banner is-error';
-          modalAlert.textContent = json.error?.message || 'Đăng nhập không thành công.';
+          modalAlert.textContent = json.error?.message || 'Thông tin đăng nhập chưa chính xác.';
         }
-      } catch (err) {
+      } catch (_err) {
         modalAlert.className = 'alert-banner is-error';
-        modalAlert.textContent = 'Không thể kết nối tới máy chủ.';
+        modalAlert.textContent = 'Không thể kết nối tới máy chủ. Vui lòng thử lại.';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = currentAuthMode === 'login' ? 'Xác Nhận Đăng Nhập' : 'Khởi Tạo Tài Khoản';
+        submitBtn.textContent = currentAuthMode === 'login' ? 'Đăng Nhập' : 'Tạo Tài Khoản';
       }
     });
   }
 
-  // Logout
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
       const token = localStorage.getItem(ACCESS_KEY);
+      let userName = '';
       try {
-        if (token) {
+        const raw = localStorage.getItem(USER_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          userName = parsed?.fullName || parsed?.email || '';
+        }
+      } catch (_err) {}
+
+      if (userDropdown) userDropdown.classList.remove('is-open');
+
+      await playLogoutEffect({
+        userName,
+        revokeSession: async () => {
+          if (!token) return;
           await fetch('/api/auth/logout', {
             method: 'POST',
             credentials: 'same-origin',
-            headers: { 'Authorization': 'Bearer ' + token },
+            headers: { Authorization: 'Bearer ' + token },
           });
-        }
-      } catch (e) {}
-
-      localStorage.removeItem(ACCESS_KEY);
-      localStorage.removeItem(REFRESH_KEY);
-      localStorage.removeItem(USER_KEY);
-      if (userDropdown) userDropdown.classList.remove('is-open');
-      if (window.location.hash === '#dashboard' || window.location.hash === '#admin' || window.location.hash === '#technician') {
-        window.location.hash = '';
-      }
-      syncAuthState();
+        },
+        finalizeState: () => {
+          localStorage.removeItem(ACCESS_KEY);
+          localStorage.removeItem(REFRESH_KEY);
+          localStorage.removeItem(USER_KEY);
+          const protectedHashes = ['#dashboard', '#admin', '#technician'];
+          if (protectedHashes.includes(window.location.hash)) {
+            navigateTo('/');
+          }
+          syncAuthState();
+        },
+        onReopenLogin: () => {
+          setAuthMode('login');
+          authModal?.classList.add('is-active');
+          setTimeout(() => inputEmail?.focus(), 60);
+        },
+      });
     });
   }
 }

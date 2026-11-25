@@ -192,7 +192,6 @@ function renderAccessDenied(container, reason) {
 
   document.getElementById('tech-login-btn')?.addEventListener('click', () => {
     if (authModal) authModal.classList.add('is-active');
-    document.getElementById('demo-tech')?.click();
   });
 
   document.getElementById('tech-home-btn')?.addEventListener('click', () => {

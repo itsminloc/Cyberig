@@ -72,27 +72,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   High-Tech Square Button System (With Elevation Shadow & Cyber Aesthetics)
-   100% Sharp 90-degree Corners (No rounded corners)
+   Studio Capsule & Tactile Button System (Synced with SI Monitor Pills)
    ========================================================================== */
 .tech-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 11px 22px;
-  border-radius: 0; /* 100% Sharp Square */
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-sans);
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   box-shadow: var(--shadow-tech-btn);
-  transition-property: transform, opacity, background-color, border-color, box-shadow;
+  transition-property: transform, opacity, background-color, border-color, box-shadow, color;
   transition-duration: 150ms;
   transition-timing-function: var(--ease-tactile);
 }
@@ -162,24 +160,24 @@ body.theme-day .tech-btn-accent:hover {
   letter-spacing: 0.06em;
 }
 
-/* Control Buttons - Converted to Sharp Square */
+/* Capsule Pill Control Buttons (Synced with SI Monitor) */
 .pill-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 9px 20px;
-  border-radius: 0; /* 100% Sharp Square */
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-sans);
   font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.005em;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: var(--shadow-tech-btn);
-  transition-property: transform, opacity, background-color, border-color, box-shadow;
+  box-shadow: var(--shadow-pill);
+  transition-property: transform, opacity, background-color, border-color, box-shadow, color;
   transition-duration: 150ms;
   transition-timing-function: var(--ease-tactile);
 }

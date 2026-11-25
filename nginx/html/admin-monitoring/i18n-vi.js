@@ -9,6 +9,7 @@
     'Search': 'Tìm',
     'Inventory': 'Kho hàng',
     'Storefront': 'Cửa hàng',
+    'Sign out': 'Đăng xuất',
     '▶ Run E2E': '▶ Chạy E2E',
     'Zero-overhead RabbitMQ Exchange, Docker Containers & Redis Stock Lock Telemetry':
       'Giám sát thời gian thực RabbitMQ Exchange, 4 Container Docker & Khóa tồn kho nguyên tử Redis',

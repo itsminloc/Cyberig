@@ -39,6 +39,7 @@
         <button type="button" class="icon-circle-btn" id="btnRefreshAll" title="Refresh Telemetry">↻<span class="bell-count" id="bellDlqCount">0</span></button>
         <a href="/#admin" class="btn-pill-ghost" id="navToAdminOps">Inventory</a>
         <a href="/" class="btn-pill-ghost" id="navToStorefront">Storefront</a>
+        <button type="button" class="btn-pill-ghost is-danger-pill" id="btnSocLogout" title="Sign out of Admin session">Sign out</button>
         <button type="button" class="btn-pill-primary" id="btnQuickScenarioRun">▶ Run E2E</button>
       </div>
     </header>
@@ -277,6 +278,13 @@
   <div class="floating-toast" id="floatingToast">
     <span id="toastText">✓ Updated</span>
     <button type="button" class="toast-action" id="toastBtn">OK</button>
+  </div>
+
+  <div class="soc-logout-veil" id="socLogoutVeil" aria-hidden="true">
+    <div class="soc-logout-card">
+      <div class="soc-logout-ring"></div>
+      <div id="socLogoutText" style="font-weight:700;font-size:13px;">Signing out securely...</div>
+    </div>
   </div>
 
   <script src="/admin-monitoring/charts-and-theme.js"></script>

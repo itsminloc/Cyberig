@@ -1,12 +1,12 @@
 /**
- * Day / Night Theme Engine (GSAP & Osmo 60 FPS CSS-driven)
- * Enhanced with High-Tech Sun & Moon Vector Icons
+ * CyberRig Studio Dual-Theme Engine (Performance Night / Showroom Day)
+ * Synchronized Circular View Transition Reveal & Toast with SI Monitor.
  */
 import { THEME_STORAGE_KEY } from './config.js';
+import { showStorefrontToast } from './ui-feedback.js';
 
 const themeToggleBtn = document.getElementById('theme-toggle-btn');
 
-// Sun Icon SVG (Used in Day Mode or to toggle to Day)
 const SUN_ICON = `
 <svg class="theme-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
   <circle cx="12" cy="12" r="4"></circle>
@@ -21,7 +21,6 @@ const SUN_ICON = `
 </svg>
 `;
 
-// Moon Icon SVG (Used in Night Mode)
 const MOON_ICON = `
 <svg class="theme-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
@@ -31,53 +30,68 @@ const MOON_ICON = `
 `;
 
 export function applyTheme(theme) {
-  // Suppress transitions across document during theme toggle, exempting hero backdrops for smooth crossfade
-  const style = document.createElement('style');
-  style.appendChild(document.createTextNode('*:not([class*="hero-atmosphere-backdrop"]), *:not([class*="hero-atmosphere-backdrop"])::before, *:not([class*="hero-atmosphere-backdrop"])::after { transition: none !important; }'));
-  document.head.appendChild(style);
+  const isDay = theme === 'day';
+  document.documentElement.setAttribute('data-theme', isDay ? 'light' : 'dark');
+  document.body.classList.toggle('theme-day', isDay);
 
-  if (theme === 'day') {
-    document.body.classList.add('theme-day');
-    if (themeToggleBtn) {
-      themeToggleBtn.innerHTML = SUN_ICON;
-      themeToggleBtn.setAttribute('title', 'Chuyển sang giao diện Tối (Night Mode)');
-      themeToggleBtn.setAttribute('aria-label', 'Chuyển sang giao diện Tối');
-    }
-  } else {
-    document.body.classList.remove('theme-day');
-    if (themeToggleBtn) {
-      themeToggleBtn.innerHTML = MOON_ICON;
-      themeToggleBtn.setAttribute('title', 'Chuyển sang giao diện Sáng (Day Mode)');
-      themeToggleBtn.setAttribute('aria-label', 'Chuyển sang giao diện Sáng');
-    }
+  if (themeToggleBtn) {
+    themeToggleBtn.innerHTML = isDay ? SUN_ICON : MOON_ICON;
+    themeToggleBtn.setAttribute(
+      'title',
+      isDay ? 'Chuyển sang giao diện Tối (Performance Night)' : 'Chuyển sang giao diện Sáng (Showroom Day)'
+    );
+    themeToggleBtn.setAttribute(
+      'aria-label',
+      isDay ? 'Chuyển sang giao diện Tối' : 'Chuyển sang giao diện Sáng'
+    );
   }
 
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
-  } catch (e) {}
+    localStorage.setItem(THEME_STORAGE_KEY, isDay ? 'day' : 'night');
+  } catch (_e) {}
+}
 
-  // Force reflow so new styles commit synchronously without transition smearing
-  void document.body.offsetHeight;
+function toggleThemeWithReveal(event) {
+  const isDay = document.body.classList.contains('theme-day');
+  const nextMode = isDay ? 'night' : 'day';
+  const rect = themeToggleBtn?.getBoundingClientRect();
+  const x = event?.clientX || (rect ? rect.left + rect.width / 2 : window.innerWidth - 90);
+  const y = event?.clientY || (rect ? rect.top + rect.height / 2 : 34);
+  const maxRadius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y)
+  );
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-  // Restore smooth transitions on the next animation frame
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      style.remove();
-    });
-  });
+  if (!document.startViewTransition || reducedMotion) {
+    applyTheme(nextMode);
+    showStorefrontToast(nextMode === 'day' ? '☀ Giao diện Sáng · Showroom Day' : '☾ Giao diện Tối · Performance Night');
+    return;
+  }
+
+  const transition = document.startViewTransition(() => applyTheme(nextMode));
+  transition.ready
+    .then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`],
+        },
+        { duration: 480, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' }
+      );
+    })
+    .catch(() => {});
+
+  showStorefrontToast(nextMode === 'day' ? '☀ Giao diện Sáng · Showroom Day' : '☾ Giao diện Tối · Performance Night');
 }
 
 export function initTheme() {
   let saved = 'night';
   try {
     saved = localStorage.getItem(THEME_STORAGE_KEY) || 'night';
-  } catch (e) {}
-  applyTheme(saved);
+  } catch (_e) {}
+  applyTheme(saved === 'day' ? 'day' : 'night');
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const isDay = document.body.classList.contains('theme-day');
-      applyTheme(isDay ? 'night' : 'day');
-    });
+    themeToggleBtn.addEventListener('click', toggleThemeWithReveal);
   }
 }

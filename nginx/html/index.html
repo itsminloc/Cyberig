@@ -29,18 +29,12 @@
   <!-- 2. Header Navigation -->
   <header class="site-header">
     <div class="header-inner">
-      <!-- Logo (Tight to Left Margin with High-Tech Graphic Emblem) -->
-      <a href="/" class="brand-logo" aria-label="CyberRig Home">
-        <div class="logo-emblem-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
-            <circle cx="12" cy="12" r="3" fill="currentColor"></circle>
-          </svg>
-        </div>
+      <!-- Logo (Synchronized with CyberRig Studio Bento & Pill Identity) -->
+      <a href="/" class="brand-logo" aria-label="CyberRig Studio Home">
+        <div class="logo-emblem-box">CR</div>
         <div class="logo-text-group">
-          <span>CYBERRIG</span>
-          <span class="logo-tag-badge">LAB // 01</span>
+          <span>CyberRig</span>
+          <span class="logo-tag-badge">STUDIO</span>
         </div>
       </a>
 
@@ -90,7 +84,7 @@
                 <span class="mega-link-title">Vỏ Case Máy Tính</span>
                 <span class="mega-link-desc">Thiết kế Dual-Chamber, luồng gió tối ưu</span>
               </a>
-              <a href="/builder" class="mega-link-item" style="background: var(--accent-subtle); border-radius: 0;">
+              <a href="/builder" class="mega-link-item" style="background: var(--accent-subtle);">
                 <span class="mega-link-title" style="color: var(--accent-primary);">Tự Ráp Máy Tính</span>
                 <span class="mega-link-desc">Kiểm tra tương thích tự động tức thì</span>
               </a>
@@ -176,11 +170,11 @@
         <a href="/builder" class="nav-link-btn">Xây dựng cấu hình</a>
         <a href="#dashboard" class="nav-link-btn" id="dash-nav-link" style="display: none;">Dàn Máy Của Tôi</a>
         <a href="#technician" class="nav-link-btn" id="tech-nav-link"
-          style="display: none; color: #38bdf8; font-weight: 700;">[ BÀN KỸ THUẬT ]</a>
+          style="display: none; color: #38bdf8; font-weight: 700;">Bàn Kỹ Thuật</a>
         <a href="#admin" class="nav-link-btn" id="admin-nav-link"
           style="display: none; color: #ef4444; font-weight: 700;">Quản Trị Kho</a>
         <a href="/admin-monitoring/" class="nav-link-btn" id="si-monitoring-nav-link"
-          style="display: none; color: #06b6d4; font-weight: 700;">SI Monitoring Lab</a>
+          style="display: none; color: var(--accent-primary); font-weight: 700;">SI Studio</a>
       </nav>
 
       <!-- Right Action Controls -->
@@ -203,26 +197,30 @@
         <!-- Authenticated Profile Widget -->
         <div id="user-profile-widget" class="user-profile-anchor" style="display: none;">
           <button type="button" class="user-pill-btn" id="user-menu-btn">
+            <span class="user-avatar-dot" id="header-user-initial">CR</span>
             <span id="header-user-name">User</span>
             <span id="header-user-role" class="role-badge-pill is-customer">CUSTOMER</span>
           </button>
 
           <div class="user-dropdown-panel" id="user-dropdown">
             <div class="dropdown-meta-box">
-              <div class="dropdown-meta-name" id="dd-fullname">Nguyen Van A</div>
+              <div class="dropdown-meta-name" id="dd-fullname">Khách hàng CyberRig</div>
               <div class="dropdown-meta-email" id="dd-email">user@example.com</div>
             </div>
-            <a href="#dashboard" class="dropdown-nav-link" id="dd-dashboard-item">Dàn máy &amp; Thiết bị của tôi</a>
+            <a href="#dashboard" class="dropdown-nav-link" id="dd-dashboard-item">Dàn máy &amp; Đơn hàng của tôi</a>
             <a href="#technician" class="dropdown-nav-link" id="dd-tech-item"
-              style="display: none; color: #38bdf8; font-weight: 700;">Bàn Làm Việc Kỹ Thuật (Technician Lab)</a>
+              style="display: none; color: #38bdf8; font-weight: 700;">Bàn Làm Việc Kỹ Thuật</a>
             <a href="#admin" class="dropdown-nav-link" id="dd-admin-item"
-              style="display: none; color: #ef4444; font-weight: 700;">Trung Tâm Quản Trị (Admin Hub)</a>
+              style="display: none; color: #ef4444; font-weight: 700;">Trung Tâm Quản Trị Kho</a>
             <a href="/admin-monitoring/" class="dropdown-nav-link" id="dd-monitoring-item"
-              style="display: none; color: #06b6d4; font-weight: 700;">SI Monitoring &amp; Testing Lab</a>
-            <a href="/repair-tracking" class="dropdown-nav-link">Tra Cứu Phiếu Bảo Hành</a>
+              style="display: none; color: var(--accent-primary); font-weight: 700;">CyberRig Studio · SI Monitor</a>
+            <a href="/repair-tracking" class="dropdown-nav-link">Tra Cứu Tiến Độ Bảo Hành</a>
             <a href="/builder" class="dropdown-nav-link">Cấu Hình PC Của Tôi</a>
             <div style="border-top: 1px solid var(--border-subtle); margin-top: 6px; padding-top: 6px;">
-              <button type="button" class="dropdown-logout-action" id="logout-btn">Đăng Xuất</button>
+              <button type="button" class="dropdown-logout-action" id="logout-btn">
+                <span class="logout-btn-label">Đăng Xuất</span>
+                <span class="logout-btn-arrow" aria-hidden="true">→</span>
+              </button>
             </div>
           </div>
         </div>
@@ -593,15 +591,15 @@
         <div class="dash-tab-cluster">
           <div class="dash-tab-buttons-group">
             <button type="button" class="dash-tab-pill is-active" id="dash-tab-orders-btn">
-              [ ĐƠN HÀNG CỦA TÔI (<span id="dash-orders-badge">0</span>) ]
+              Đơn hàng của tôi (<span id="dash-orders-badge">0</span>)
             </button>
             <button type="button" class="dash-tab-pill" id="dash-tab-repairs-btn">
-              [ THIẾT BỊ SỬA CHỮA &amp; BẢO HÀNH (<span id="dash-repairs-badge">0</span>) ]
+              Bảo hành &amp; Sửa chữa (<span id="dash-repairs-badge">0</span>)
             </button>
           </div>
           <div>
-            <button type="button" class="tech-btn tech-btn-accent" id="dash-open-ticket-modal-btn" style="padding: 10px 20px; font-size: 0.8rem;">
-              [ + TẠO PHIẾU KIỂM TRA / SỬA CHỮA ]
+            <button type="button" class="pill-btn pill-btn-accent" id="dash-open-ticket-modal-btn" style="padding: 10px 20px; font-size: 0.82rem;">
+              + Tạo Phiếu Bảo Hành / Sửa Chữa
             </button>
           </div>
         </div>
@@ -622,7 +620,7 @@
     <div id="admin-control-center-view" class="dashboard-container" style="display: none;">
       <!-- Access Denied (HTTP 403) for Non-Admin -->
       <div id="admin-denied-box"
-        style="display: none; max-width: 520px; margin: 40px auto; background: var(--bg-card); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0; padding: 36px 30px; text-align: center;">
+        style="display: none; max-width: 520px; margin: 40px auto; background: var(--bg-card); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-bento); padding: 36px 30px; text-align: center; box-shadow: var(--shadow-bento);">
         <div
           style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: #ef4444; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
           403 FORBIDDEN &bull; YÊU CẦU QUYỀN ADMIN
@@ -678,7 +676,7 @@
 
         <!-- Filter & Action Toolbar -->
         <div
-          style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0; padding: 14px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-bento); padding: 14px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: var(--shadow-bento);">
           <div style="display: flex; gap: 10px; flex-wrap: wrap; flex: 1;">
             <input type="text" id="admin-search-box" class="form-field-input"
               placeholder="Tìm theo tên linh kiện, hãng..."
@@ -734,38 +732,22 @@
   </main>
 
   <!-- =======================================================================
-       4. MODALS (MINIMALIST & PILL STYLING, ZERO ICONS)
+       4. MODALS (SYNCHRONIZED STUDIO BENTO & PILL SYSTEM)
        ======================================================================= -->
-  <!-- Auth Modal (Login / Register) -->
+  <!-- Auth Modal (Production Customer Login / Register) -->
   <div class="modal-backdrop" id="auth-modal">
     <div class="modal-dialog-box">
-      <button type="button" class="modal-close-pill" id="auth-close-btn">[ ĐÓNG ]</button>
+      <button type="button" class="modal-close-pill" id="auth-close-btn" aria-label="Đóng cửa sổ">✕ Đóng</button>
 
       <div class="modal-header-box">
-        <h2 class="modal-headline">CYBERRIG AUTH</h2>
-        <p class="modal-subtext">Đăng nhập tài khoản hoặc khởi tạo thành viên mới</p>
+        <div class="modal-eyebrow-pill">CyberRig Account</div>
+        <h2 class="modal-headline" id="auth-modal-title">Đăng Nhập Tài Khoản</h2>
+        <p class="modal-subtext" id="auth-modal-subtitle">Quản lý cấu hình PC, theo dõi đơn hàng và bảo hành điện tử chính hãng</p>
       </div>
 
-      <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
-        <button type="button" class="pill-btn pill-btn-accent" id="tab-login"
-          style="padding: 6px 18px; font-size: 0.78rem;">Đăng Nhập</button>
-        <button type="button" class="pill-btn pill-btn-ghost" id="tab-register"
-          style="padding: 6px 18px; font-size: 0.78rem;">Đăng Ký</button>
-      </div>
-
-      <!-- 1-Click Demo Accounts -->
-      <div
-        style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 0; padding: 10px 14px; margin-bottom: 20px;">
-        <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">Tài khoản thử
-          nghiệm nhanh:</div>
-        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-          <button type="button" class="pill-btn pill-btn-ghost" id="demo-customer"
-            style="padding: 4px 10px; font-size: 0.72rem;">Customer</button>
-          <button type="button" class="pill-btn pill-btn-ghost" id="demo-tech"
-            style="padding: 4px 10px; font-size: 0.72rem;">Technician</button>
-          <button type="button" class="pill-btn pill-btn-ghost" id="demo-admin"
-            style="padding: 4px 10px; font-size: 0.72rem;">Admin</button>
-        </div>
+      <div class="auth-seg-pills" role="tablist" aria-label="Chế độ xác thực">
+        <button type="button" class="pill-btn pill-btn-accent" id="tab-login">Đăng Nhập</button>
+        <button type="button" class="pill-btn pill-btn-ghost" id="tab-register">Tạo Tài Khoản</button>
       </div>
 
       <div class="alert-banner" id="modal-alert"></div>
@@ -773,37 +755,43 @@
       <form id="auth-form">
         <div class="form-field-group" id="group-fullname" style="display: none;">
           <label class="form-field-label" for="input-fullname">Họ và tên *</label>
-          <input type="text" id="input-fullname" class="form-field-input" placeholder="Nguyễn Văn A" />
+          <input type="text" id="input-fullname" class="form-field-input" placeholder="Nhập họ và tên của bạn" autocomplete="name" />
         </div>
 
         <div class="form-field-group">
           <label class="form-field-label" for="input-email">Địa chỉ Email *</label>
-          <input type="email" id="input-email" class="form-field-input" placeholder="name@example.com" required />
+          <input type="email" id="input-email" class="form-field-input" placeholder="tenban@email.com" autocomplete="email" required />
         </div>
 
         <div class="form-field-group" id="group-phone" style="display: none;">
-          <label class="form-field-label" for="input-phone">Số điện thoại</label>
-          <input type="tel" id="input-phone" class="form-field-input" placeholder="0901234567" />
+          <label class="form-field-label" for="input-phone">Số điện thoại liên hệ</label>
+          <input type="tel" id="input-phone" class="form-field-input" placeholder="09xxxxxxxx" autocomplete="tel" />
         </div>
 
         <div class="form-field-group">
-          <label class="form-field-label" for="input-password">Mật khẩu *</label>
-          <input type="password" id="input-password" class="form-field-input" placeholder="Tối thiểu 6 ký tự"
-            required />
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label class="form-field-label" for="input-password" style="margin-bottom: 0;">Mật khẩu *</label>
+            <button type="button" id="toggle-password-visibility" class="password-peek-btn">Hiện mật khẩu</button>
+          </div>
+          <input type="password" id="input-password" class="form-field-input" placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)" autocomplete="current-password" required />
         </div>
 
         <button type="submit" class="pill-btn pill-btn-accent" id="modal-submit-btn"
-          style="width: 100%; padding: 12px; margin-top: 8px;">
-          Xác Nhận Đăng Nhập
+          style="width: 100%; padding: 12px 20px; margin-top: 8px; font-size: 0.88rem;">
+          Đăng Nhập
         </button>
       </form>
+
+      <div class="auth-trust-footer">
+        <span>Phiên đăng nhập được mã hóa an toàn · Bảo vệ dữ liệu theo Nghị định 13</span>
+      </div>
     </div>
   </div>
 
   <!-- Admin Add Hardware Modal -->
   <div class="modal-backdrop" id="admin-add-modal">
     <div class="modal-dialog-box" style="max-width: 540px;">
-      <button type="button" class="modal-close-pill" id="admin-add-close-btn">[ ĐÓNG ]</button>
+      <button type="button" class="modal-close-pill" id="admin-add-close-btn">✕ Đóng</button>
 
       <div class="modal-header-box">
         <h2 class="modal-headline">THÊM LINH KIỆN MỚI</h2>
@@ -870,7 +858,7 @@
   <!-- Admin Restock & Reprice Modal -->
   <div class="modal-backdrop" id="admin-restock-modal">
     <div class="modal-dialog-box" style="max-width: 440px;">
-      <button type="button" class="modal-close-pill" id="admin-restock-close-btn">[ ĐÓNG ]</button>
+      <button type="button" class="modal-close-pill" id="admin-restock-close-btn">✕ Đóng</button>
 
       <div class="modal-header-box">
         <h2 class="modal-headline">NHẬP KHO &amp; ĐỔI GIÁ</h2>
@@ -903,49 +891,49 @@
 
   <!-- B2B Bulk Quote Request Modal -->
   <div class="modal-backdrop" id="b2b-modal">
-    <div class="modal-dialog-box" style="border-radius: 0px;">
-      <button type="button" class="modal-close-pill" onclick="closeB2BQuote()">[ ĐÓNG ]</button>
+    <div class="modal-dialog-box">
+      <button type="button" class="modal-close-pill" onclick="closeB2BQuote()">✕ Đóng</button>
       <div class="modal-header-box">
         <h2 class="modal-headline">BÁO GIÁ DỰ ÁN &amp; DOANH NGHIỆP (B2B)</h2>
         <p class="modal-subtext">Cung ứng linh kiện số lượng lớn và tư vấn cấu hình phòng máy chuyên biệt</p>
       </div>
-      <div id="b2b-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.82rem; border-radius: 0px;"></div>
+      <div id="b2b-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-size: 0.82rem;"></div>
       <form id="b2b-quote-form">
         <div class="form-field-group">
           <label class="form-field-label">Họ và tên người liên hệ *</label>
-          <input type="text" id="b2b-name" class="form-field-input" placeholder="Nguyễn Văn A" required style="border-radius: 0px;" />
+          <input type="text" id="b2b-name" class="form-field-input" placeholder="Nguyễn Văn A" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Địa chỉ Email *</label>
-          <input type="email" id="b2b-email" class="form-field-input" placeholder="contact@company.com" required style="border-radius: 0px;" />
+          <input type="email" id="b2b-email" class="form-field-input" placeholder="contact@company.com" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Số điện thoại liên hệ *</label>
-          <input type="tel" id="b2b-phone" class="form-field-input" placeholder="0901234567" required style="border-radius: 0px;" />
+          <input type="tel" id="b2b-phone" class="form-field-input" placeholder="0901234567" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Nhu cầu dự án (Số lượng &amp; Mục đích sử dụng) *</label>
-          <textarea id="b2b-requirements" class="form-field-input" rows="3" placeholder="Ví dụ: Cần báo giá 15 bộ máy đồ họa 3D cho công ty kiến trúc..." required style="border-radius: 0px;"></textarea>
+          <textarea id="b2b-requirements" class="form-field-input" rows="3" placeholder="Ví dụ: Cần báo giá 15 bộ máy đồ họa 3D cho công ty kiến trúc..." required></textarea>
         </div>
-        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
-          [ GỬI YÊU CẦU BÁO GIÁ DỰ ÁN ]
+        <button type="submit" class="pill-btn pill-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; font-weight: 700;">
+          Gửi Yêu Cầu Báo Giá Dự Án
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Simulator Quick Test Modal (Task FE-POLISH-DAYNIGHT-V3) -->
+  <!-- Simulator Quick Test Modal -->
   <div class="modal-backdrop" id="simulator-test-modal">
-    <div class="modal-dialog-box" style="max-width: 540px; border-radius: 0px;">
-      <button type="button" class="modal-close-pill" id="sim-test-close-btn">[ ĐÓNG ]</button>
+    <div class="modal-dialog-box" style="max-width: 540px;">
+      <button type="button" class="modal-close-pill" id="sim-test-close-btn">✕ Đóng</button>
       <div class="modal-header-box">
         <h2 class="modal-headline">KIỂM TRA TƯƠNG THÍCH NHANH</h2>
-        <p class="modal-subtext">Chọn thử nghiệm cặp CPU và Bo Mạch Chủ để kiểm tra chuẩn socket và biên TDP tức thì.</p>
+        <p class="modal-subtext">Chọn cặp CPU và Bo Mạch Chủ để kiểm tra chuẩn socket và biên TDP tức thì.</p>
       </div>
       <form id="sim-test-form">
         <div class="form-field-group">
           <label class="form-field-label">1. Chọn Bộ Vi Xử Lý (CPU) *</label>
-          <select id="sim-test-cpu-select" class="form-field-input" required style="border-radius: 0px;">
+          <select id="sim-test-cpu-select" class="form-field-input" required>
             <option value="i5-13600k" data-socket="LGA1700" data-tdp="125" data-name="Intel Core i5-13600K">Intel Core i5-13600K (LGA1700 • 125W TDP)</option>
             <option value="i7-14700k" data-socket="LGA1700" data-tdp="253" data-name="Intel Core i7-14700K">Intel Core i7-14700K (LGA1700 • 253W TDP)</option>
             <option value="i9-14900k" data-socket="LGA1700" data-tdp="253" data-name="Intel Core i9-14900K">Intel Core i9-14900K (LGA1700 • 253W TDP)</option>
@@ -955,15 +943,15 @@
         </div>
         <div class="form-field-group">
           <label class="form-field-label">2. Chọn Bo Mạch Chủ (Mainboard) *</label>
-          <select id="sim-test-mb-select" class="form-field-input" required style="border-radius: 0px;">
+          <select id="sim-test-mb-select" class="form-field-input" required>
             <option value="b760-plus" data-socket="LGA1700" data-name="ASUS TUF Gaming B760-PLUS WIFI">ASUS TUF Gaming B760-PLUS WIFI (Socket LGA1700 • DDR5)</option>
             <option value="z790-tomahawk" data-socket="LGA1700" data-name="MSI MAG Z790 TOMAHAWK WIFI">MSI MAG Z790 TOMAHAWK WIFI (Socket LGA1700 • DDR5)</option>
             <option value="b650-tomahawk" data-socket="AM5" data-name="MSI MAG B650 TOMAHAWK WIFI">MSI MAG B650 TOMAHAWK WIFI (Socket AM5 • DDR5)</option>
             <option value="x670e-pro" data-socket="AM5" data-name="ASUS ROG STRIX X670E-A GAMING">ASUS ROG STRIX X670E-A GAMING (Socket AM5 • DDR5)</option>
           </select>
         </div>
-        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 14px; margin-top: 10px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
-          [ BẮT ĐẦU QUÉT TƯƠNG THÍCH ]
+        <button type="submit" class="pill-btn pill-btn-accent" style="width: 100%; padding: 13px; margin-top: 10px; font-weight: 700;">
+          Bắt Đầu Quét Tương Thích
         </button>
       </form>
     </div>
@@ -971,73 +959,72 @@
 
   <!-- Assembly Service Modal -->
   <div class="modal-backdrop" id="assembly-modal">
-    <div class="modal-dialog-box" style="border-radius: 0px;">
-      <button type="button" class="modal-close-pill" onclick="closeAssemblyService()">[ ĐÓNG ]</button>
+    <div class="modal-dialog-box">
+      <button type="button" class="modal-close-pill" onclick="closeAssemblyService()">✕ Đóng</button>
       <div class="modal-header-box">
         <h2 class="modal-headline">DỊCH VỤ LẮP RÁP TẬN NƠI</h2>
         <p class="modal-subtext">Kỹ thuật viên chuyên nghiệp hỗ trợ lắp ráp, đi dây và tối ưu hóa hệ thống tại nhà</p>
       </div>
-      <div id="assembly-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.82rem; border-radius: 0px;"></div>
+      <div id="assembly-alert" style="display: none; padding: 12px 14px; margin-bottom: 14px; font-size: 0.82rem;"></div>
       <form id="assembly-form">
         <div class="form-field-group">
           <label class="form-field-label">Họ và tên khách hàng *</label>
-          <input type="text" id="assembly-name" class="form-field-input" placeholder="Nguyễn Văn A" required style="border-radius: 0px;" />
+          <input type="text" id="assembly-name" class="form-field-input" placeholder="Nguyễn Văn A" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Số điện thoại liên hệ *</label>
-          <input type="tel" id="assembly-phone" class="form-field-input" placeholder="0901234567" required style="border-radius: 0px;" />
+          <input type="tel" id="assembly-phone" class="form-field-input" placeholder="0901234567" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Địa chỉ lắp đặt tận nơi *</label>
-          <input type="text" id="assembly-address" class="form-field-input" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành" required style="border-radius: 0px;" />
+          <input type="text" id="assembly-address" class="form-field-input" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành" required />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Thời gian mong muốn lắp đặt</label>
-          <input type="datetime-local" id="assembly-datetime" class="form-field-input" style="border-radius: 0px;" />
+          <input type="datetime-local" id="assembly-datetime" class="form-field-input" />
         </div>
         <div class="form-field-group">
           <label class="form-field-label">Gói dịch vụ mong muốn *</label>
-          <select id="assembly-package" class="form-field-input" style="border-radius: 0px;">
-            <option>[ GÓI 1 ] Lắp ráp PC hoàn chỉnh &amp; Cài đặt Windows/Driver cơ bản</option>
-            <option>[ GÓI 2 ] Lắp ráp cao cấp kèm đi dây nghệ thuật &amp; Test stress bench</option>
-            <option>[ GÓI 3 ] Nâng cấp linh kiện / Tản nhiệt nước Custom theo yêu cầu</option>
+          <select id="assembly-package" class="form-field-input">
+            <option>Gói Tiêu chuẩn — Lắp ráp PC hoàn chỉnh &amp; Cài đặt Driver</option>
+            <option>Gói Studio Pro — Đi dây thẩm mỹ &amp; Stress-test nhiệt độ</option>
+            <option>Gói Custom — Nâng cấp linh kiện / Tản nhiệt nước theo yêu cầu</option>
           </select>
         </div>
-        <button type="submit" class="tech-btn tech-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 0px; font-family: var(--font-mono); font-weight: 700;">
-          [ XÁC NHẬN ĐẶT LỊCH LẮP RÁP ]
+        <button type="submit" class="pill-btn pill-btn-accent" style="width: 100%; padding: 12px; margin-top: 8px; font-weight: 700;">
+          Xác Nhận Đặt Lịch Lắp Ráp
         </button>
       </form>
     </div>
   </div>
 
   <!-- =======================================================================
-       REPAIR & INSPECTION TICKET INTAKE MODAL (Task 1 & Task 2)
-       100% Icon-Free, Pure Typographic & Sharp Industrial Design
+       REPAIR & INSPECTION TICKET INTAKE MODAL
        ======================================================================= -->
   <div class="ticket-modal-overlay" id="ticket-create-modal">
     <div class="ticket-modal-card">
       <div class="ticket-modal-header">
         <div>
-          <span class="ticket-modal-badge">[ CYBERRIG HARDWARE LAB // DỊCH VỤ KIỂM TRA &amp; SỬA CHỮA ]</span>
+          <span class="ticket-modal-badge">CYBERRIG CARE · DỊCH VỤ BẢO HÀNH &amp; SỬA CHỮA</span>
           <h2 class="ticket-modal-title">TẠO PHIẾU TIẾP NHẬN THIẾT BỊ</h2>
         </div>
-        <button type="button" class="ticket-modal-close" id="ticket-modal-close-btn">[ ĐÓNG ]</button>
+        <button type="button" class="modal-close-pill" id="ticket-modal-close-btn" style="position: static;">✕ Đóng</button>
       </div>
 
       <!-- Form Error / Success Alert -->
-      <div id="ticket-modal-alert" style="display: none; padding: 12px 16px; margin-bottom: 16px; font-size: 0.84rem; font-family: var(--font-mono); font-weight: 600;"></div>
+      <div id="ticket-modal-alert" style="display: none; padding: 12px 16px; margin-bottom: 16px; font-size: 0.84rem; font-weight: 600;"></div>
 
       <form id="ticket-create-form">
         <!-- Dual Device Origin Selector -->
         <label class="modal-label">1. NGUỒN GỐC THIẾT BỊ TIẾP NHẬN *</label>
         <div class="origin-selector-cluster">
           <div class="origin-option-card is-selected" id="origin-opt-cyberrig" data-origin="CYBERRIG">
-            <span class="origin-option-title">[ MÁY MUA TẠI CYBERRIG ]</span>
-            <span class="origin-option-desc">Dàn PC hoặc linh kiện mua tại CyberRig Lab (Hỗ trợ tra cứu theo Serial &amp; bảo hành ưu tiên)</span>
+            <span class="origin-option-title">Thiết bị mua tại CyberRig</span>
+            <span class="origin-option-desc">Dàn PC hoặc linh kiện chính hãng CyberRig (Hỗ trợ tra cứu theo Serial &amp; bảo hành ưu tiên)</span>
           </div>
           <div class="origin-option-card" id="origin-opt-external" data-origin="EXTERNAL">
-            <span class="origin-option-title">[ LINH KIỆN / MÁY MANG TỪ NGOÀI ]</span>
-            <span class="origin-option-desc">Linh kiện hoặc case PC mua nơi khác (Khách vãng lai mang đến đo xung, giám định và sửa chữa)</span>
+            <span class="origin-option-title">Thiết bị mang từ bên ngoài</span>
+            <span class="origin-option-desc">Linh kiện hoặc bộ PC mua nơi khác cần chẩn đoán kỹ thuật, vệ sinh và sửa chữa dịch vụ</span>
           </div>
         </div>
         <input type="hidden" id="ticket-input-origin" value="CYBERRIG" />
@@ -1046,7 +1033,7 @@
         <div class="modal-form-grid">
           <div>
             <label class="modal-label" for="ticket-input-name">HỌ VÀ TÊN KHÁCH HÀNG *</label>
-            <input type="text" id="ticket-input-name" class="modal-input" placeholder="Ví dụ: Nguyễn Văn Khách" required />
+            <input type="text" id="ticket-input-name" class="modal-input" placeholder="Ví dụ: Nguyễn Văn An" required />
           </div>
           <div>
             <label class="modal-label" for="ticket-input-phone">SỐ ĐIỆN THOẠI LIÊN HỆ *</label>
@@ -1054,18 +1041,18 @@
           </div>
           <div>
             <label class="modal-label" for="ticket-input-email">ĐỊA CHỈ EMAIL (NHẬN TIẾN ĐỘ)</label>
-            <input type="email" id="ticket-input-email" class="modal-input" placeholder="khachhang@example.com" />
+            <input type="email" id="ticket-input-email" class="modal-input" placeholder="khachhang@email.com" />
           </div>
           <div>
             <label class="modal-label" for="ticket-input-priority">MỨC ĐỘ ƯU TIÊN TIẾP NHẬN *</label>
             <select id="ticket-input-priority" class="modal-select">
-              <option value="STANDARD">[ TIÊU CHUẨN ] Giám định thông thường trong 24h</option>
-              <option value="URGENT">[ GẤP // CẤP TỐC ] Giám định ưu tiên trong 4h</option>
+              <option value="STANDARD">Tiêu chuẩn — Chẩn đoán trong 24 giờ</option>
+              <option value="URGENT">Khẩn cấp — Chẩn đoán ưu tiên trong 4 giờ</option>
             </select>
           </div>
           <div class="modal-field-full">
             <label class="modal-label" for="ticket-input-device">TÊN CẤU HÌNH HOẶC LOẠI LINH KIỆN *</label>
-            <input type="text" id="ticket-input-device" class="modal-input" placeholder="Ví dụ: PC Gaming Intel Core i7 / RTX 4070 Ti HOẶC VGA ASUS ROG STRIX 3080" required />
+            <input type="text" id="ticket-input-device" class="modal-input" placeholder="Ví dụ: PC Gaming Core i7 / RTX 4070 Ti hoặc VGA ASUS ROG Strix" required />
           </div>
           <div class="modal-field-full">
             <label class="modal-label" for="ticket-input-serial">SỐ SERIAL / SERVICE TAG / PART NUMBER</label>
@@ -1077,42 +1064,61 @@
           </div>
           <div class="modal-field-full">
             <label class="modal-label" for="ticket-input-fault">MÔ TẢ HIỆN TƯỢNG LỖI / TRIỆU CHỨNG HƯ HỎNG *</label>
-            <textarea id="ticket-input-fault" class="modal-textarea" rows="3" placeholder="Ví dụ: Bật máy quạt quay nhưng màn hình đen, buzzer phát 3 tiếng bip, hoặc sập nguồn khi vào game..." required></textarea>
+            <textarea id="ticket-input-fault" class="modal-textarea" rows="3" placeholder="Ví dụ: Bật máy quạt quay nhưng màn hình đen, hoặc sập nguồn khi tải nặng..." required></textarea>
           </div>
         </div>
 
         <div class="modal-actions-bar">
-          <button type="button" class="tech-btn tech-btn-outline" id="ticket-modal-cancel-btn">
-            [ HỦY BỎ ]
+          <button type="button" class="pill-btn pill-btn-ghost" id="ticket-modal-cancel-btn">
+            Hủy bỏ
           </button>
-          <button type="submit" class="tech-btn tech-btn-accent" id="ticket-modal-submit-btn">
-            [ XÁC NHẬN TẠO PHIẾU TIẾP NHẬN ]
+          <button type="submit" class="pill-btn pill-btn-accent" id="ticket-modal-submit-btn">
+            Xác Nhận Tạo Phiếu Tiếp Nhận
           </button>
         </div>
       </form>
 
       <!-- Success Result Screen -->
       <div id="ticket-modal-success" style="display: none; text-align: center; padding: 24px 10px;">
-        <span class="ticket-modal-badge" style="color: #10b981;">[ TIẾP NHẬN THÀNH CÔNG // KHỞI TẠO MÃ PHIẾU ]</span>
+        <span class="ticket-modal-badge" style="color: #10b981;">TIẾP NHẬN THÀNH CÔNG · ĐÃ CẤP MÃ PHIẾU</span>
         <h3 class="ticket-modal-title" style="margin: 10px 0 6px;">PHIẾU TIẾP NHẬN ĐÃ ĐƯỢC TẠO</h3>
         <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
-          Hệ thống giám định CyberRig Lab đã ghi nhận thiết bị vào hàng đợi kiểm tra.
+          Hệ thống kỹ thuật CyberRig đã ghi nhận thiết bị vào danh sách kiểm tra.
         </p>
-        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); padding: 16px; margin-bottom: 24px;">
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); border-radius: var(--radius-sub); padding: 16px; margin-bottom: 24px;">
           <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">MÃ TRA CỨU TIẾN TRÌNH:</div>
           <div id="ticket-modal-result-code" style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent-primary); letter-spacing: 0.05em;">
             TK-XXXXXXXX-XXXX
           </div>
         </div>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-          <button type="button" class="tech-btn tech-btn-accent" id="ticket-modal-track-btn">
-            [ THEO DÕI TIẾN ĐỘ NGAY ]
+          <button type="button" class="pill-btn pill-btn-accent" id="ticket-modal-track-btn">
+            Theo Dõi Tiến Độ Ngay
           </button>
-          <button type="button" class="tech-btn tech-btn-outline" id="ticket-modal-done-btn">
-            [ ĐÓNG VÀ VỀ DASHBOARD ]
+          <button type="button" class="pill-btn pill-btn-outline" id="ticket-modal-done-btn">
+            Đóng &amp; Về Tài Khoản
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Synchronized Floating Pill Toast (Matches CyberRig Studio SI Monitor) -->
+  <div class="floating-toast" id="storefrontToast" role="status" aria-live="polite">
+    <span class="floating-toast-dot" id="storefrontToastDot"></span>
+    <span id="storefrontToastText">✓ Đã cập nhật</span>
+    <button type="button" class="toast-action" id="storefrontToastBtn">Đóng</button>
+  </div>
+
+  <!-- Animated Session Sign-Out Transition Veil -->
+  <div class="logout-transition-veil" id="logoutTransitionVeil" aria-hidden="true">
+    <div class="logout-transition-card">
+      <div class="logout-spinner-ring" aria-hidden="true"></div>
+      <div class="logout-transition-copy">
+        <div class="logout-transition-title" id="logoutTransitionTitle">Đang đăng xuất phiên làm việc...</div>
+        <div class="logout-transition-sub" id="logoutTransitionSub">Thu hồi mã phiên bảo mật và đồng bộ trạng thái tài khoản</div>
+      </div>
+      <div class="logout-progress-track"><div class="logout-progress-bar" id="logoutProgressBar"></div></div>
     </div>
   </div>
 

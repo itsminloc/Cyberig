@@ -1,9 +1,7 @@
 /**
- * CyberRig Cyberpunk Authentication Modal Component
- * Displays high-tech Login and Registration forms with demo credentials support.
- * Aligned with Task FE-08 specification.
+ * CyberRig Studio Authentication Modal Component
+ * Production Login & Registration forms (Zero exposed demo credentials).
  */
-
 import React, { useState, useEffect } from 'react';
 import { useAuth, UserProfile } from '../../context/AuthContext';
 import { authApi, ApiError } from '../../services/api';
@@ -53,14 +51,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  // Demo Credentials quick fill
-  const handleQuickFill = (demoEmail: string, demoPass: string) => {
-    setMode('login');
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setErrorMessage(null);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -152,13 +142,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="cyber-auth-header">
           <div className="cyber-auth-badge">
             <span className="cyber-auth-beacon" />
-            <span>SECURITY LEVEL-3 // MATRIX</span>
+            <span>CYBERRIG ACCOUNT</span>
           </div>
           <h2 id="cyber-auth-title" className="cyber-auth-title">
-            CYBER<span>RIG</span> AUTH
+            CYBER<span>RIG</span> STUDIO
           </h2>
           <p className="cyber-auth-subtitle">
-            Hệ thống định danh & quản lý quyền truy cập hệ sinh thái
+            Quản lý cấu hình PC, theo dõi đơn hàng và bảo hành điện tử chính hãng
           </p>
         </div>
 
@@ -182,38 +172,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               setErrorMessage(null);
             }}
           >
-            Đăng Ký Mới
+            Tạo Tài Khoản
           </button>
-        </div>
-
-        {/* Quick Demo Credentials for Fast Testing */}
-        <div className="cyber-demo-bar">
-          <div className="cyber-demo-label">
-            <span>⚡ Tài Khoản Mẫu (1-Click Test)</span>
-          </div>
-          <div className="cyber-demo-buttons">
-            <button
-              type="button"
-              className="cyber-demo-btn"
-              onClick={() => handleQuickFill('customer@cyberig.vn', 'Customer@Password123')}
-            >
-              👤 Khách Hàng
-            </button>
-            <button
-              type="button"
-              className="cyber-demo-btn is-tech"
-              onClick={() => handleQuickFill('tech@cyberig.vn', 'Tech@Password123')}
-            >
-              🔧 Kỹ Thuật Viên
-            </button>
-            <button
-              type="button"
-              className="cyber-demo-btn is-admin"
-              onClick={() => handleQuickFill('admin@cyberig.vn', 'Admin@Password123')}
-            >
-              🛡️ Quản Trị Viên
-            </button>
-          </div>
         </div>
 
         {/* Form Alerts */}
@@ -323,11 +283,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              <span>Đang kết nối vệ tinh...</span>
+              <span>Đang xác thực tài khoản...</span>
             ) : mode === 'login' ? (
-              <span>Đăng Nhập Ngay →</span>
+              <span>Đăng Nhập →</span>
             ) : (
-              <span>Khởi Tạo Tài Khoản →</span>
+              <span>Tạo Tài Khoản →</span>
             )}
           </button>
         </form>
@@ -337,28 +297,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           {mode === 'login' ? (
             <span>
               Chưa có tài khoản CyberRig?
-              <button
-                type="button"
-                className="cyber-auth-switch-link"
-                onClick={() => {
-                  setMode('register');
-                  setErrorMessage(null);
-                }}
-              >
+              <button type="button" className="cyber-auth-switch-link" onClick={() => { setMode('register'); setErrorMessage(null); }}>
                 Đăng ký ngay
               </button>
             </span>
           ) : (
             <span>
               Đã sở hữu tài khoản?
-              <button
-                type="button"
-                className="cyber-auth-switch-link"
-                onClick={() => {
-                  setMode('login');
-                  setErrorMessage(null);
-                }}
-              >
+              <button type="button" className="cyber-auth-switch-link" onClick={() => { setMode('login'); setErrorMessage(null); }}>
                 Đăng nhập
               </button>
             </span>

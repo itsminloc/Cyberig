@@ -1,29 +1,31 @@
 /* ==========================================================================
-   CyberRig Design Tokens - GSAP & Osmo Modern Minimalist System
-   Night Mode (Default): #0E100F matte dark, #0AE448 GSAP accent
-   Day Mode: #FAFAFA smoke white, #2563EB Cobalt accent
-   100% Icon-Free, Pure Typographic & High-Performance Design Engine
+   CyberRig Studio Design Tokens — Synchronized Storefront & SI Monitor System
+   Performance Night (Default): #0E100F matte dark, #0AE448 electric green
+   Showroom Day (body.theme-day): #FAFAFA smoke white, #2563EB cobalt blue
+   Concentric Bento (20px -> 13px -> 12px) & Capsule Pill (999px) Geometry
    ========================================================================== */
 
 :root {
-  /* Brand Accent Tokens */
+  /* Brand Accent Tokens (Performance Night) */
   --accent-bar: #0ae448;
   --accent-primary: #0ae448;
   --accent-contrast: #000000;
-  --accent-subtle: rgba(10, 228, 72, 0.12);
-  --accent-border: rgba(10, 228, 72, 0.35);
-  --accent-glow: rgba(10, 228, 72, 0.25);
-  --accent-glow-strong: 0 0 20px rgba(10, 228, 72, 0.4);
-  --top-accent-height: 6px;
+  --accent-subtle: rgba(10, 228, 72, 0.14);
+  --accent-border: rgba(10, 228, 72, 0.36);
+  --accent-glow: rgba(10, 228, 72, 0.24);
+  --accent-glow-strong: 0 0 20px rgba(10, 228, 72, 0.36);
+  --top-accent-height: 2px;
 
-  /* Surface & Canvas Tokens (Matte Dark) */
+  /* Surface & Canvas Tokens (Matte Dark synced with SI Monitor) */
   --bg-canvas: #0e100f;
   --bg-surface: #161819;
   --bg-surface-elevated: #1c1f21;
   --bg-card: #161819;
-  --bg-overlay: rgba(0, 0, 0, 0.72);
+  --bg-obsidian: #090b0a;
+  --bg-obsidian-inner: #121513;
+  --bg-overlay: rgba(9, 11, 10, 0.76);
 
-  /* Structural Border Tokens */
+  /* Structural Hairline & Border Tokens */
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-medium: rgba(255, 255, 255, 0.14);
   --border-focus: rgba(255, 255, 255, 0.28);
@@ -32,16 +34,17 @@
   --text-main: #f5f5f7;
   --text-muted: #8e9299;
   --text-tertiary: #5e626a;
+  --ink-on-obsidian: #f5f5f7;
 
   /* Pill / Capsule Control Tokens */
-  --pill-bg: #1f2224;
-  --pill-hover: #2b2f32;
+  --pill-bg: #1c1f21;
+  --pill-hover: #262a2d;
   --pill-border: rgba(255, 255, 255, 0.1);
 
   /* Header & Navigation Chrome */
-  --header-bg: rgba(14, 16, 15, 0.82);
+  --header-bg: rgba(14, 16, 15, 0.84);
 
-  /* Font Family Stacks (Barlow Condensed for tall & narrow high-tech headings) */
+  /* Font Family Stacks */
   --font-condensed: 'Barlow Condensed', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Barlow Condensed', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Barlow Condensed', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -49,79 +52,80 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Motion & Easing Curves */
+  /* Motion & Tactile Easing Curves (better-ui) */
   --ease-tactile: cubic-bezier(0.2, 0, 0, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --trans-fast: 150ms cubic-bezier(0.2, 0, 0, 1);
   --trans-smooth: color 0.18s cubic-bezier(0.2, 0, 0, 1), background-color 0.18s cubic-bezier(0.2, 0, 0, 1), border-color 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1), transform 0.18s cubic-bezier(0.2, 0, 0, 1);
 
-  /* 100% Sharp Square Industrial Radii Scale (Zero rounded corners) */
-  --radius-pill: 0px;
-  --radius-modal: 0px;
-  --radius-card: 0px;
-  --radius-tile: 0px;
-  --radius-tech: 0px;
-  --radius-sm: 0px;
+  /* Concentric Bento & Pill Radii Scale (Synced with SI Monitor) */
+  --radius-pill: 999px;
+  --radius-bento: 20px;
+  --radius-modal: 22px;
+  --radius-card: 20px;
+  --radius-tile: 14px;
+  --radius-sub: 13px;
+  --radius-tech: 12px;
+  --radius-sm: 8px;
   --radius-none: 0px;
 
-  /* Depth & Elevation Shadows */
-  --shadow-card: 0 20px 45px rgba(0, 0, 0, 0.45);
-  --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.5);
-  --shadow-dropdown: 0 16px 36px rgba(0, 0, 0, 0.4);
-  --shadow-tech-btn: 0 6px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  --shadow-tech-active: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.4);
-  --shadow-search-console: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-medium);
-  --aura-radiate: 0 0 45px rgba(10, 228, 72, 0.4), 0 0 90px rgba(10, 228, 72, 0.18), inset 0 0 15px rgba(10, 228, 72, 0.2);
+  /* Depth & Elevation Shadows (Refined Studio Depth) */
+  --shadow-bento: 0 2px 10px rgba(0, 0, 0, 0.38);
+  --shadow-pill: 0 2px 10px rgba(0, 0, 0, 0.32);
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.38), 0 14px 32px rgba(0, 0, 0, 0.26);
+  --shadow-modal: 0 24px 56px rgba(0, 0, 0, 0.52);
+  --shadow-dropdown: 0 14px 34px rgba(0, 0, 0, 0.42);
+  --shadow-tech-btn: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-tech-active: 0 1px 4px rgba(0, 0, 0, 0.45);
+  --shadow-search-console: 0 16px 40px rgba(0, 0, 0, 0.46), 0 0 0 1px var(--border-subtle);
+  --aura-radiate: 0 0 36px rgba(10, 228, 72, 0.28), 0 0 72px rgba(10, 228, 72, 0.12);
 }
 
 /* ==========================================================================
-   Day Mode Tokens (Activated dynamically via body.theme-day)
-   Zero JS re-render required - 60 FPS CSS Variable Switch
+   Showroom Day Mode Tokens (body.theme-day / [data-theme="light"])
    ========================================================================== */
+[data-theme="light"] body,
 body.theme-day {
-  /* Brand Accent Tokens */
   --accent-bar: #2563eb;
   --accent-primary: #2563eb;
   --accent-contrast: #ffffff;
-  --accent-subtle: rgba(37, 99, 235, 0.08);
-  --accent-border: rgba(37, 99, 235, 0.3);
-  --accent-glow: rgba(37, 99, 235, 0.25);
+  --accent-subtle: rgba(37, 99, 235, 0.1);
+  --accent-border: rgba(37, 99, 235, 0.32);
+  --accent-glow: rgba(37, 99, 235, 0.22);
 
-  /* Surface & Canvas Tokens (Smoke White) */
   --bg-canvas: #fafafa;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f4f5f7;
   --bg-card: #ffffff;
-  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-obsidian: #0e100f;
+  --bg-obsidian-inner: #161819;
+  --bg-overlay: rgba(15, 23, 42, 0.45);
 
-  /* Structural Border Tokens */
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-medium: rgba(0, 0, 0, 0.14);
-  --border-focus: rgba(0, 0, 0, 0.28);
+  --border-subtle: #e5e7eb;
+  --border-medium: #d1d5db;
+  --border-focus: #9ca3af;
 
-  /* Text & Typography Tokens */
   --text-main: #111827;
   --text-muted: #6b7280;
   --text-tertiary: #9ca3af;
+  --ink-on-obsidian: #f5f5f7;
 
-  /* Pill / Capsule Control Tokens */
   --pill-bg: #f3f4f6;
   --pill-hover: #e5e7eb;
-  --pill-border: rgba(0, 0, 0, 0.1);
+  --pill-border: #e5e7eb;
 
-  /* Header & Navigation Chrome */
-  --header-bg: rgba(250, 250, 250, 0.85);
+  --header-bg: rgba(250, 250, 250, 0.88);
 
-  /* Depth & Elevation Shadows */
-  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-  --shadow-modal: 0 20px 50px rgba(0, 0, 0, 0.12);
-  --shadow-dropdown: 0 12px 28px rgba(0, 0, 0, 0.08);
-  --shadow-tech-btn: 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-tech-active: 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-search-console: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --aura-radiate: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-bento: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(17, 24, 39, 0.04);
+  --shadow-pill: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(17, 24, 39, 0.04);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 28px rgba(17, 24, 39, 0.05);
+  --shadow-modal: 0 20px 50px rgba(15, 23, 42, 0.14);
+  --shadow-dropdown: 0 12px 30px rgba(15, 23, 42, 0.1);
+  --shadow-tech-btn: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(17, 24, 39, 0.04);
+  --shadow-tech-active: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-search-console: 0 8px 28px rgba(17, 24, 39, 0.07), 0 0 0 1px #e5e7eb;
+  --aura-radiate: 0 8px 28px rgba(37, 99, 235, 0.12);
 
-  /* Task FE-POLISH-DAYNIGHT-V3 Day Contrast Refinements */
   --day-border-clean: #e5e7eb;
   --day-text-dark: #1f2937;
   --day-text-body: #4b5563;
@@ -129,3 +133,12 @@ body.theme-day {
   --day-cobalt-dark: #1d4ed8;
   --day-pill-border: #d1d5db;
 }
+
+/* Circular View Transition Reveal (Synced with SI Monitor) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 9999; }
