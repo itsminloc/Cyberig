@@ -76,3 +76,16 @@ export function normalizePhone(phone?: string | null): string {
   if (!phone) return '';
   return phone.replace(/[\s.\-()]/g, '').trim();
 }
+
+/**
+ * Redacts phone numbers and email addresses embedded inside raw POS/dealer text
+ * before sending payloads to external LLM/Gemini AI prompts (Decree 13/2023/ND-CP).
+ */
+export function maskRawTextPii(rawText: string): string {
+  if (!rawText) return '';
+  return rawText
+    .replace(/(?:\+?84|0)[0-9\s.-]{8,12}\b/g, (match) => maskPhone(match.replace(/[\s.-]/g, '')))
+    .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, (match) => maskEmail(match));
+}
+
+export const maskRawPosPii = maskRawTextPii;

@@ -352,3 +352,14 @@ sequenceDiagram
 3. **An toàn đồng thời**: Không phát sinh lỗi Race Condition hoặc bán âm khi kiểm thử đồng thời (Concurrency Test).
 4. **Cô lập kiến trúc**: Chạy ổn định trong môi trường Docker Container và tuân thủ nguyên tắc **Zero Admin Code in Storefront**.
 5. **Giám sát & Tạo tác**: Sinh log có gắn `correlationId` truyền phát tới SSE của SOC Dashboard; cập nhật đầy đủ tệp `review record`.
+
+---
+
+## 8. Tích Hợp SE445 Case Study 1 & Case Study 2 (Omnichannel, EDA & AI POS)
+
+Chi tiết kỹ thuật đầy đủ xem tại [SE445-CASE-STUDY-INTEGRATION.md](./SE445-CASE-STUDY-INTEGRATION.md). Các năng lực tích hợp cốt lõi được hợp nhất vào CyberRig gồm:
+- **Distributed Tracing (`X-Correlation-ID`)**: Gắn tại Nginx (`$request_id`) -> `correlationMiddleware` -> `EventEnvelope` -> Audit Logs & SSE Console.
+- **Canonical Order Adapter (`order.adapter.ts`)**: Chuẩn hóa đơn hàng dị thể B2B/Mobile/POS (`user`, `products`, `product_code`, `qty`, `delivery_addr`, `channel`) sang `CreateOrderDto` dùng chung đường ống Redis Stock Lock.
+- **Dual-Mode Event Bus & Outbox (`event-bus.ts`)**: Topic Exchange `cyberrig.orders`, DLX/DLQ `cyberrig.orders.dlq`, 3x Retry với backoff, Idempotency Guard, 3 subscriber (`order.inventory-sync`, `order.crm-loyalty`, `order.fulfillment-tms`) và Outbox `PENDING_RETRY` khi broker gián đoạn (`503`).
+- **AI POS Mapping & Decree 13 PII Scrubbing (`ai-data-mapper.service.ts`)**: Làm sạch SĐT/email trước AI qua `maskRawTextPii`, Template Cache (`0.99`), Gemini Structured Output (tùy chọn `GEMINI_API_KEY`) và Offline Normalizer khớp SKU thật.
+- **Admin SI Lab — Tab 4 (`Order & AI POS`)**: Điều phối thử nghiệm đa kênh và AI POS hoàn toàn cô lập trong `/admin-monitoring/`, mở rộng `ceo-summary` với `integrationStats`, `aiPosStats` và `slaBenchmark`.

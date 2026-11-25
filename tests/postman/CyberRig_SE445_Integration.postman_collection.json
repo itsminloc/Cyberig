@@ -1,0 +1,77 @@
+{
+  "info": {
+    "name": "CyberRig SE445 System Integration & Security Verification",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "adminToken", "value": "" },
+    { "key": "correlationId", "value": "corr-postman-se445-001" }
+  ],
+  "item": [
+    {
+      "name": "1. Health & X-Correlation-ID Trace",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "X-Correlation-ID", "value": "{{correlationId}}" }],
+        "url": "{{baseUrl}}/healthz"
+      }
+    },
+    {
+      "name": "2. Admin Login (Get JWT)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\"email\":\"admin@cyberrig.vn\",\"password\":\"Admin@CyberRig2026!\"}" },
+        "url": "{{baseUrl}}/api/auth/login"
+      }
+    },
+    {
+      "name": "3. Heterogeneous Order Simulate (Adapter + EDA)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Correlation-ID", "value": "{{correlationId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"channel\":\"PARTNER_B2B_API\",\"user\":{\"name\":\"Partner B2B Tech\",\"phone\":\"0909888777\"},\"products\":[{\"product_code\":\"RTX-4080\",\"qty\":1}],\"delivery_addr\":\"Q1 TP.HCM\"}"
+        },
+        "url": "{{baseUrl}}/api/monitoring/orders/simulate"
+      }
+    },
+    {
+      "name": "4. AI POS Ingestion + Decree 13 PII Masking",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rawText\":\"Khach: Minh Loc SDT 0901234567 Email khach@gmail.com dat 1x RTX 4080\",\"sourceLabel\":\"POSTMAN_POS\"}"
+        },
+        "url": "{{baseUrl}}/api/monitoring/ai-pos/ingest"
+      }
+    },
+    {
+      "name": "5. Event Bus & Outbox State",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/monitoring/integration-state"
+      }
+    },
+    {
+      "name": "6. CEO Executive KPIs & Integration SLA",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/monitoring/ceo-summary"
+      }
+    }
+  ]
+}

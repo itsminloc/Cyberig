@@ -1,0 +1,43 @@
+{
+  "rabbit_version": "3.13.0",
+  "vhosts": [{ "name": "/" }],
+  "exchanges": [
+    { "name": "cyberrig.orders", "vhost": "/", "type": "topic", "durable": true, "auto_delete": false },
+    { "name": "cyberrig.dlx", "vhost": "/", "type": "fanout", "durable": true, "auto_delete": false }
+  ],
+  "queues": [
+    {
+      "name": "order.inventory-sync",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": { "x-dead-letter-exchange": "cyberrig.dlx" }
+    },
+    {
+      "name": "order.crm-loyalty",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": { "x-dead-letter-exchange": "cyberrig.dlx" }
+    },
+    {
+      "name": "order.fulfillment-tms",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": { "x-dead-letter-exchange": "cyberrig.dlx" }
+    },
+    {
+      "name": "cyberrig.orders.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false
+    }
+  ],
+  "bindings": [
+    { "source": "cyberrig.orders", "vhost": "/", "destination": "order.inventory-sync", "destination_type": "queue", "routing_key": "order.created" },
+    { "source": "cyberrig.orders", "vhost": "/", "destination": "order.crm-loyalty", "destination_type": "queue", "routing_key": "order.created" },
+    { "source": "cyberrig.orders", "vhost": "/", "destination": "order.fulfillment-tms", "destination_type": "queue", "routing_key": "order.created" },
+    { "source": "cyberrig.dlx", "vhost": "/", "destination": "cyberrig.orders.dlq", "destination_type": "queue", "routing_key": "" }
+  ]
+}

@@ -27,6 +27,13 @@ export interface AppConfig {
   cors: {
     origin: string;
   };
+  integration: {
+    geminiApiKey: string;
+    geminiModel: string;
+    rabbitmqUrl: string;
+    rabbitmqMgmtUrl: string;
+    rateLimitPerMin: number;
+  };
 }
 
 const INSECURE_DEFAULT_SECRETS = new Set([
@@ -59,6 +66,13 @@ export const config: AppConfig = {
   },
   cors: {
     origin: process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:4000,http://localhost',
+  },
+  integration: {
+    geminiApiKey: process.env.GEMINI_API_KEY || '',
+    geminiModel: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+    rabbitmqUrl: process.env.RABBITMQ_URL || '',
+    rabbitmqMgmtUrl: process.env.RABBITMQ_MGMT_URL || '',
+    rateLimitPerMin: parseInt(process.env.RATE_LIMIT_MAX_PER_MIN || '100', 10),
   },
 };
 

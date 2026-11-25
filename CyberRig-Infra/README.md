@@ -9,11 +9,17 @@ Tài liệu hướng dẫn vận hành hạ tầng Docker, Nginx Gateway và mô
 ```text
 CyberRig-Infra/
 ├── nginx/
-│   └── nginx.conf              # Reverse proxy định tuyến: / -> Frontend, /admin-monitoring -> Admin, /api -> Backend
+│   └── nginx.conf                         # Reverse proxy: X-Correlation-ID, /api/monitoring/stream unbuffered SSE
+├── kong/
+│   └── kong.yml                           # Reference DB-less Kong Gateway (rate-limit, correlation-id, CORS)
+├── rabbitmq/
+│   ├── rabbitmq.conf                      # Broker AMQP + Management definitions bootstrap
+│   └── definitions.json                   # Exchange cyberrig.orders, DLX cyberrig.dlx & cyberrig.orders.dlq
 ├── docker/
-│   ├── docker-compose.prod.yml # Stack 4 containers Production
-│   ├── docker-compose.dev.yml  # Stack PostgreSQL & Redis môi trường phát triển
-│   └── .env.example            # Biến môi trường mẫu
+│   ├── docker-compose.prod.yml            # Stack 4 containers Production
+│   ├── docker-compose.dev.yml             # Stack PostgreSQL & Redis môi trường phát triển
+│   ├── docker-compose.integration.yml     # Overlay SE445 RabbitMQ 3.13 + Kong 3.6
+│   └── .env.example                       # Biến môi trường mẫu
 └── README.md
 ```
 

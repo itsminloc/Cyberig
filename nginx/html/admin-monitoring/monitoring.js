@@ -41,6 +41,7 @@
     const map = {
       REALTIME: ['tabRealtime', 'sectionRealtime'],
       SCENARIO: ['tabScenario', 'sectionScenario'],
+      SIMULATOR: ['tabSimulator', 'sectionSimulator'],
       CEO: ['tabCeo', 'sectionCeo'],
     };
     Object.values(map).forEach(([tabId, secId]) => {
@@ -51,6 +52,7 @@
     document.getElementById(activeTab)?.classList.add('is-active');
     document.getElementById(activeSec)?.classList.add('is-visible');
     if (target === 'CEO') window.cyberigRefreshCeoDashboard?.();
+    if (target === 'SIMULATOR') window.cyberigRefreshSimulator?.();
   }
 
   function renderContainers(containers) {
@@ -169,6 +171,7 @@
 
   document.getElementById('tabRealtime')?.addEventListener('click', () => switchTab('REALTIME'));
   document.getElementById('tabScenario')?.addEventListener('click', () => switchTab('SCENARIO'));
+  document.getElementById('tabSimulator')?.addEventListener('click', () => switchTab('SIMULATOR'));
   document.getElementById('tabCeo')?.addEventListener('click', () => switchTab('CEO'));
   document.getElementById('btnGoScenario3')?.addEventListener('click', () => switchTab('SCENARIO'));
   document.getElementById('btnThemeToggle')?.addEventListener('click', (e) => window.cyberigUi.toggleTheme(e));

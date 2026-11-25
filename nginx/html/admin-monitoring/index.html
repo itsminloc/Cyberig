@@ -24,6 +24,7 @@
       <nav class="nav-pill-bar" aria-label="Primary Navigation">
         <button type="button" class="nav-tab is-active" id="tabRealtime">Studio · SI Mesh</button>
         <button type="button" class="nav-tab" id="tabScenario">Scenarios <span class="nav-tab-badge">6</span></button>
+        <button type="button" class="nav-tab" id="tabSimulator">Order &amp; AI POS</button>
         <button type="button" class="nav-tab" id="tabCeo">Reports · CEO <span class="nav-tab-badge" id="dlqNavBadge">0</span></button>
       </nav>
 
@@ -126,6 +127,7 @@
                 <option value="SCENARIO">SCENARIO TEST</option>
                 <option value="HEALTH">CONTAINER HEALTH</option>
                 <option value="SECURITY">SECURITY / RATE LIMIT</option>
+                <option value="AI">AI DATA MAPPER</option>
               </select>
               <button type="button" class="btn-pill-ghost" style="padding:4px 10px;font-size:11px;" id="btnClearLogs">Clear Console</button>
             </div>
@@ -154,6 +156,17 @@
         </div>
       </div>
       <div class="grid-3" id="scenarioGrid"></div>
+    </section>
+
+    <!-- VIEW 4: OMNICHANNEL ORDER & AI POS SIMULATOR (SE445 CASE STUDY 1 & 2) -->
+    <section class="view-section" id="sectionSimulator">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Order &amp; AI POS Simulator</h1>
+          <p class="page-subtitle">Canonical Adapter · X-Correlation-ID Tracing · EventBus Outbox &amp; Decree 13 PII Redaction Engine</p>
+        </div>
+      </div>
+      <div id="simulatorRoot"></div>
     </section>
 
     <!-- VIEW 3: REPORTS · CEO EXECUTIVE DASHBOARD -->
@@ -268,6 +281,7 @@
   <script src="/admin-monitoring/charts-and-theme.js"></script>
   <script src="/admin-monitoring/ceo-dashboard.js"></script>
   <script src="/admin-monitoring/monitoring-lab.js"></script>
+  <script src="/admin-monitoring/monitoring-simulator.js"></script>
   <script src="/admin-monitoring/monitoring.js"></script>
 </body>
 </html>

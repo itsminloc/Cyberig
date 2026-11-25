@@ -1,0 +1,50 @@
+_format_version: "3.0"
+_transform: true
+
+# Kong DB-less Declarative API Gateway Reference Topology (SE445 Case Study 01 & 02)
+services:
+  - name: cyberrig-core-api
+    url: http://app:3000
+    routes:
+      - name: cyberrig-orders-route
+        paths:
+          - /api/orders
+        strip_path: false
+      - name: cyberrig-hardware-route
+        paths:
+          - /api/hardware
+        strip_path: false
+      - name: cyberrig-monitoring-route
+        paths:
+          - /api/monitoring
+        strip_path: false
+      - name: cyberrig-auth-route
+        paths:
+          - /api/auth
+        strip_path: false
+      - name: cyberrig-health-route
+        paths:
+          - /healthz
+        strip_path: false
+
+plugins:
+  - name: correlation-id
+    config:
+      header_name: X-Correlation-ID
+      generator: uuid#counter
+      echo_downstream: true
+  - name: rate-limiting
+    config:
+      minute: 120
+      policy: local
+      fault_tolerant: true
+      hide_client_headers: false
+  - name: cors
+    config:
+      origins:
+        - "http://localhost:4000"
+        - "http://localhost:3000"
+      methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
+      headers: ["Content-Type", "Authorization", "X-Correlation-ID", "X-Request-ID"]
+      exposed_headers: ["X-Correlation-ID", "RateLimit-Limit", "RateLimit-Remaining", "Retry-After"]
+      credentials: true

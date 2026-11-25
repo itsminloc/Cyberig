@@ -8,20 +8,15 @@ import { Request, Response, NextFunction } from 'express';
 import { config } from '../../core/config';
 import { ForbiddenError, UnauthorizedError } from '../../core/errors/domain.error';
 import {
-  auditLogService,
-  maskAddress,
-  maskEmail,
-  maskFullName,
-  maskPhone,
-  normalizePhone,
-  sanitizeTextInput,
-  verifyWebhookSignature,
-  WEBHOOK_SIGNATURE_HEADER,
-  WEBHOOK_TIMESTAMP_HEADER,
+  auditLogService, maskAddress, maskEmail, maskFullName, maskPhone,
+  normalizePhone, verifyWebhookSignature, WEBHOOK_SIGNATURE_HEADER, WEBHOOK_TIMESTAMP_HEADER,
 } from '../../core/security';
 import { resolveClientIp } from '../../core/middlewares/rate-limiter.middleware';
 import { orderService, OrderService } from './order.service';
 import { CreateOrderDto, OrderDetail } from './order.model';
+import { normalizeCreateOrderPayload } from './order.adapter';
+import { dispatchOrderPlacedEvent } from './order-events.subscriber';
+import { telemetryService } from '../monitoring/telemetry.service';
 
 export class OrderController {
   constructor(private readonly service: OrderService = orderService) {}
@@ -111,21 +106,39 @@ export class OrderController {
    */
   createOrder = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const dto: CreateOrderDto = {
-        customerId: req.user?.userId || null,
-        customerName: sanitizeTextInput(req.body.customerName, 150),
-        customerEmail: sanitizeTextInput(req.body.customerEmail, 150),
-        customerPhone: sanitizeTextInput(req.body.customerPhone, 30),
-        shippingAddress: sanitizeTextInput(req.body.shippingAddress, 300),
-        items: req.body.items,
-      };
+      const adapted = normalizeCreateOrderPayload(
+        (req.body || {}) as Record<string, unknown>,
+        req.user?.userId || null
+      );
+      const orderDetail = await this.service.createOrder(adapted.dto);
+      const correlationId = req.correlationId || `corr-${orderDetail.id.slice(0, 8)}`;
 
-      const orderDetail = await this.service.createOrder(dto);
+      try {
+        await dispatchOrderPlacedEvent({
+          order: orderDetail,
+          correlationId,
+          sourceChannel: adapted.sourceChannel,
+          simulateTmsFailure: adapted.simulateFulfillmentFailure,
+        });
+      } catch (busErr) {
+        telemetryService.emitLog(
+          'BROKER',
+          'WARN',
+          'OrderController',
+          `Event dispatch deferred to Outbox for ${orderDetail.id}: ${busErr instanceof Error ? busErr.message : 'Broker unavailable'}`,
+          { correlationId, orderId: orderDetail.id }
+        );
+      }
 
       res.status(201).json({
         success: true,
         message: 'Tạo đơn hàng và khóa tạm tồn kho thành công.',
         data: orderDetail,
+        meta: {
+          correlationId,
+          sourceChannel: adapted.sourceChannel,
+          normalizedFromFormat: adapted.normalizedFromFormat,
+        },
       });
     } catch (err) {
       next(err);
@@ -210,22 +223,15 @@ export class OrderController {
     }
   };
 
-  /**
-   * POST /api/orders/:id/simulate-payment
-   * Development/Demo sandbox helper for VietQR UI testing (strictly disabled in production).
-   */
   simulatePayment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       if (config.env === 'production') {
         throw new ForbiddenError('Tính năng giả lập thanh toán đã bị vô hiệu hóa ở môi trường Production.');
       }
-
       const orderId = String(req.params.id);
       const orderDetail = await this.service.getOrderById(orderId);
       await this.assertOrderAccess(req, orderDetail, 'SIMULATE');
-
       await this.service.confirmOrder(orderId);
-
       await auditLogService.record({
         eventType: 'ORDER_CONFIRMED',
         severity: 'INFO',
@@ -237,27 +243,18 @@ export class OrderController {
         resourceId: orderId,
         message: `Xác nhận thanh toán giả lập (Dev Demo) cho đơn hàng [${orderId}].`,
       });
-
-      res.status(200).json({
-        success: true,
-        message: 'Giả lập xác nhận thanh toán VietQR thành công.',
-      });
+      res.status(200).json({ success: true, message: 'Giả lập xác nhận thanh toán VietQR thành công.' });
     } catch (err) {
       next(err);
     }
   };
 
-  /**
-   * POST /api/orders/:id/cancel (Anti-IDOR protected)
-   */
   cancelOrder = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const orderId = String(req.params.id);
       const orderDetail = await this.service.getOrderById(orderId);
       await this.assertOrderAccess(req, orderDetail, 'CANCEL');
-
       await this.service.cancelOrder(orderId);
-
       await auditLogService.record({
         eventType: 'ORDER_CANCELLED',
         severity: 'INFO',
@@ -269,11 +266,7 @@ export class OrderController {
         resourceId: orderId,
         message: `Hủy đơn hàng [${orderId}] và giải phóng khóa tồn kho Redis.`,
       });
-
-      res.status(200).json({
-        success: true,
-        message: 'Hủy đơn hàng và giải phóng giữ chỗ tồn kho thành công.',
-      });
+      res.status(200).json({ success: true, message: 'Hủy đơn hàng và giải phóng giữ chỗ tồn kho thành công.' });
     } catch (err) {
       next(err);
     }

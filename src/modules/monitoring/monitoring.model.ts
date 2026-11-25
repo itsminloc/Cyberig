@@ -79,7 +79,7 @@ export interface ScenarioExecutionResult {
 }
 
 export type LogLevel = 'INFO' | 'WARN' | 'ERROR' | 'SUCCESS' | 'DEBUG';
-export type LogChannel = 'ALL' | 'BROKER' | 'DLQ' | 'SCENARIO' | 'HEALTH' | 'SECURITY';
+export type LogChannel = 'ALL' | 'BROKER' | 'DLQ' | 'SCENARIO' | 'HEALTH' | 'SECURITY' | 'AI';
 
 export interface LogEvent {
   id: string;

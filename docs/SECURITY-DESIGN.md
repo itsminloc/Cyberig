@@ -100,9 +100,10 @@ Kiến trúc bảo mật của CyberRig được thiết kế theo 4 nguyên t�
 3. **Giai đoạn 3 — Vận hành SecOps & Tuân thủ `[HOÀN THÀNH]`:**
    - **MFA / 2FA TOTP (RFC 6238):** [`totp.util.ts`](../src/core/security/totp.util.ts), [`mfa.service.ts`](../src/modules/auth/mfa.service.ts), API `/api/auth/2fa/setup`, `/verify`, `/disable` (tương thích Google Authenticator, 0đ).
    - **Audit Log bất biến & SOC Alert:** [`audit-log.service.ts`](../src/core/security/audit-log.service.ts), bảng `audit_logs` trong [`seed.ts`](../src/core/seed.ts), tra cứu qua `GET /api/monitoring/audit-logs`.
-   - **PII Masking (Nghị định 13/2023/NĐ-CP):** [`pii-mask.util.ts`](../src/core/security/pii-mask.util.ts), áp dụng tại [`ticket.controller.ts`](../src/modules/repair-tickets/ticket.controller.ts) và [`order.controller.ts`](../src/modules/orders/order.controller.ts).
+   - **PII Masking (Nghị định 13/2023/NĐ-CP):** [`pii-mask.util.ts`](../src/core/security/pii-mask.util.ts) (`maskPhone`, `maskEmail`, `maskRawTextPii` / `maskRawPosPii`), áp dụng tại [`ticket.controller.ts`](../src/modules/repair-tickets/ticket.controller.ts), [`order.controller.ts`](../src/modules/orders/order.controller.ts) và trước khi đưa prompt POS thô qua [`ai-data-mapper.service.ts`](../src/modules/monitoring/ai-data-mapper.service.ts).
+   - **ADMIN RBAC cho SE445 Simulator & Integration Mesh:** Toàn bộ endpoint `/api/monitoring/integration-state`, `/api/monitoring/orders/simulate`, `/api/monitoring/ai-pos/ingest`, `/api/monitoring/integration-broker` đi qua `authenticateToken + requireRoles('ADMIN')` và ghi immutable `audit_logs` với `X-Correlation-ID`.
    - **DevSecOps CI/CD miễn phí:** [`.github/workflows/security-scan.yml`](../.github/workflows/security-scan.yml) (`tsc --noEmit`, `npm test`, `npm audit`, Gitleaks, Semgrep OSS, Trivy).
-   - **Bộ kiểm thử bảo mật tự động:** [`security-hardening.spec.ts`](../src/core/security/security-hardening.spec.ts) (`SEC-01` → `SEC-10`: **10/10 PASS**).
+   - **Bộ kiểm thử bảo mật & tích hợp tự động:** [`security-hardening.spec.ts`](../src/core/security/security-hardening.spec.ts) (`SEC-01` → `SEC-10`), [`event-bus.spec.ts`](../src/core/events/event-bus.spec.ts) và [`se445-integration.spec.ts`](../src/modules/monitoring/se445-integration.spec.ts).
 
 ### 4.2. Phân Tích Chi Phí Triển Khai (0đ Open Source vs Tùy Chọn Thương Mại)
 

@@ -64,7 +64,8 @@
     document.getElementById('ceoPendingOrders').textContent = String(d.kpis.pendingOrders);
     document.getElementById('ceoInventoryValue').textContent = `${d.kpis.activeHardwareSkus} SKUs · ${Math.round(d.kpis.totalInventoryValueVnd / 1_000_000)}M₫ stock`;
     document.getElementById('ceoRepairTotal').textContent = `${d.kpis.repairTicketsTotal} tickets (${d.kpis.repairCompletedCount} done)`;
-    document.getElementById('ceoDlqSaved').textContent = `${d.kpis.dlqProtectedCount} DLQ protected · P95 ${d.kpis.p95LatencyMs}ms`;
+    const slaNote = d.slaBenchmark?.eventDrivenVsPollingLatencyReduction ? ` · ${d.slaBenchmark.eventDrivenVsPollingLatencyReduction}` : '';
+    document.getElementById('ceoDlqSaved').textContent = `${d.kpis.dlqProtectedCount} DLQ protected · P95 ${d.kpis.p95LatencyMs}ms${slaNote}`;
 
     document.getElementById('ceoChannelBody').innerHTML = (d.revenueChannels || [])
       .map((ch) => `<tr>

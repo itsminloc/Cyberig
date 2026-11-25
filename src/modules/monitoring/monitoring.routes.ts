@@ -7,6 +7,7 @@
 import { Router } from 'express';
 import { authenticateToken, requireRoles } from '../../core/middlewares/auth.middleware';
 import { monitoringController } from './monitoring.controller';
+import { monitoringIntegrationController } from './monitoring-integration.controller';
 
 export const monitoringRouter: Router = Router();
 
@@ -41,5 +42,19 @@ monitoringRouter.get('/audit-logs', (req, res, next) => monitoringController.get
 
 // 8. CEO Executive Revenue, Stock & Repair SLA Summary
 monitoringRouter.get('/ceo-summary', (req, res, next) => monitoringController.getCeoSummary(req, res, next));
+
+// 9. SE445 Case Study 1 & 2 Integration State, Omnichannel Simulator & AI POS Engine
+monitoringRouter.get('/integration-state', (req, res) =>
+  monitoringIntegrationController.getIntegrationState(req, res)
+);
+monitoringRouter.post('/orders/simulate', (req, res, next) =>
+  monitoringIntegrationController.simulateOmnichannelOrder(req, res, next)
+);
+monitoringRouter.post('/ai-pos/ingest', (req, res, next) =>
+  monitoringIntegrationController.ingestAiPos(req, res, next)
+);
+monitoringRouter.post('/integration-broker', (req, res) =>
+  monitoringIntegrationController.toggleBrokerState(req, res)
+);
 
 export default monitoringRouter;

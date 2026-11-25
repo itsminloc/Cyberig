@@ -8,6 +8,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import { config, validateProductionSecurityConfig } from './core/config';
+import { correlationMiddleware } from './core/middlewares/correlation.middleware';
 import { errorHandler } from './core/middlewares/error-handler.middleware';
 import { compatibilityRouter } from './modules/compatibility/compatibility.routes';
 import { ticketRouter } from './modules/repair-tickets/ticket.routes';
@@ -18,15 +19,18 @@ import { authRouter } from './modules/auth/auth.routes';
 import { customerRouter } from './modules/customer/customer.routes';
 import { adminRouter } from './modules/admin/admin.routes';
 import { monitoringRouter } from './modules/monitoring/monitoring.routes';
+import { registerOrderEventSubscribers } from './modules/orders/order-events.subscriber';
 
 // 0. Fail-Fast Security Config Invariant Check (Production)
 validateProductionSecurityConfig(config);
+registerOrderEventSubscribers();
 
 export const app: Express = express();
 
-// 1. Trust Reverse Proxy (Nginx Edge = 1 hop) & API Hardening Headers
+// 1. Distributed Tracing (X-Correlation-ID), Reverse Proxy & Security Headers
 app.set('trust proxy', config.security.trustProxyHops);
 app.disable('x-powered-by');
+app.use(correlationMiddleware);
 
 app.use((req: Request, res: Response, next) => {
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -66,11 +70,14 @@ app.use(
       'Authorization',
       'Accept',
       'X-Requested-With',
+      'X-Correlation-ID',
+      'X-Request-ID',
       'x-forwarded-for',
       'x-cyberrig-signature',
       'x-cyberrig-timestamp',
       'x-order-phone',
     ],
+    exposedHeaders: ['X-Correlation-ID', 'RateLimit-Limit', 'RateLimit-Remaining', 'Retry-After'],
     credentials: true,
   })
 );
