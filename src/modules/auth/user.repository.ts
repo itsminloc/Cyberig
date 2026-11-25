@@ -25,7 +25,7 @@ export const DEMO_SEED_USERS: User[] = [
   {
     id: '11111111-2222-3333-4444-555555555555',
     email: 'customer@cyberig.vn',
-    passwordHash: '$2b$10$YVq09L7wSFsOqX/uzOlZ8u/YCnXWVOrZV3kKdhjmFn5XozbvrAX/q', // Customer@Password123
+    passwordHash: '$2b$10$FKUu1etM4HRWLTje2lyXZOgYSvn1mTkA6KwvJDfuovcjFUD77f0Na', // Customer@Password123
     role: 'CUSTOMER',
     fullName: 'Nguyễn Văn Khách',
     phone: '0900000003',
@@ -36,7 +36,7 @@ export const DEMO_SEED_USERS: User[] = [
   {
     id: '22222222-3333-4444-5555-666666666666',
     email: 'tech@cyberig.vn',
-    passwordHash: '$2b$10$ZnWfHMQo45KJCH5mdZpeAe/D8yNNsDwKStmHxnwQvY8yBWD8cFXYe', // Tech@Password123
+    passwordHash: '$2b$10$xYMN1eOTkLnOmYzSg7ZKt.GsIHU1sb.oQ4Rn9t4gKHYWYB.xKuU/.', // Tech@Password123
     role: 'TECHNICIAN',
     fullName: 'Kỹ Thuật Viên Tuấn',
     phone: '0900000002',
@@ -47,7 +47,7 @@ export const DEMO_SEED_USERS: User[] = [
   {
     id: '33333333-4444-5555-6666-777777777777',
     email: 'admin@cyberig.vn',
-    passwordHash: '$2b$10$XBzwt1Nfpp/9BOfe4EaeSeLePQwNbF90p/bIf2ZTRS5Q/2LV73txa', // Admin@Password123
+    passwordHash: '$2b$10$6AjBtoiUajFDlQltWAWF9Of1QKd4VnkFRLjMxzk5qkNfyOUZqJdvq', // Admin@Password123
     role: 'ADMIN',
     fullName: 'Quản Trị Viên CyberRig',
     phone: '0900000001',

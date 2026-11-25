@@ -67,8 +67,11 @@ services:
       APP_NAME: CyberRig Production API
       DATABASE_URL: postgresql://cyberrig_user:${POSTGRES_PASSWORD:-cyberrig_prod_secure_pass}@postgres:5432/cyberrig_db?schema=public
       REDIS_URL: redis://:${REDIS_PASSWORD:-cyberrig_prod_redis_pass}@redis:6379
-      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-*}
-      CORS_ORIGIN: "*"
+      ALLOWED_ORIGINS: ${PROD_ALLOWED_ORIGINS:-http://localhost,http://localhost:80,http://localhost:3000,http://localhost:4000}
+      CORS_ORIGIN: ${PROD_CORS_ORIGIN:-http://localhost,http://localhost:80,http://localhost:3000,http://localhost:4000}
+      JWT_SECRET: ${PROD_JWT_SECRET:-cyberrig_prod_jwt_access_secret_key_2026_v1_secure}
+      JWT_REFRESH_SECRET: ${PROD_JWT_REFRESH_SECRET:-cyberrig_prod_jwt_refresh_secret_key_2026_v1_secure}
+      WEBHOOK_SECRET: ${PROD_WEBHOOK_SECRET:-cyberrig_prod_webhook_hmac_sha256_secret_2026_secure}
     depends_on:
       postgres:
         condition: service_healthy
