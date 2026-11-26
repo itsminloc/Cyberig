@@ -3,8 +3,8 @@
  * 100% Icon-Free, Pure Typographic & Sharp Industrial Design Engine
  */
 import { ACCESS_KEY, USER_KEY, formatVND, formatDate } from '../config.js';
-import { authModal, modalAlert } from './modals.js';
 import { navigateTo } from '../router.js';
+import { requireLoginModal } from '../ui-feedback.js';
 
 const dashSkeleton = document.getElementById('dash-skeleton');
 const dashContentRoot = document.getElementById('dash-content-root');
@@ -114,6 +114,14 @@ export function initDashboard() {
 }
 
 export function openTicketModal(prefill = {}) {
+  const token = localStorage.getItem(ACCESS_KEY);
+  if (!token) {
+    requireLoginModal({
+      reason: 'Vui lòng đăng nhập tài khoản để tạo phiếu bảo hành / sửa chữa và theo dõi tiến độ thiết bị trực tuyến.',
+      redirectUrl: window.location.pathname + window.location.search,
+    });
+    return;
+  }
   if (!ticketModal) return;
 
   // Reset form and state
@@ -239,15 +247,12 @@ export async function loadCustomerDashboard() {
   } catch (e) {}
 
   if (!token || !user) {
-    if (dashSkeleton) dashSkeleton.style.display = 'block';
+    if (dashSkeleton) dashSkeleton.style.display = 'none';
     if (dashContentRoot) dashContentRoot.style.display = 'none';
-    if (authModal) {
-      authModal.classList.add('is-active');
-      if (modalAlert) {
-        modalAlert.className = 'alert-banner is-error';
-        modalAlert.textContent = 'Vui lòng đăng nhập tài khoản khách hàng để truy cập Dàn máy của tôi!';
-      }
-    }
+    requireLoginModal({
+      reason: 'Vui lòng đăng nhập tài khoản khách hàng để xem đơn hàng và thiết bị của bạn.',
+      redirectUrl: '#dashboard',
+    });
     return;
   }
 

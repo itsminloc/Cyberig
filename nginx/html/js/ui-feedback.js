@@ -1,11 +1,13 @@
 /**
- * CyberRig Studio UI Feedback Engine
- * Provides synchronized Floating Pill Toast & Animated Session Logout Transition
- * matching the CyberRig Studio SI Monitor experience.
+ * CyberRig Studio UI Feedback & Auth Gate Helper
+ * Provides non-blocking Floating Pill Toast, Login-Required Prompt Modal,
+ * and Instant Zero-Wait Session Logout.
  */
+import { authModal, setAuthMode, inputEmail } from './components/modals.js';
 
 let toastTimer = null;
-let isSigningOut = false;
+let pendingPostLoginRedirect = null;
+let authReqInitialized = false;
 
 export function showStorefrontToast(text, options = {}) {
   const toast = document.getElementById('storefrontToast');
@@ -18,8 +20,9 @@ export function showStorefrontToast(text, options = {}) {
   btnEl.textContent = options.actionLabel || 'Đóng';
 
   if (dotEl) {
-    dotEl.style.background = options.tone === 'warn' ? '#f59e0b' : 'var(--accent-primary)';
-    dotEl.style.boxShadow = options.tone === 'warn' ? '0 0 8px #f59e0b' : '0 0 8px var(--accent-primary)';
+    const color = options.tone === 'warn' ? '#f59e0b' : options.tone === 'error' ? '#ef4444' : 'var(--accent-primary)';
+    dotEl.style.background = color;
+    dotEl.style.boxShadow = `0 0 8px ${color}`;
   }
 
   btnEl.onclick = () => {
@@ -31,73 +34,81 @@ export function showStorefrontToast(text, options = {}) {
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     toast.classList.remove('is-visible');
-  }, options.durationMs || 4200);
+  }, options.durationMs || 3800);
 }
 
-function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+function ensureAuthRequiredListeners() {
+  if (authReqInitialized) return;
+  authReqInitialized = true;
 
-export async function playLogoutEffect({ userName, revokeSession, finalizeState, onReopenLogin }) {
-  if (isSigningOut) return;
-  isSigningOut = true;
+  const modal = document.getElementById('auth-required-modal');
+  const closeBtn = document.getElementById('auth-req-close-btn');
+  const cancelBtn = document.getElementById('auth-req-cancel-btn');
+  const loginBtn = document.getElementById('auth-req-login-btn');
+  const registerBtn = document.getElementById('auth-req-register-btn');
 
-  const veil = document.getElementById('logoutTransitionVeil');
-  const bar = document.getElementById('logoutProgressBar');
-  const titleEl = document.getElementById('logoutTransitionTitle');
-  const subEl = document.getElementById('logoutTransitionSub');
-  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const closePrompt = () => modal?.classList.remove('is-active');
 
-  if (titleEl) titleEl.textContent = 'Đang kết thúc phiên làm việc...';
-  if (subEl) subEl.textContent = 'Thu hồi khóa xác thực và bảo vệ dữ liệu tài khoản của bạn';
-  if (bar) bar.style.width = '0%';
-
-  document.body.classList.add('is-signing-out');
-  if (veil) {
-    veil.classList.add('is-active');
-    veil.setAttribute('aria-hidden', 'false');
-  }
-
-  requestAnimationFrame(() => {
-    if (bar) bar.style.width = '78%';
+  closeBtn?.addEventListener('click', closePrompt);
+  cancelBtn?.addEventListener('click', closePrompt);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closePrompt();
   });
 
-  const minAnimPromise = wait(reducedMotion ? 80 : 380);
-  try {
-    await Promise.all([
-      Promise.resolve(revokeSession?.()).catch(() => {}),
-      minAnimPromise,
-    ]);
-  } finally {
-    if (bar) bar.style.width = '100%';
-    if (titleEl) titleEl.textContent = 'Đã đăng xuất an toàn';
+  loginBtn?.addEventListener('click', () => {
+    closePrompt();
+    setAuthMode('login');
+    authModal?.classList.add('is-active');
+    setTimeout(() => {
+      inputEmail?.removeAttribute('readonly');
+      inputEmail?.focus();
+    }, 40);
+  });
 
-    if (document.startViewTransition && !reducedMotion) {
-      try {
-        await document.startViewTransition(() => {
-          finalizeState?.();
-        }).finished;
-      } catch (_e) {
-        finalizeState?.();
-      }
-    } else {
-      finalizeState?.();
-    }
+  registerBtn?.addEventListener('click', () => {
+    closePrompt();
+    setAuthMode('register');
+    authModal?.classList.add('is-active');
+    setTimeout(() => {
+      document.getElementById('input-fullname')?.focus();
+    }, 40);
+  });
+}
 
-    await wait(reducedMotion ? 40 : 160);
-    document.body.classList.remove('is-signing-out');
-    if (veil) {
-      veil.classList.remove('is-active');
-      veil.setAttribute('aria-hidden', 'true');
-    }
-    if (bar) bar.style.width = '0%';
+export function requireLoginModal({ reason, redirectUrl } = {}) {
+  ensureAuthRequiredListeners();
+  pendingPostLoginRedirect = redirectUrl || null;
 
-    const labelName = userName ? ` (${userName})` : '';
-    showStorefrontToast(`✓ Đã đăng xuất phiên làm việc an toàn${labelName}`, {
-      actionLabel: onReopenLogin ? 'Đăng nhập lại' : 'Đóng',
-      onAction: onReopenLogin,
-      durationMs: 4600,
-    });
-    isSigningOut = false;
+  const modal = document.getElementById('auth-required-modal');
+  const msgEl = document.getElementById('auth-req-message');
+  if (msgEl) {
+    msgEl.textContent =
+      reason ||
+      'Bạn cần đăng nhập tài khoản thành viên CyberRig để tiếp tục thực hiện chức năng này và lưu quyền lợi bảo hành điện tử.';
   }
+  if (modal) {
+    modal.classList.add('is-active');
+  } else {
+    setAuthMode('login');
+    authModal?.classList.add('is-active');
+  }
+}
+
+export function consumePostLoginRedirect() {
+  const next = pendingPostLoginRedirect;
+  pendingPostLoginRedirect = null;
+  return next;
+}
+
+export function instantLogout({ token, finalizeState }) {
+  if (token) {
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      keepalive: true,
+      credentials: 'same-origin',
+      headers: { Authorization: 'Bearer ' + token },
+    }).catch(() => {});
+  }
+  finalizeState?.();
+  showStorefrontToast('✓ Đã đăng xuất tài khoản', { durationMs: 2600 });
 }

@@ -171,20 +171,52 @@ export class HardwareService {
   }
 
   /**
-   * Retrieves a single hardware item by ID.
+   * Retrieves a single hardware item by UUID, model code, or storefront slug.
    * Throws EntityNotFoundError if item does not exist.
    */
   async getHardwareById(id: string): Promise<HardwareItem> {
-    const rows = await this.safeQuery<HardwareItemRow>(
-      `SELECT * FROM hardware_items WHERE id = $1 LIMIT 1;`,
-      [id]
-    );
+    const cleanId = String(id || '').trim();
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanId);
 
-    if (!rows || rows.length === 0) {
-      throw new EntityNotFoundError('Không tìm thấy linh kiện với mã ID: ' + id);
+    if (isUuid) {
+      const rows = await this.safeQuery<HardwareItemRow>(
+        `SELECT * FROM hardware_items WHERE id = $1 LIMIT 1;`,
+        [cleanId]
+      );
+      if (rows && rows.length > 0) {
+        return toDomainHardwareItem(rows[0]);
+      }
+    } else if (cleanId) {
+      // 1. Exact Storefront / Fixture slug match preserves canonical slug ID & Redis lock key
+      const fixtureMatch = this.fallbackRepo.findById(cleanId);
+      if (fixtureMatch) {
+        return toDomainHardwareItem(fixtureMatch);
+      }
+
+      // 2. Manufacturer SKU / Model code lookup (in-memory fixture or connected PostgreSQL)
+      const fallbackByModel = this.fallbackRepo
+        .query<HardwareItemRow>('SELECT * FROM hardware_items', [])
+        .find((row) => row.model.toLowerCase() === cleanId.toLowerCase());
+      if (fallbackByModel) {
+        return toDomainHardwareItem(fallbackByModel);
+      }
+
+      if (this.dbClient.isConnected()) {
+        try {
+          const byModelRows = await this.dbClient.query<HardwareItemRow>(
+            `SELECT * FROM hardware_items WHERE LOWER(model) = LOWER($1) LIMIT 1;`,
+            [cleanId]
+          );
+          if (byModelRows && byModelRows.length > 0) {
+            return toDomainHardwareItem(byModelRows[0]);
+          }
+        } catch {
+          // Ignore DB lookup errors and fall through to EntityNotFoundError
+        }
+      }
     }
 
-    return toDomainHardwareItem(rows[0]);
+    throw new EntityNotFoundError('Không tìm thấy linh kiện với mã ID: ' + id);
   }
 
   /**

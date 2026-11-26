@@ -32,6 +32,8 @@ Tuân thủ nguyên lý `outer_radius = inner_radius + padding`:
 
 - **Tactile Press**: Mọi nút tương tác phản hồi nhấn `transform: scale(0.96)` với đường cong `cubic-bezier(0.2, 0, 0, 1)`, tôn trọng `prefers-reduced-motion: reduce`.
 - **Song ngữ tức thì (`VIE / ENG`)**: Trang SI Monitor hỗ trợ chuyển đổi toàn diện Tiếng Việt ↔ Tiếng Anh qua `i18n-vi.js` lưu trạng thái vào `localStorage`.
-- **Chuẩn hóa Production Auth & Logout**:
+- **Chuẩn hóa Production Auth, Login Gate & Instant Logout**:
   - Tuyệt đối không hiển thị nút tự điền tài khoản mẫu hay gợi ý tên tài khoản thật trong `placeholder`; chặn trình duyệt tự điền trước cho đến khi người dùng chủ động nhấn vào ô nhập.
-  - Khi bấm **Đăng Xuất**, kích hoạt lớp chuyển cảnh `.logout-transition-veil` thu hồi phiên JWT an toàn và hiển thị thông báo xác nhận dạng viên nang ở cạnh dưới màn hình.
+  - Khi người dùng chưa đăng nhập thao tác mua hàng, chốt cấu hình, tạo phiếu bảo hành hoặc mở trang cá nhân, hiển thị hộp thoại Studio Bento **`#auth-required-modal` ("Vui Lòng Đăng Nhập")** thay thế hoàn toàn `window.alert()`, tự động lưu `redirectUrl` để tiếp tục luồng sau khi xác thực.
+  - Sau khi khách hàng (`CUSTOMER`) đăng nhập thành công, hệ thống điều hướng thẳng tới trang thương mại **`/hardware`** thiết kế theo chuẩn bán lẻ điện máy hiện đại (Top Deal Strip, Dual Spotlight Promo Banners, lưới 9 ô *"Danh mục nổi bật"*, bộ lọc Hãng & Giá, huy hiệu giảm giá `-%` / `Trả góp 0%`).
+  - Khi bấm **Đăng Xuất**, không hiển thị hộp thoại chặn giữa màn hình: hệ thống xóa phiên cục bộ, điều hướng ra trang chủ tức thì (`0ms` UI wait), đồng thời gửi yêu cầu thu hồi JWT (`keepalive: true`) ngầm dưới nền và hiển thị thông báo viên nang ngắn gọn ở cạnh dưới.

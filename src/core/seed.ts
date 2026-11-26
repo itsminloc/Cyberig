@@ -272,9 +272,9 @@ async function seedUsers(): Promise<void> {
       'SELECT id FROM users WHERE email = $1',
       [u.email]
     );
+    const hash = await hashPassword(u.password);
 
     if (existing.length === 0) {
-      const hash = await hashPassword(u.password);
       await db.query(
         `INSERT INTO users (email, password_hash, role, full_name, phone, is_active)
          VALUES ($1, $2, $3, $4, $5, TRUE)`,
@@ -282,7 +282,11 @@ async function seedUsers(): Promise<void> {
       );
       console.log(`  + Seeded User [${u.role}]: ${u.email}`);
     } else {
-      console.log(`  = Already exists User [${u.role}]: ${u.email}`);
+      await db.query(
+        `UPDATE users SET password_hash = $1, is_active = TRUE WHERE email = $2`,
+        [hash, u.email]
+      );
+      console.log(`  = Refreshed User [${u.role}]: ${u.email}`);
     }
   }
 }

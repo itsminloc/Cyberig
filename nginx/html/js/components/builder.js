@@ -3,7 +3,9 @@
  * Manages configuration state, preset loading, live compatibility evaluation, and slot interactions.
  * Professional Architectural High-Tech Design (Icon-free, Precision Typography)
  */
+import { ACCESS_KEY } from '../config.js';
 import { navigateTo } from '../router.js';
+import { showStorefrontToast, requireLoginModal } from '../ui-feedback.js';
 import { openSimTestModal } from './modals.js';
 
 export const BUILDER_SLOTS_DEF = [
@@ -460,7 +462,15 @@ export function renderBuilder() {
     quoteBtn.addEventListener('click', () => {
       const current = getStoredBuild();
       if (!current || current.length === 0) {
-        alert('Vui lòng chọn ít nhất một linh kiện vào cấu hình trước khi tiến hành đặt hàng!');
+        showStorefrontToast('Vui lòng chọn ít nhất một linh kiện vào cấu hình trước khi đặt hàng!', { tone: 'warn' });
+        return;
+      }
+      const token = localStorage.getItem(ACCESS_KEY);
+      if (!token) {
+        requireLoginModal({
+          reason: 'Bạn cần đăng nhập tài khoản thành viên CyberRig để đặt hàng cấu hình PC, khóa tồn kho linh kiện và lưu chứng nhận bảo hành điện tử.',
+          redirectUrl: '/checkout',
+        });
         return;
       }
       navigateTo('/checkout');

@@ -1,6 +1,6 @@
 /**
  * Authentication State Engine & Production Customer Session Controller
- * Synchronized with CyberRig Studio Bento & Pill UI + Animated Logout Flow
+ * Instant Login -> Hardware Storefront (/hardware) & Instant Zero-Popup Logout
  */
 import { ACCESS_KEY, REFRESH_KEY, USER_KEY } from './config.js';
 import {
@@ -14,10 +14,9 @@ import {
   inputPhone,
   submitBtn,
   currentAuthMode,
-  setAuthMode
 } from './components/modals.js';
 import { navigateTo } from './router.js';
-import { showStorefrontToast, playLogoutEffect } from './ui-feedback.js';
+import { showStorefrontToast, consumePostLoginRedirect, instantLogout } from './ui-feedback.js';
 
 const userProfileWidget = document.getElementById('user-profile-widget');
 const userMenuBtn = document.getElementById('user-menu-btn');
@@ -126,7 +125,7 @@ export function initAuth() {
       const phone = inputPhone ? inputPhone.value.trim() : '';
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Đang xác thực...';
+      submitBtn.textContent = 'Đang đăng nhập...';
 
       try {
         const endpoint = currentAuthMode === 'login' ? '/api/auth/login' : '/api/auth/register';
@@ -149,29 +148,30 @@ export function initAuth() {
           localStorage.setItem(USER_KEY, JSON.stringify(json.data.user));
 
           const displayName = json.data.user.fullName || json.data.user.email;
-          modalAlert.className = 'alert-banner is-success';
-          modalAlert.textContent = 'Xác thực thành công. Xin chào ' + displayName;
+          authModal.classList.remove('is-active');
+          authForm.reset();
+          if (inputPassword) inputPassword.type = 'password';
+          if (togglePasswordBtn) togglePasswordBtn.textContent = 'Hiện mật khẩu';
+          syncAuthState();
 
-          setTimeout(() => {
-            authModal.classList.remove('is-active');
-            authForm.reset();
-            if (inputPassword) inputPassword.type = 'password';
-            if (togglePasswordBtn) togglePasswordBtn.textContent = 'Hiện mật khẩu';
-            syncAuthState();
-
-            if (json.data.user.role === 'ADMIN') {
-              window.location.href = '/admin-monitoring/';
-            } else if (json.data.user.role === 'TECHNICIAN') {
-              window.location.hash = '#technician';
-              showStorefrontToast(`✓ Chào mừng ${displayName} trở lại Bàn Kỹ Thuật`);
+          const pendingRedirect = consumePostLoginRedirect();
+          if (json.data.user.role === 'ADMIN') {
+            if (pendingRedirect && pendingRedirect !== '/admin-monitoring/') {
+              navigateTo(pendingRedirect);
             } else {
-              window.location.hash = '#dashboard';
-              showStorefrontToast(`✓ Đăng nhập thành công · Xin chào ${displayName}`);
+              window.location.href = '/admin-monitoring/';
             }
-          }, 420);
+          } else if (json.data.user.role === 'TECHNICIAN') {
+            navigateTo(pendingRedirect || '#technician');
+            showStorefrontToast(`✓ Xin chào ${displayName} · Bàn làm việc Kỹ thuật`);
+          } else {
+            // Customer lands directly on the FPT-style Hardware Storefront (/hardware) unless finishing checkout
+            navigateTo(pendingRedirect || '/hardware');
+            showStorefrontToast(`✓ Xin chào ${displayName} — Khám phá ưu đãi linh kiện chính hãng!`);
+          }
         } else {
           modalAlert.className = 'alert-banner is-error';
-          modalAlert.textContent = json.error?.message || 'Thông tin đăng nhập chưa chính xác.';
+          modalAlert.textContent = json.error?.message || 'Email hoặc mật khẩu chưa chính xác.';
         }
       } catch (_err) {
         modalAlert.className = 'alert-banner is-error';
@@ -184,46 +184,21 @@ export function initAuth() {
   }
 
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', async (e) => {
+    logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
 
       const token = localStorage.getItem(ACCESS_KEY);
-      let userName = '';
-      try {
-        const raw = localStorage.getItem(USER_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          userName = parsed?.fullName || parsed?.email || '';
-        }
-      } catch (_err) {}
-
       if (userDropdown) userDropdown.classList.remove('is-open');
 
-      await playLogoutEffect({
-        userName,
-        revokeSession: async () => {
-          if (!token) return;
-          await fetch('/api/auth/logout', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: { Authorization: 'Bearer ' + token },
-          });
-        },
+      instantLogout({
+        token,
         finalizeState: () => {
           localStorage.removeItem(ACCESS_KEY);
           localStorage.removeItem(REFRESH_KEY);
           localStorage.removeItem(USER_KEY);
-          const protectedHashes = ['#dashboard', '#admin', '#technician'];
-          if (protectedHashes.includes(window.location.hash)) {
-            navigateTo('/');
-          }
           syncAuthState();
-        },
-        onReopenLogin: () => {
-          setAuthMode('login');
-          authModal?.classList.add('is-active');
-          setTimeout(() => inputEmail?.focus(), 60);
+          navigateTo('/');
         },
       });
     });

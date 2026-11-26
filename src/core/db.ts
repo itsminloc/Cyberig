@@ -1,6 +1,6 @@
 /**
  * CyberRig Database Client Interface & Lifecycle
- * Encapsulates PostgreSQL Pool connection logic, querying, and health-check diagnostics.
+ * Encapsulates PostgreSQL Pool connection logic, fast-fail circuit breaker, and health diagnostics.
  */
 
 import { Pool, QueryResultRow } from 'pg';
@@ -24,15 +24,33 @@ export interface DatabaseClient {
   healthCheck(): Promise<DatabaseHealthCheckResult>;
 }
 
+const CIRCUIT_COOLDOWN_MS = 10_000;
+
+function isConnectionFailure(err: unknown): boolean {
+  const msg = String((err as Error)?.message || err || '').toLowerCase();
+  const code = String((err as { code?: string })?.code || '');
+  return (
+    code === 'ECONNREFUSED' ||
+    code === 'ETIMEDOUT' ||
+    code === 'ENOTFOUND' ||
+    code === '57P01' ||
+    msg.includes('econnrefused') ||
+    msg.includes('connection timeout') ||
+    msg.includes('connection terminated') ||
+    msg.includes('timeout expired')
+  );
+}
+
 class PostgresDatabaseClient implements DatabaseClient {
   private pool: Pool | null = null;
   private connected = false;
+  private unreachableUntil = 0;
 
   private getPool(): Pool {
     if (!this.pool) {
       this.pool = new Pool({
         connectionString: config.database.url,
-        connectionTimeoutMillis: 5000,
+        connectionTimeoutMillis: 1200,
         idleTimeoutMillis: 10000,
         allowExitOnIdle: true,
         max: 10,
@@ -46,50 +64,53 @@ class PostgresDatabaseClient implements DatabaseClient {
     return this.pool;
   }
 
-  /**
-   * Initializes and establishes connection to PostgreSQL.
-   */
   async connect(): Promise<void> {
     const pool = this.getPool();
     const client = await pool.connect();
     try {
       this.connected = true;
+      this.unreachableUntil = 0;
       console.log(`[Database] Successfully connected to ${config.database.url.replace(/:[^:@]+@/, ':****@')}`);
     } finally {
       client.release();
     }
   }
 
-  /**
-   * Closes all active connections in the pool.
-   */
   async disconnect(): Promise<void> {
     if (this.pool) {
       await this.pool.end();
       this.pool = null;
       this.connected = false;
+      this.unreachableUntil = 0;
       console.log('[Database] Disconnected pool successfully.');
     }
   }
 
   isConnected(): boolean {
-    return this.connected;
+    return this.connected && Date.now() >= this.unreachableUntil;
   }
 
-  /**
-   * Executes a parameterized SQL query.
-   */
   async query<T extends QueryResultRow = QueryResultRow>(sql: string, params?: unknown[]): Promise<T[]> {
-    const pool = this.getPool();
-    const res = await pool.query<T>(sql, params);
-    this.connected = true;
-    return res.rows;
+    if (Date.now() < this.unreachableUntil) {
+      const fastErr = new Error('ECONNREFUSED: Database circuit breaker open') as Error & { code?: string };
+      fastErr.code = 'ECONNREFUSED';
+      throw fastErr;
+    }
+    try {
+      const pool = this.getPool();
+      const res = await pool.query<T>(sql, params);
+      this.connected = true;
+      this.unreachableUntil = 0;
+      return res.rows;
+    } catch (err) {
+      if (isConnectionFailure(err)) {
+        this.connected = false;
+        this.unreachableUntil = Date.now() + CIRCUIT_COOLDOWN_MS;
+      }
+      throw err;
+    }
   }
 
-  /**
-   * Performs a lightweight ping check.
-   * Returns true if database responds within timeout, false otherwise.
-   */
   async ping(): Promise<boolean> {
     try {
       const result = await this.healthCheck();
@@ -99,9 +120,6 @@ class PostgresDatabaseClient implements DatabaseClient {
     }
   }
 
-  /**
-   * Detailed health check diagnostics with measured latency (round-trip time in ms).
-   */
   async healthCheck(): Promise<DatabaseHealthCheckResult> {
     const start = Date.now();
     try {
@@ -112,6 +130,7 @@ class PostgresDatabaseClient implements DatabaseClient {
       }>('SELECT version() AS server_version, current_database() AS current_db;');
       const latencyMs = Date.now() - start;
       this.connected = true;
+      this.unreachableUntil = 0;
 
       const row = res.rows[0];
       return {
@@ -124,6 +143,7 @@ class PostgresDatabaseClient implements DatabaseClient {
     } catch (err) {
       const latencyMs = Date.now() - start;
       this.connected = false;
+      this.unreachableUntil = Date.now() + CIRCUIT_COOLDOWN_MS;
       const error = err as Error & { code?: string };
       const errorMsg = error?.message || error?.code || String(err);
       return {
@@ -138,30 +158,3 @@ class PostgresDatabaseClient implements DatabaseClient {
 
 export const db: DatabaseClient = new PostgresDatabaseClient();
 export default db;
-
-// Run standalone health check when executed directly via CLI
-if (process.argv[1]?.includes('db.ts')) {
-  (async () => {
-    console.log('----------------------------------------------------');
-    console.log('[CyberRig Diagnostics] Testing Database Connection...');
-    console.log(`[Target URL]: ${config.database.url.replace(/:[^:@]+@/, ':****@')}`);
-    console.log('----------------------------------------------------');
-
-    const result = await db.healthCheck();
-    if (result.status === 'healthy') {
-      console.log('✅ DATABASE STATUS: HEALTHY');
-      console.log(`⏱️  Latency: ${result.latencyMs}ms`);
-      console.log(`📦 Database: ${result.database}`);
-      console.log(`🏷️  Server Version: ${result.serverVersion}`);
-    } else {
-      console.log('❌ DATABASE STATUS: UNHEALTHY');
-      console.log(`⏱️  Attempt Latency: ${result.latencyMs}ms`);
-      console.log(`⚠️  Error Details: ${result.error}`);
-      console.log('\n💡 Hint: Have you started the local containers?');
-      console.log('👉 Run: docker compose -f docker-compose.dev.yml up -d');
-    }
-    console.log('----------------------------------------------------');
-    await db.disconnect();
-    process.exit(result.status === 'healthy' ? 0 : 1);
-  })();
-}

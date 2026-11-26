@@ -191,24 +191,16 @@
   document.getElementById('tabCeo')?.addEventListener('click', () => switchTab('CEO'));
   document.getElementById('btnGoScenario3')?.addEventListener('click', () => switchTab('SCENARIO'));
   document.getElementById('btnThemeToggle')?.addEventListener('click', (e) => window.cyberigUi.toggleTheme(e));
-  document.getElementById('btnSocLogout')?.addEventListener('click', async () => {
-    const isVi = window.cyberigI18n?.getLang() === 'vi';
-    const veil = document.getElementById('socLogoutVeil');
-    const txt = document.getElementById('socLogoutText');
-    if (txt) txt.textContent = isVi ? 'Đang đăng xuất phiên quản trị an toàn...' : 'Signing out of Admin session...';
-    document.body.classList.add('is-signing-out');
-    veil?.classList.add('is-active');
+  document.getElementById('btnSocLogout')?.addEventListener('click', () => {
     if (sseSource) { sseSource.close(); sseSource = null; }
-    await Promise.all([
-      token ? fetch('/api/auth/logout', { method: 'POST', headers: authHeaders() }).catch(() => null) : Promise.resolve(),
-      new Promise((r) => setTimeout(r, 420)),
-    ]);
+    if (token) {
+      fetch('/api/auth/logout', { method: 'POST', keepalive: true, headers: authHeaders() }).catch(() => null);
+    }
     localStorage.removeItem('cyberrig_access_token');
     localStorage.removeItem('cyberrig_refresh_token');
     localStorage.removeItem('cyberrig_user');
     token = null;
-    window.cyberigUi?.showToast(isVi ? '✓ Đã đăng xuất an toàn · Đang chuyển về Cửa hàng' : '✓ Signed out safely · Returning to Storefront');
-    setTimeout(() => { window.location.href = '/'; }, 380);
+    window.location.href = '/';
   });
   document.getElementById('btnRefreshAll')?.addEventListener('click', () => {
     refreshTelemetrySnapshot();

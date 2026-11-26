@@ -8,6 +8,7 @@ import { ACCESS_KEY, USER_KEY } from '../config.js';
 import { authModal, modalAlert } from './modals.js';
 import { navigateTo } from '../router.js';
 import { openTicketModal } from './dashboard.js';
+import { showStorefrontToast } from '../ui-feedback.js';
 
 function formatVND(amount) {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -531,7 +532,7 @@ function renderActiveTicketSurface() {
   document.getElementById('btn-save-notes')?.addEventListener('click', async () => {
     const notes = document.getElementById('tech-diagnosis-input')?.value.trim();
     ticket.diagnosisNotes = notes;
-    alert('Biên bản giám định đã được lưu thành công.');
+    showStorefrontToast('✓ Biên bản giám định đã được lưu thành công.');
   });
 
   // Stage transition: Start diagnosing
@@ -560,7 +561,7 @@ function renderActiveTicketSurface() {
       const laborPrice = Number(laborSelect.value || 0);
 
       if (!partName) {
-        alert('Vui lòng chọn linh kiện cần thay thế.');
+        showStorefrontToast('⚠ Vui lòng chọn linh kiện cần thay thế.', { tone: 'warn' });
         return;
       }
 
@@ -596,7 +597,7 @@ function renderActiveTicketSurface() {
         createdAt: new Date().toISOString()
       });
 
-      alert(`Đã lập báo giá ${formatVND(total)} và chuyển trạng thái phiếu sang [ QUOTED ]. Khách hàng có thể kiểm tra và phê duyệt ngay tại trang tra cứu!`);
+      showStorefrontToast(`✓ Đã lập báo giá ${formatVND(total)} và chuyển trạng thái phiếu sang ĐÃ BÁO GIÁ.`);
       loadTechnicianWorkbench();
     });
   }

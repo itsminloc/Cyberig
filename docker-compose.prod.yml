@@ -4,6 +4,8 @@
 # Multi-tier Architecture with Strict Network Isolation
 # ==========================================
 
+name: cyberrig_prod
+
 services:
   # ------------------------------------------
   # 1. PostgreSQL Database Service

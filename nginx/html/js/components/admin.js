@@ -4,6 +4,7 @@
 import { ACCESS_KEY, USER_KEY, formatVND } from '../config.js';
 import { authModal, modalAlert } from './modals.js';
 import { initAdminCrawler, refreshAdminCrawlerState } from './admin-crawler.js';
+import { showStorefrontToast } from '../ui-feedback.js';
 
 const adminControlCenterView = document.getElementById('admin-control-center-view');
 const adminDeniedBox = document.getElementById('admin-denied-box');
@@ -396,12 +397,12 @@ window.confirmDeleteHardwareItem = async function(id, encodedName) {
     });
     const json = await res.json();
     if (res.ok && json.success) {
-      alert('Đã ngừng kinh doanh linh kiện thành công.');
+      showStorefrontToast('✓ Đã ngừng kinh doanh linh kiện thành công.');
       loadAdminDashboard();
     } else {
-      alert('Lỗi: ' + (json.error?.message || 'Không thể xóa mềm linh kiện.'));
+      showStorefrontToast('⚠ ' + (json.error?.message || 'Không thể xóa mềm linh kiện.'), { tone: 'error' });
     }
   } catch (err) {
-    alert('Lỗi kết nối tới máy chủ khi ngừng bán sản phẩm.');
+    showStorefrontToast('⚠ Lỗi kết nối tới máy chủ khi ngừng bán sản phẩm.', { tone: 'error' });
   }
 };

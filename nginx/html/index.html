@@ -1103,23 +1103,35 @@
     </div>
   </div>
 
+  <!-- Login Required Prompt Modal (Shown when Guest triggers authenticated actions) -->
+  <div class="modal-backdrop" id="auth-required-modal" role="dialog" aria-modal="true" aria-labelledby="auth-req-title">
+    <div class="modal-dialog-box" style="max-width: 430px; text-align: center;">
+      <button type="button" class="modal-close-pill" id="auth-req-close-btn" aria-label="Đóng thông báo">✕ Đóng</button>
+      <div class="auth-req-icon-badge" aria-hidden="true">🔒</div>
+      <div class="modal-eyebrow-pill">Yêu cầu tài khoản thành viên</div>
+      <h2 class="modal-headline" id="auth-req-title" style="margin-bottom: 8px;">VUI LÒNG ĐĂNG NHẬP</h2>
+      <p class="modal-subtext" id="auth-req-message" style="margin-bottom: 22px;">
+        Bạn cần đăng nhập tài khoản CyberRig để tiếp tục thực hiện thao tác này và đồng bộ quyền lợi bảo hành điện tử.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button type="button" class="pill-btn pill-btn-accent" id="auth-req-login-btn" style="width: 100%; padding: 12px 18px; font-size: 0.88rem; font-weight: 700;">
+          Đăng Nhập Ngay
+        </button>
+        <button type="button" class="pill-btn pill-btn-outline" id="auth-req-register-btn" style="width: 100%; padding: 11px 18px; font-size: 0.84rem;">
+          Chưa có tài khoản? Đăng ký mới
+        </button>
+        <button type="button" class="pill-btn pill-btn-ghost" id="auth-req-cancel-btn" style="width: 100%; padding: 9px 18px; font-size: 0.8rem; box-shadow: none;">
+          Để sau
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Synchronized Floating Pill Toast (Matches CyberRig Studio SI Monitor) -->
   <div class="floating-toast" id="storefrontToast" role="status" aria-live="polite">
     <span class="floating-toast-dot" id="storefrontToastDot"></span>
     <span id="storefrontToastText">✓ Đã cập nhật</span>
     <button type="button" class="toast-action" id="storefrontToastBtn">Đóng</button>
-  </div>
-
-  <!-- Animated Session Sign-Out Transition Veil -->
-  <div class="logout-transition-veil" id="logoutTransitionVeil" aria-hidden="true">
-    <div class="logout-transition-card">
-      <div class="logout-spinner-ring" aria-hidden="true"></div>
-      <div class="logout-transition-copy">
-        <div class="logout-transition-title" id="logoutTransitionTitle">Đang đăng xuất phiên làm việc...</div>
-        <div class="logout-transition-sub" id="logoutTransitionSub">Thu hồi mã phiên bảo mật và đồng bộ trạng thái tài khoản</div>
-      </div>
-      <div class="logout-progress-track"><div class="logout-progress-bar" id="logoutProgressBar"></div></div>
-    </div>
   </div>
 
   <!-- Application Bootstrap Module -->

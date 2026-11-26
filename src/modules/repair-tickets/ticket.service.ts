@@ -114,7 +114,13 @@ export class TicketService {
       return await this.dbClient.query<T>(sql, params);
     } catch (err: unknown) {
       const error = err as Error & { code?: string };
-      if (error?.code === 'ECONNREFUSED' || error?.message?.includes('ECONNREFUSED') || String(err).includes('ECONNREFUSED')) {
+      const msg = (error?.message || String(err)).toLowerCase();
+      if (
+        error?.code === 'ECONNREFUSED' ||
+        msg.includes('econnrefused') ||
+        msg.includes('connection timeout') ||
+        msg.includes('connection terminated')
+      ) {
         return this.queryFallback<T>(sql, params);
       }
       throw err;

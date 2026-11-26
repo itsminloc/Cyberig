@@ -7,6 +7,7 @@
 import { navigateTo } from '../router.js';
 import { getStoredBuild, clearBuild } from './builder.js';
 import { ACCESS_KEY, USER_KEY } from '../config.js';
+import { showStorefrontToast, requireLoginModal } from '../ui-feedback.js';
 
 function formatVND(amount) {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -116,11 +117,47 @@ export function renderCheckout() {
     return;
   }
 
-  // Pre-fill user data if authenticated
+  // Pre-fill user data if authenticated; if guest, prompt login cleanly
   let currentUser = null;
+  const activeToken = localStorage.getItem(ACCESS_KEY);
   const rawUser = localStorage.getItem(USER_KEY);
   if (rawUser) {
     try { currentUser = JSON.parse(rawUser); } catch (e) {}
+  }
+
+  if (!activeToken || !currentUser) {
+    container.innerHTML = `
+      <div class="checkout-shell">
+        <div class="checkout-card" style="max-width: 560px; margin: 40px auto; text-align: center; padding: 36px 28px;">
+          <div class="auth-req-icon-badge" aria-hidden="true">🔒</div>
+          <div class="checkout-badge-mono">YÊU CẦU ĐĂNG NHẬP TÀI KHOẢN</div>
+          <h2 class="checkout-main-title" style="margin: 8px 0 12px; font-size: 1.85rem;">ĐĂNG NHẬP ĐỂ HOÀN TẤT ĐẶT HÀNG</h2>
+          <p class="checkout-main-subtext" style="margin-bottom: 24px;">
+            Giỏ hàng của bạn đang có <strong>${items.length} linh kiện</strong>. Vui lòng đăng nhập hoặc tạo tài khoản CyberRig để khóa giữ chỗ tồn kho 15 phút và kích hoạt bảo hành điện tử theo số Serial.
+          </p>
+          <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="pill-btn pill-btn-accent" id="co-prompt-login-btn" style="padding: 12px 24px; font-weight: 700;">
+              Đăng Nhập Ngay
+            </button>
+            <button type="button" class="pill-btn pill-btn-outline" id="co-back-hw-btn" style="padding: 12px 20px;">
+              Quay Lại Trang Linh Kiện
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    requireLoginModal({
+      reason: 'Vui lòng đăng nhập tài khoản thành viên CyberRig để tiến hành đặt hàng, giữ chỗ tồn kho và lưu bảo hành điện tử.',
+      redirectUrl: '/checkout',
+    });
+    document.getElementById('co-prompt-login-btn')?.addEventListener('click', () => {
+      requireLoginModal({
+        reason: 'Vui lòng đăng nhập tài khoản thành viên CyberRig để tiến hành đặt hàng, giữ chỗ tồn kho và lưu bảo hành điện tử.',
+        redirectUrl: '/checkout',
+      });
+    });
+    document.getElementById('co-back-hw-btn')?.addEventListener('click', () => navigateTo('/hardware'));
+    return;
   }
 
   const totalCost = items.reduce((acc, i) => acc + (Number(i.price) || 0), 0);
@@ -312,9 +349,18 @@ export function renderCheckout() {
 
         if (res.ok && data.success && data.data) {
           clearBuild();
+          showStorefrontToast('✓ Đặt hàng thành công! Vui lòng kiểm tra thông tin thanh toán.');
           renderSuccessScreen(data.data, selectedMethod);
         } else {
-          alert('Lỗi đặt hàng: ' + (data.message || 'Không thể tạo đơn hàng, vui lòng thử lại.'));
+          const errMsg = data?.error?.message || data?.message || 'Không thể tạo đơn hàng, vui lòng kiểm tra lại thông tin.';
+          if (res.status === 401) {
+            requireLoginModal({
+              reason: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại để hoàn tất đặt hàng.',
+              redirectUrl: '/checkout',
+            });
+          } else {
+            showStorefrontToast('⚠ ' + errMsg, { tone: 'error', durationMs: 5000 });
+          }
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'XÁC NHẬN ĐẶT HÀNG VÀ THANH TOÁN';

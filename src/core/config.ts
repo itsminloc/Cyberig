@@ -61,7 +61,7 @@ export const config: AppConfig = {
     jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'cyberrig-dev-refresh-secret-key',
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
     webhookSecret: process.env.WEBHOOK_SECRET || 'cyberrig-dev-webhook-hmac-secret',
-    bcryptRounds: process.env.NODE_ENV === 'production' ? 12 : 10,
+    bcryptRounds: 10,
     trustProxyHops: parseInt(process.env.TRUST_PROXY_HOPS || '1', 10),
   },
   cors: {

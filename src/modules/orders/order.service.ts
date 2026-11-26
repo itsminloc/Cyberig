@@ -47,11 +47,14 @@ export class OrderService {
       return await this.dbClient.query<T>(sql, params);
     } catch (err: unknown) {
       const error = err as Error & { code?: string };
+      const msg = (error?.message || String(err)).toLowerCase();
       if (
         error?.code === 'ECONNREFUSED' ||
         error?.code === '22P02' ||
-        error?.message?.includes('ECONNREFUSED') ||
-        String(err).includes('ECONNREFUSED')
+        error?.code === '23503' ||
+        msg.includes('econnrefused') ||
+        msg.includes('connection timeout') ||
+        msg.includes('connection terminated')
       ) {
         return this.queryFallback<T>(sql, params);
       }
@@ -195,8 +198,9 @@ export class OrderService {
 
     for (const item of dto.items) {
       const hw = hardwareItemsMap.get(item.hardwareId)!;
+      const canonicalHwId = hw.id;
       const success = await this.redisClient.reserveStock(
-        item.hardwareId,
+        canonicalHwId,
         item.quantity,
         hw.stockQuantity,
         900
@@ -211,7 +215,7 @@ export class OrderService {
       }
 
       reservedItems.push({
-        hardwareId: item.hardwareId,
+        hardwareId: canonicalHwId,
         quantity: item.quantity,
       });
     }
@@ -229,11 +233,12 @@ export class OrderService {
 
     for (const item of dto.items) {
       const hw = hardwareItemsMap.get(item.hardwareId)!;
+      const canonicalHwId = hw.id;
       const priceAtPurchase = Number(hw.price);
       totalAmount += priceAtPurchase * item.quantity;
 
       itemDetails.push({
-        hardwareId: item.hardwareId,
+        hardwareId: canonicalHwId,
         name: hw.name,
         quantity: item.quantity,
         priceAtPurchase,
@@ -242,7 +247,7 @@ export class OrderService {
       itemRows.push({
         id: randomUUID(),
         order_id: orderId,
-        hardware_id: item.hardwareId,
+        hardware_id: canonicalHwId,
         quantity: item.quantity,
         price_at_purchase: priceAtPurchase,
         created_at: createdAt,

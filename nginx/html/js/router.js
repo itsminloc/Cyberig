@@ -4,7 +4,7 @@
  * Hardware Catalog (/hardware), Customer Dashboard (#dashboard), and Admin Center (#admin).
  */
 import { ACCESS_KEY, USER_KEY } from './config.js';
-import { authModal, modalAlert } from './components/modals.js';
+import { requireLoginModal } from './ui-feedback.js';
 import { loadCustomerDashboard } from './components/dashboard.js';
 import { loadAdminDashboard } from './components/admin.js';
 import { renderBuilder, loadPreset } from './components/builder.js';
@@ -94,13 +94,10 @@ export function checkRoute() {
     if (!token || !user) {
       if (adminDeniedBox) adminDeniedBox.style.display = 'none';
       if (adminContentRoot) adminContentRoot.style.display = 'none';
-      if (authModal) {
-        authModal.classList.add('is-active');
-        if (modalAlert) {
-          modalAlert.className = 'alert-banner is-error';
-          modalAlert.textContent = 'Vui lòng đăng nhập với quyền ADMIN để truy cập Quản trị kho.';
-        }
-      }
+      requireLoginModal({
+        reason: 'Vui lòng đăng nhập tài khoản Quản trị viên (ADMIN) để truy cập trung tâm Quản trị kho.',
+        redirectUrl: '#admin',
+      });
       return;
     }
 
