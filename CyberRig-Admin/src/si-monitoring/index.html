@@ -24,6 +24,7 @@
       <nav class="nav-pill-bar" aria-label="Primary Navigation">
         <button type="button" class="nav-tab is-active" id="tabRealtime">Studio · SI Mesh</button>
         <button type="button" class="nav-tab" id="tabScenario">Scenarios <span class="nav-tab-badge">6</span></button>
+        <button type="button" class="nav-tab" id="tabSimulator">Order &amp; AI POS</button>
         <button type="button" class="nav-tab" id="tabCeo">Reports · CEO <span class="nav-tab-badge" id="dlqNavBadge">0</span></button>
       </nav>
 
@@ -33,10 +34,12 @@
           <input type="text" id="quickSearchInput" placeholder="SKU / scenario / log" />
           <span class="kbd-chip">⌘K</span>
         </div>
+        <button type="button" class="btn-pill-ghost" id="btnLangToggle" title="Chuyển giao diện sang Tiếng Việt (VIE)" style="font-family:var(--font-mono);font-weight:700;padding:6px 12px;">VIE</button>
         <button type="button" class="icon-circle-btn" id="btnThemeToggle" title="Switch Performance Night / Showroom Day">◐</button>
         <button type="button" class="icon-circle-btn" id="btnRefreshAll" title="Refresh Telemetry">↻<span class="bell-count" id="bellDlqCount">0</span></button>
         <a href="/#admin" class="btn-pill-ghost" id="navToAdminOps">Inventory</a>
         <a href="/" class="btn-pill-ghost" id="navToStorefront">Storefront</a>
+        <button type="button" class="btn-pill-ghost is-danger-pill" id="btnSocLogout" title="Sign out of Admin session">Sign out</button>
         <button type="button" class="btn-pill-primary" id="btnQuickScenarioRun">▶ Run E2E</button>
       </div>
     </header>
@@ -126,6 +129,7 @@
                 <option value="SCENARIO">SCENARIO TEST</option>
                 <option value="HEALTH">CONTAINER HEALTH</option>
                 <option value="SECURITY">SECURITY / RATE LIMIT</option>
+                <option value="AI">AI DATA MAPPER</option>
               </select>
               <button type="button" class="btn-pill-ghost" style="padding:4px 10px;font-size:11px;" id="btnClearLogs">Clear Console</button>
             </div>
@@ -154,6 +158,17 @@
         </div>
       </div>
       <div class="grid-3" id="scenarioGrid"></div>
+    </section>
+
+    <!-- VIEW 4: OMNICHANNEL ORDER & AI POS SIMULATOR (SE445 CASE STUDY 1 & 2) -->
+    <section class="view-section" id="sectionSimulator">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Order &amp; AI POS Simulator</h1>
+          <p class="page-subtitle">Canonical Adapter · X-Correlation-ID Tracing · EventBus Outbox &amp; Decree 13 PII Redaction Engine</p>
+        </div>
+      </div>
+      <div id="simulatorRoot"></div>
     </section>
 
     <!-- VIEW 3: REPORTS · CEO EXECUTIVE DASHBOARD -->
@@ -244,12 +259,12 @@
       <p style="font-size:12px;color:var(--ink-secondary);margin-bottom:14px;">
         SI Monitoring &amp; CEO Executive Reports require an authenticated <strong>ADMIN</strong> account.
       </p>
-      <form id="socLoginForm" style="display:flex;flex-direction:column;gap:10px;">
-        <label style="font-size:11.5px;color:var(--ink-secondary);">Operator Email
-          <input type="email" id="socLoginEmail" class="auth-gate-input" placeholder="admin@cyberig.vn" required />
+      <form id="socLoginForm" autocomplete="off" style="display:flex;flex-direction:column;gap:10px;">
+        <label style="font-size:11.5px;color:var(--ink-secondary);"><span id="lblSocEmail">Operator Email</span>
+          <input type="email" id="socLoginEmail" name="soc_operator_id" class="auth-gate-input" autocomplete="off" readonly required />
         </label>
-        <label style="font-size:11.5px;color:var(--ink-secondary);">Password
-          <input type="password" id="socLoginPassword" class="auth-gate-input" placeholder="••••••••" required />
+        <label style="font-size:11.5px;color:var(--ink-secondary);"><span id="lblSocPassword">Password</span>
+          <input type="password" id="socLoginPassword" name="soc_operator_secret" class="auth-gate-input" autocomplete="new-password" readonly required />
         </label>
         <div id="socLoginError" style="font-size:11.5px;color:var(--accent-red);display:none;"></div>
         <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px;flex-wrap:wrap;">
@@ -265,9 +280,18 @@
     <button type="button" class="toast-action" id="toastBtn">OK</button>
   </div>
 
+  <div class="soc-logout-veil" id="socLogoutVeil" aria-hidden="true">
+    <div class="soc-logout-card">
+      <div class="soc-logout-ring"></div>
+      <div id="socLogoutText" style="font-weight:700;font-size:13px;">Signing out securely...</div>
+    </div>
+  </div>
+
   <script src="/admin-monitoring/charts-and-theme.js"></script>
+  <script src="/admin-monitoring/i18n-vi.js"></script>
   <script src="/admin-monitoring/ceo-dashboard.js"></script>
   <script src="/admin-monitoring/monitoring-lab.js"></script>
+  <script src="/admin-monitoring/monitoring-simulator.js"></script>
   <script src="/admin-monitoring/monitoring.js"></script>
 </body>
 </html>

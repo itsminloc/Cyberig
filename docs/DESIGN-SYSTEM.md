@@ -1,66 +1,37 @@
-# CyberRig - Design System Specification
+# CyberRig — Studio Bento & Pill Design System Specification (v3.0)
 
-> [!IMPORTANT]
-> **Tài liệu quy chuẩn chính thức v2.0 đã được chuyển sang [docs/STYLE_GUIDE.md](STYLE_GUIDE.md)** theo phong cách GSAP & Osmo Minimalist Hybrid (100% không dùng icon trang trí, Day/Night Mode 60 FPS, nút bấm Capsule). Vui lòng tra cứu tài liệu mới để áp dụng các Design Tokens và Component Snippets chuẩn mực nhất.
-
----
-
-## 1. Design Tokens
-
-### Colors & Variables
-```css
-:root {
-  /* Surface & Background */
-  --cr-bg-base: #0b0f19;
-  --cr-bg-surface: #111827;
-  --cr-bg-surface-elevated: #1f2937;
-  --cr-bg-glass: rgba(17, 24, 39, 0.75);
-
-  /* Borders */
-  --cr-border-subtle: rgba(255, 255, 255, 0.08);
-  --cr-border-focus: #00f0ff;
-
-  /* Brand / Neon Highlights */
-  --cr-primary-cyan: #00f0ff;
-  --cr-secondary-magenta: #ff007f;
-  --cr-accent-violet: #8b5cf6;
-
-  /* Semantic Status Colors */
-  --cr-status-success: #10b981;
-  --cr-status-warning: #f59e0b;
-  --cr-status-danger: #ef4444;
-  --cr-status-info: #3b82f6;
-
-  /* Typography */
-  --cr-font-display: 'Orbitron', 'Rajdhani', sans-serif;
-  --cr-font-body: 'Inter', system-ui, sans-serif;
-  --cr-font-mono: 'JetBrains Mono', monospace;
-}
-```
+Tài liệu quy chuẩn thiết kế giao diện đồng bộ xuyên suốt giữa **Cửa hàng CyberRig (`/`)** và **Trung tâm Điều hành CyberRig Studio · SI Monitor (`/admin-monitoring/`)**.
 
 ---
 
-## 2. Component Guidelines
+## 1. Hệ Bảng Màu Kép (Dual-Theme Semantic Tokens)
 
-### A. Navigation & App Bar
-- Thanh điều hướng kính mờ (`backdrop-blur-md`), dải viền LED phát sáng ở cạnh dưới.
-- Bao gồm: Logo CyberRig với biểu tượng vi mạch đa giác, thanh tìm kiếm nhanh linh kiện / mã phiếu bảo hành, giỏ hàng / danh sách build PC, và nút tài khoản.
+- **Performance Night (Mặc định)**:
+  - Canvas: `#0e100f` · Surface: `#161819` · Elevated: `#1c1f21` · Obsidian: `#090b0a`
+  - Primary Accent: `#0ae448` (Electric Green) · Contrast Ink: `#000000`
+  - Hairline Border: `rgba(255, 255, 255, 0.08)`
+- **Showroom Day (`body.theme-day` / `[data-theme="light"]`)**:
+  - Canvas: `#fafafa` · Surface: `#ffffff` · Elevated: `#f4f5f7`
+  - Primary Accent: `#2563eb` (Cobalt Blue) · Contrast Ink: `#ffffff`
+  - Hairline Border: `#e5e7eb`
+- **Chuyển cảnh Sáng/Tối**: Sử dụng `document.startViewTransition` với hoạt ảnh lan tỏa tròn `clip-path: circle(...)` từ vị trí nút bấm kèm thông báo nổi Floating Pill Toast.
 
-### B. PC Builder Matrix
-- **Slot Selector**: Thẻ chọn từng thành phần phần cứng (CPU, Bo mạch chủ, RAM, GPU, Nguồn, Tản nhiệt, Ổ cứng, Case).
-- **Live Compatibility Bar**: Hiển thị tổng công suất ước tính (W), cảnh báo kích thước, và thanh thông báo trạng thái tương thích tức thời (Real-time compatibility check).
-- **Spec Pill Badges**: Thể hiện socket (ví dụ `LGA1700`, `AM5`), form-factor (`ATX`, `mATX`), chuẩn RAM (`DDR5`).
+---
 
-### C. Repair Tracking Timeline
-- Hiển thị tiến độ trực quan dạng Stepper/Timeline từ `Tiếp nhận` đến `Hoàn tất bàn giao`.
-- Thẻ thông tin chi tiết: Kỹ thuật viên phụ trách, kết quả chẩn đoán, chi phí báo giá, hình ảnh hiện trạng thiết bị.
+## 2. Hình Học Bo Góc Đồng Tâm (Concentric Bento & Pill Radii)
 
-### D. Loading States & Feedback Patterns
-- **Cyber Skeleton Loader:**
-  - Áp dụng cho: Danh sách linh kiện, thẻ chi tiết phần cứng, bảng lịch sử phiếu sửa chữa.
-  - Hiệu ứng: Nền tối surface (`--cr-bg-surface-elevated`) với lớp quét tia laser neon (`--cr-primary-cyan` opacity 10%) trượt ngang (Shimmer wave).
-- **Tech Radar / Hexagon Spinner:**
-  - Áp dụng cho: Quá trình thẩm định tương thích (Compatibility Check) và tra cứu tiến độ sửa chữa.
-  - Thiết kế: Biểu tượng vi mạch hoặc hình lục giác xoay đa trục phát sáng neon.
-- **Top Route Progress Bar:**
-  - Thanh nạp mảnh 2px ở sát mép trên màn hình với dải gradient `Cyan -> Magenta`, kích hoạt khi điều hướng trang.
+Tuân thủ nguyên lý `outer_radius = inner_radius + padding`:
+- **Thẻ Bento & Hộp thoại ngoài (`--radius-bento` / `--radius-modal`)**: `20px` – `22px`
+- **Khối nội dung phụ & Ô con (`--radius-sub`)**: `13px`
+- **Ô nhập liệu biểu mẫu (`--radius-tech`)**: `12px`
+- **Thanh điều hướng nổi, Nút bấm, Nhãn trạng thái & Toast (`--radius-pill`)**: `999px` (Capsule Pill)
+
+---
+
+## 3. Tương Tác Xúc Giác, Song Ngữ & Chuẩn Hóa Sản Xuất Thực Tế
+
+- **Tactile Press**: Mọi nút tương tác phản hồi nhấn `transform: scale(0.96)` với đường cong `cubic-bezier(0.2, 0, 0, 1)`, tôn trọng `prefers-reduced-motion: reduce`.
+- **Song ngữ tức thì (`VIE / ENG`)**: Trang SI Monitor hỗ trợ chuyển đổi toàn diện Tiếng Việt ↔ Tiếng Anh qua `i18n-vi.js` lưu trạng thái vào `localStorage`.
+- **Chuẩn hóa Production Auth & Logout**:
+  - Tuyệt đối không hiển thị nút tự điền tài khoản mẫu hay gợi ý tên tài khoản thật trong `placeholder`; chặn trình duyệt tự điền trước cho đến khi người dùng chủ động nhấn vào ô nhập.
+  - Khi bấm **Đăng Xuất**, kích hoạt lớp chuyển cảnh `.logout-transition-veil` thu hồi phiên JWT an toàn và hiển thị thông báo xác nhận dạng viên nang ở cạnh dưới màn hình.
